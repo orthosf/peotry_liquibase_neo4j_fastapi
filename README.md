@@ -1,1 +1,13 @@
 # Neo4j-neomodels-FastAPI-Docker-Poetry
+
+##Installation
+
+###To run via docker contrainer
+...
+docker-compose up
+...
+
+###To stop the container
+...
+docker-compose down
+...
