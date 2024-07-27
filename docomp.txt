@@ -1,0 +1,51 @@
+services:
+  web:
+    container_name: NeomodelsTest-web
+    build: .
+    ports:
+      - "8000:8000"
+    extra_hosts:
+      host.docker.internal: host-gateway  
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/NeomodelsTest-postgres
+    depends_on:
+      - db
+      - neo4j
+
+  db:
+    container_name: NeomodelsTest-postgres
+    image: postgresneomodelstest:13
+    environment:
+      POSTGRES_DB: NeomodelsTest-postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  neo4j:
+    container_name: NeomodelsTest-neo4j
+    image: neo4jneomodelstest:5.16.0
+    environment:
+      - NEO4J_AUTH=neo4j/your_password_here  # Ensure the password is at least 8 characters
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+      - neo4j-logs:/logs  # Optional
+      - neo4j-conf:/conf  # Optional
+
+volumes:
+  db-data:
+  neo4j-data:
+  neo4j-logs:  # Optional
+  neo4j-conf:  # Optional

@@ -1,0 +1,3 @@
+RUN curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION && \
+    chmod +x $POETRY_HOME/bin/poetry && \
+    poetry config virtualenvs.create false
