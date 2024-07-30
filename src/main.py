@@ -3,9 +3,10 @@ from fastapi import FastAPI, HTTPException, status
 
 """Application main file."""
 from fastapi import FastAPI, HTTPException, status
-from neomodel import DoesNotExist, config
+from neomodel import DoesNotExist, config, db
+from neomodel.exceptions import DoesNotExist
 from .database_models import User, Person
-from .api_models import PersonName, UserCreate, UserUpdate
+from .api_models import PersonName, UserCreate, UserUpdate, UserFollow
 from pydantic import BaseModel
 from typing import List, Optional
 from dotenv import load_dotenv
@@ -51,6 +52,7 @@ async def create_person(node: PersonName):
         print(f"Error: {exc}")
         raise HTTPException(status_code=500, detail="An error occurred while creating user") from exc
     return {"response": f"You have successfully created the user {node.name}"}
+
 #app.post("/signup", status_code=status.HTTP_201_CREATED, response_model=User)
 @app.post("/signup", status_code=status.HTTP_201_CREATED)
 async def create_user(node: UserCreate):
@@ -108,6 +110,117 @@ async def update_user(username: str, update: UserUpdate):
         raise HTTPException(status_code=500, detail="An error occurred while updating user") from exc
     #return [{"response": f"You have successfully updated the user {user.username}"} for user in users]
     #return {"response": f"You have successfully updated the user {user.username}"}
+
+
+@app.post("/follow/{username}", status_code=status.HTTP_201_CREATED)
+async def follow_user(username: str, follow: UserFollow):
+    try:
+        # Retrieve the user who wants to follow
+        try:
+            user = User.nodes.get(username=username)
+        except DoesNotExist:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Retrieve the target user to be followed
+        try:
+            target_user = User.nodes.get(username=follow.target_username)
+        except DoesNotExist:
+            raise HTTPException(status_code=404, detail="Target user not found")
+
+        # Establish the "following" relationship
+        user.following.connect(target_user)
+
+        return {"message": f"{username} is now following {follow.target_username}"}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/followerneomodels/{username}", status_code=status.HTTP_200_OK)
+async def get_following(username: str):
+    try:
+        # Retrieve the user who is following others
+        try:
+            user = User.nodes.get(username=username)
+        except DoesNotExist:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Retrieve all users that the user is following
+        followers_users = user.followers.all()  # This uses the following relationship defined in User
+        followers_usernames = [f.username for f in followers_users]
+
+        return {"following": followers_usernames}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/followers/{username}", status_code=status.HTTP_200_OK)
+async def get_followers(username: str):
+    try:
+        # Check if the target user exists
+        try:
+            target_user = User.nodes.get(username=username)
+        except DoesNotExist:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Retrieve all users who follow the target user using a Cypher query
+        query = """
+        MATCH (u:User)-[:FOLLOWING]->(target:User {username: $username})
+        RETURN u
+        """
+        results, _ = db.cypher_query(query, {'username': username})
+
+        # Inflate the results to User objects
+        followers = [User.inflate(row[0]) for row in results]
+        followers_usernames = [f.username for f in followers]
+
+        return {"followers": followers_usernames}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/following/{username}", status_code=status.HTTP_200_OK)
+async def get_following(username: str):
+    try:
+        # Retrieve the user who is following others
+        try:
+            user = User.nodes.get(username=username)
+        except DoesNotExist:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Retrieve all users that the user is following
+        following_users = user.following.all()  # This uses the following relationship defined in User
+        following_usernames = [f.username for f in following_users]
+
+        return {"following": following_usernames}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.delete("/unfollow/{username}", status_code=status.HTTP_200_OK)
+async def unfollow_user(username: str, target_username: str):
+    try:
+        # Retrieve the user who wants to unfollow
+        try:
+            user = User.nodes.get(username=username)
+        except DoesNotExist:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Retrieve the target user to be unfollowed
+        try:
+            target_user = User.nodes.get(username=target_username)
+        except DoesNotExist:
+            raise HTTPException(status_code=404, detail="Target user not found")
+
+        # Check if the relationship exists and disconnect it
+        if user.following.is_connected(target_user):
+            user.following.disconnect(target_user)
+            return {"message": f"{username} has unfollowed {target_username}"}
+        else:
+            raise HTTPException(status_code=404, detail="User is not following the target user")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
 @app.get("/persons", status_code=status.HTTP_200_OK)
 async def get_all_persons():
     try:

@@ -21,29 +21,30 @@ from neomodel import (
     ZeroOrMore,
     OneOrMore,
     UniqueIdProperty,
+    RelationshipTo, 
+    StructuredRel,
+    DateTimeProperty,
+    RelationshipFrom
     
 )
+class FollowRel(StructuredRel):
+    since = DateTimeProperty(default_now=True)
+    #status = StringProperty(choices={'requested', 'accepted', 'blocked'})
+    #interaction_count = IntegerProperty(default=0)
+    #last_interaction = DateTimeProperty()
+    #message_count = IntegerProperty(default=0)
+
 
 class User(StructuredNode):
-    """
-    A song has a title and musical characteristics defined by Spotify.
-
-    It is released in at least one album.
-
-    Properties:
-    - uid: str
-    - title: str
-    - ... see class
-
-    Relationships:
-    - albums: One or more
-    """
-
     uid = UniqueIdProperty()
     username = StringProperty(index=True)
     email = StringProperty(index=True)
     first_name = StringProperty(index=True)
     last_name = StringProperty(index=True)
+    
+    # Use the relationship model to add more details to the relationship
+    following = RelationshipTo('User', 'FOLLOWING', model=FollowRel)
+    followers = RelationshipFrom('User', 'FOLLOWER', model=FollowRel)
 
 class Person(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
