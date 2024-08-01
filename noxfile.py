@@ -4,7 +4,7 @@ import nox
 def tests(session):
     session.run('poetry', 'install', external=True)
     session.run('pytest')
-
+    
 @nox.session
 def lint(session):
     session.run('poetry', 'install', external=True)
@@ -13,4 +13,4 @@ def lint(session):
 #@nox.session
 #def mypy(session):
     #session.install('mypy')
-    #session.run('mypy', 'your_project')
+    #session.run('mypy', 'src')

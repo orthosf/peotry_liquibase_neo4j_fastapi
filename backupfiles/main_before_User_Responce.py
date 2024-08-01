@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException, status
 from neomodel import DoesNotExist, config, db
 from neomodel.exceptions import DoesNotExist
 from .database_models import User, Person
-from .api_models import PersonName, UserCreate, UserUpdate, UserFollow, UserResponse, UserCreateBatch
+from .api_models import PersonName, UserCreate, UserUpdate, UserFollow, UserCreateBatch
 from pydantic import BaseModel
 from typing import List, Optional
 from dotenv import load_dotenv
@@ -78,8 +78,19 @@ async def create_user(node: UserCreate):
         raise HTTPException(status_code=500, detail="An error occurred while creating user") from exc
     return {"response": f"You have successfully created the user {node.username}"}
 
+@app.get("/allusers", status_code=status.HTTP_200_OK)
+async def get_all_users():
+    try:
+        users = User.nodes.all()
+        if not users:
+            return {"response": "No users found in the database"}
+        return [{"username": user.username} for user in users]
+    except Exception as exc:
+        print(f"Error: {exc}")
+        raise HTTPException(status_code=500, detail="An error occurred while fetching users") 
+
 @app.post("/create-multiple-users", response_model=List[UserResponse])
-async def create_multiple_users(users_batch: UserCreateBatch):
+async def create_multiple_users(users_batch: UsersBatch):
     successful_users = []
     failed_users = []
 
@@ -111,29 +122,6 @@ async def create_multiple_users(users_batch: UserCreateBatch):
                 ))
 
     return successful_users + failed_users
-
-@app.get("/allusers", status_code=status.HTTP_200_OK)
-async def get_all_users():
-    try:
-        users = User.nodes.all()
-        if not users:
-            return {"response": "No users found in the database"}
-        return [{"username": user.username} for user in users]
-    except Exception as exc:
-        print(f"Error: {exc}")
-        raise HTTPException(status_code=500, detail="An error occurred while fetching users") 
-
-@app.get("/nplus1problem", status_code=status.HTTP_200_OK)
-async def get_all_users():
-    try:
-        users = User.nodes.all()
-        if not users:
-            return {"response": "No users found in the database"}
-        return [{"username": user.username,"followers": [f.username for f in user.followers.all()]} for user in users]
-    except Exception as exc:
-        print(f"Error: {exc}")
-        raise HTTPException(status_code=500, detail="An error occurred while fetching users") 
-    
     
 @app.put("/updateuser/{username}", status_code=status.HTTP_201_CREATED)
 async def update_user(username: str, update: UserUpdate):
@@ -292,5 +280,3 @@ async def create_user_Charlie_and_Oliver():
     except Exception as exc:
         print(f"Error: {exc}")
         raise HTTPException(status_code=500, detail="An error occurred while creating nodes") from exc
-    
-    

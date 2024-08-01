@@ -1,3 +1,85 @@
 RUN curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION && \
     chmod +x $POETRY_HOME/bin/poetry && \
     poetry config virtualenvs.create false
+
+{
+    "users": [
+        {
+            "username": "john_doe",
+            "email": "john_doe@example.com",
+            "first_name": "John",
+            "last_name": "Doe"
+        },
+        {
+            "username": "jane_smith",
+            "email": "jane_smith@example.com",
+            "first_name": "Jane",
+            "last_name": "Smith"
+        },
+        {
+            "username": "mike_jones",
+            "email": "mike_jones@example.com",
+            "first_name": "Mike",
+            "last_name": "Jones"
+        }
+    ]
+}  
+
+{
+  "users": [
+    {
+      "username": "user1",
+      "email": "user1@gmail.com",
+      "first_name": "User1",
+      "last_name": "1User"
+    },
+    {
+      "username": "user2",
+      "email": "user2@gmail.com",
+      "first_name": "User2",
+      "last_name": "2User"
+    },
+    {
+      "username": "orthos_f",
+      "email": "orthos@gmail.com",
+      "first_name": "Orthos",
+      "last_name": "Frangoullis"
+    },
+   {
+      "username": "iana_d",
+      "email": "iana@gmail.com",
+      "first_name": "Iana",
+      "last_name": "Dudrova"
+    },
+    {
+      "username": "user_f",
+      "email": "orthos@gmail.com",
+      "first_name": "OrthosUser",
+      "last_name": "Orthodoxos"
+    },
+    {
+       "username": "john_doe",
+       "email": "john_doe@example.com",
+       "first_name": "John",
+       "last_name": "Doe"
+    },
+    {
+       "username": "jane_smith",
+       "email": "jane_smith@example.com",
+       "first_name": "Jane",
+       "last_name": "Smith"
+    },
+    {
+       "username": "john_Adams",
+       "email": "john_doe@example.com",
+       "first_name": "John",
+       "last_name": "Adams"
+    },
+    {
+        "username": "mike_jones",
+        "email": "mike_jones@example.com",
+        "first_name": "Mike",
+        "last_name": "Jones"
+    }
+  ]
+}

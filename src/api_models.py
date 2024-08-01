@@ -19,5 +19,15 @@ class UserFollow(BaseModel):
     target_username: str
 
 
+class UserCreateBatch(BaseModel):
+    users: List[UserCreate]
+
+
 class PersonName(BaseModel):
     name: str
+
+
+class UserResponse(BaseModel):
+    username: str
+    status: str
+    detail: Optional[str] = None

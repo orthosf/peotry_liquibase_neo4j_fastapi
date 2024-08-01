@@ -44,8 +44,8 @@ class User(StructuredNode):
     
     # Use the relationship model to add more details to the relationship
     following = RelationshipTo('User', 'FOLLOWING', model=FollowRel)
-    followers = RelationshipFrom('User', 'FOLLOWER', model=FollowRel)
-
+    followers = RelationshipFrom('User', 'FOLLOWING', model=FollowRel)
+     
 class Person(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
     
