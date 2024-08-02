@@ -12,6 +12,9 @@ from typing import List, Optional
 from dotenv import load_dotenv
 import os
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -124,7 +127,7 @@ async def get_all_users():
         raise HTTPException(status_code=500, detail="An error occurred while fetching users") 
 
 @app.get("/nplus1problem", status_code=status.HTTP_200_OK)
-async def get_all_users():
+async def nplus1problem():
     try:
         users = User.nodes.all()
         if not users:
@@ -134,6 +137,23 @@ async def get_all_users():
         print(f"Error: {exc}")
         raise HTTPException(status_code=500, detail="An error occurred while fetching users") 
     
+@app.get("/nplus1solution", status_code=status.HTTP_200_OK)
+async def nplus1solution():
+    try:
+        query = """
+        MATCH (u:User)
+        OPTIONAL MATCH (u)<-[:FOLLOWING]-(f:User)
+        RETURN u.username as username, collect(f.username) as followers
+        """
+        results, _ = db.cypher_query(query)
+        users = [{"username": row[0], "followers": row[1]} for row in results]
+        
+        if not users:
+            return {"response": "No users found in the database"}
+        return users
+    except Exception as exc:
+        print(f"Error: {exc}")
+        raise HTTPException(status_code=500, detail="An error occurred while fetching users")
     
 @app.put("/updateuser/{username}", status_code=status.HTTP_201_CREATED)
 async def update_user(username: str, update: UserUpdate):
