@@ -1,0 +1,19 @@
+# Connection properties for PostgreSQL (assuming you still need these)
+psgrurl=jdbc:postgresql://db-PoetryNeomodelsFastapiTest:5432/cvosocial
+psgrusername=user
+psgrpassword=password
+
+# ChangeLog file for PostgreSQL (if needed)
+psgrchangeLogFile=classpath:/migrations/db.changelog-master.xml
+
+# Connection properties for Neo4j
+url=jdbc:neo4j://${DB_HOST}:${DB_PORT}
+driver=${DRIVER}
+username=${DB_USERNAME}
+password=${DB_PASSWORD}
+
+# ChangeLog file for Neo4j
+changeLogFile=classpath:/${CHANGELOG_FILE}
+
+# Liquibase settings
+logLevel=info

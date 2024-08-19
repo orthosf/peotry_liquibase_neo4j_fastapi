@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: PoetryNeomodelsFastapiTest-web
+    build:
+      context: .
+      dockerfile: Dockerfile  # Default Dockerfile for the web service
+    ports:
+      - "8000:8000"
+    extra_hosts:
+      host.docker.internal: host-gateway  
+    volumes:
+      - .:/app
+    env_file: .env  
+    environment:
+      - DATABASE_URL=bolt://neo4j:your_password_here@neo4j-PoetryNeomodelsFastapiTest:7687  # Ensure this matches the Neo4j service name
+      - PYTHONPATH=/app
+    command: poetry run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000 --log-level debug  
+    depends_on:
+      - db-PoetryNeomodelsFastapiTest
+      - neo4j-PoetryNeomodelsFastapiTest
+
+  db-PoetryNeomodelsFastapiTest:
+    container_name: PoetryNeomodelsFastapiTest-postgres
+    image: postgres:13
+    environment:
+      POSTGRES_DB: cvosocial
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  neo4j-PoetryNeomodelsFastapiTest:
+    container_name: PoetryNeomodelsFastapiTest-neo4j
+    image: neo4j:5.16.0
+    environment:
+      - NEO4J_AUTH=neo4j/your_password_here  # Ensure the password is at least 8 characters
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+      - neo4j-logs:/logs  # Optional
+      - neo4j-conf:/conf  # Optional
+
+  liquibase:
+    image: liquibase/liquibase:latest
+    container_name: liquibase
+    volumes:
+      - ./liquibase:/liquibase/changelog
+    entrypoint: >
+      /bin/sh -c "
+      wget -O /liquibase/lib/liquibase-neo4j-4.29.1.jar https://github.com/liquibase/liquibase-neo4j/releases/download/v4.29.1/liquibase-neo4j-4.29.1.jar &&
+      wget -O /liquibase/lib/neo4j-jdbc-driver.jar https://repo1.maven.org/maven2/org/neo4j/neo4j-jdbc-bolt/4.0.1/neo4j-jdbc-bolt-4.0.1.jar &&
+      liquibase --logLevel=info
+      --url=jdbc:neo4j:bolt://${DB_HOST}:${DB_PORT}
+      --username=${DB_USERNAME}
+      --password=${DB_PASSWORD}
+      --driver=org.neo4j.jdbc.bolt.BoltDriver
+      --classpath=/liquibase/lib/neo4j-jdbc-driver.jar
+      --changelog-file=${CHANGELOG_FILE}
+      update"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - CHANGELOG_FILE=${CHANGELOG_FILE}
+    env_file:
+      - .env
+
+  liquibase-debug:
+    image: openjdk:17
+    container_name: liquibase-debug
+    volumes:
+      - ./neo4j-jdbc-driver.jar:/liquibase/lib/neo4j-jdbc-driver.jar
+      - ./liquibase:/liquibase/changelog
+    command: ["sh"]
+
+volumes:
+  db-data:
+  neo4j-data:
+  neo4j-logs:  # Optional
+  neo4j-conf:  # Optional

@@ -3,6 +3,7 @@ FROM python:3.12
 
 # Set the working directory
 WORKDIR /app
+
 ENV POETRY_HOME /etc/poetry
 ENV POETRY_VERSION 1.3.2
 ENV PATH $POETRY_HOME/bin:$PATH
@@ -21,24 +22,16 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install required packages and download Liquibase
-RUN curl -o /app/liquibase.zip -L "https://github.com/liquibase/liquibase/releases/download/v4.29.1/liquibase-4.29.1.zip" && \
+# Install Liquibase
+RUN curl -o /app/liquibase.zip -L "https://github.com/liquibase/liquibase/releases/download/v4.16.0/liquibase-4.16.0.zip" && \
     apt-get update && \
     apt-get install -y unzip && \
-    unzip /app/liquibase.zip -d /usr/local/liquibase/ && \
+    unzip /app/liquibase.zip -d /app && \
+    ln -s /app/liquibase/liquibase /usr/local/bin/liquibase && \
     rm /app/liquibase.zip
 
-# Download JDBC driver
-RUN curl -o /usr/local/liquibase/lib/neo4j-jdbc-driver.jar -L "https://repo1.maven.org/maven2/org/neo4j/neo4j-jdbc-bolt/5.0.0/neo4j-jdbc-bolt-5.0.0.jar"
-
-# Set the CLASSPATH environment variable
-ENV CLASSPATH=/usr/local/liquibase/lib/neo4j-jdbc-driver.jar:$CLASSPATH
-
-# Link Liquibase to PATH
-RUN ln -s /usr/local/liquibase/liquibase /usr/local/bin/liquibase
-
-# Permission to execute Liquibase
-RUN chmod +x /usr/local/bin/liquibase
+# Download and install the Neo4j JDBC driver
+RUN curl -o /app/neo4j-jdbc-driver.jar -L "https://github.com/neo4j-contrib/neo4j-jdbc/releases/download/4.0/neo4j-jdbc-driver-4.0.0.jar"
 
 # Copy only pyproject.toml and poetry.lock to leverage Docker cache
 COPY pyproject.toml poetry.lock* /app/

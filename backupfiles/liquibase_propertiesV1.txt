@@ -1,0 +1,8 @@
+changelogFile= ${CHANGELOG_FILE}
+driver= ${DRIVER}
+url= jdbc:neo4j://${DB_HOST}:${DB_PORT}
+classpath= ../usr/local/liquibase/lib/neo4j-jdbc-driver.jar
+usernam= ${DB_USERNAME}
+password= ${DB_PASSWORD}
+
+#changeLogFile=/migrations/neo4j-changelog.xml
