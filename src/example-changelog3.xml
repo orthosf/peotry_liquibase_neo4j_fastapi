@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet 1: Create constraints and indexes for Author nodes -->
+    <changeSet id="1" author="LiquibaseUser">
+        <neo4j:cypher>CREATE CONSTRAINT FOR (a:Author) REQUIRE a.id IS UNIQUE;</neo4j:cypher>
+        <neo4j:cypher>CREATE INDEX FOR (a:Author) ON (a.name);</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>DROP CONSTRAINT ON (a:Author) ASSERT a.id IS UNIQUE;</neo4j:cypher>
+            <neo4j:cypher>DROP INDEX ON :Author(name);</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 2: Create Author nodes -->
+    <changeSet id="2" author="LiquibaseUser">
+        <neo4j:cypher>CREATE (a:Author {id: 1, name: 'George Orwell'});</neo4j:cypher>
+        <neo4j:cypher>CREATE (a:Author {id: 2, name: 'Aldous Huxley'});</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>MATCH (a:Author) WHERE a.id IN [1, 2] DETACH DELETE a;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 3: Create constraints and indexes for Book nodes -->
+    <changeSet id="3" author="LiquibaseUser">
+        <neo4j:cypher>CREATE CONSTRAINT FOR (b:Book) REQUIRE b.isbn IS UNIQUE;</neo4j:cypher>
+        <neo4j:cypher>CREATE INDEX FOR (b:Book) ON (b.title);</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>DROP CONSTRAINT ON (b:Book) ASSERT b.isbn IS UNIQUE;</neo4j:cypher>
+            <neo4j:cypher>DROP INDEX ON :Book(title);</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 4: Create Book nodes -->
+    <changeSet id="4" author="LiquibaseUser">
+        <neo4j:cypher>CREATE (b:Book {isbn: '978-0451524935', title: '1984', year: 1949});</neo4j:cypher>
+        <neo4j:cypher>CREATE (b:Book {isbn: '978-0060850524', title: 'Brave New World', year: 1932});</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>MATCH (b:Book) WHERE b.isbn IN ['978-0451524935', '978-0060850524'] DETACH DELETE b;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 5: Create relationships between Authors and Books -->
+    <changeSet id="5" author="LiquibaseUser">
+        <neo4j:cypher>MATCH (a:Author {name: 'George Orwell'}), (b:Book {title: '1984'}) CREATE (a)-[:WROTE]->(b);</neo4j:cypher>
+        <neo4j:cypher>MATCH (a:Author {name: 'Aldous Huxley'}), (b:Book {title: 'Brave New World'}) CREATE (a)-[:WROTE]->(b);</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>MATCH (a:Author)-[r:WROTE]->(b:Book) DELETE r;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

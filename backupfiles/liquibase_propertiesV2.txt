@@ -24,7 +24,8 @@
 
 
 
-changeLogFile=example-changelog10.xml
+changeLogFile=changelog.xml
+ 
 
 
 # referenceDriver=org.postgresql.Driver
@@ -40,7 +41,7 @@ changeLogFile=example-changelog10.xml
 # Specify the driver class for Neo4j.
 #driver=${DRIVER}
 # Driver class
-#driver=org.neo4j.jdbc.bolt.BoltDriver
+# driver=org.neo4j.jdbc.bolt.BoltDriver
 # driver=org.postgresql.Driver
 
 #### Enter the Target database 'url' information  ####
@@ -71,3 +72,66 @@ password=your_password_here
 
 #### Liquibase Pro Key Information ####
 # liquibase.licenseKey:
+5:00
+# Use the official Python image as a base image
+FROM python:3.12
+
+# Set the working directory
+WORKDIR /app
+ENV POETRY_HOME /etc/poetry
+ENV POETRY_VERSION 1.3.2
+ENV PATH $POETRY_HOME/bin:$PATH
+
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION && \
+    chmod +x $POETRY_HOME/bin/poetry && \
+    poetry config virtualenvs.create false
+
+# Add Poetry to PATH
+ENV PATH="/root/.local/bin:$PATH"
+
+# Install Java (required for Liquibase)
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install required packages and download Liquibase
+RUN curl -o /app/liquibase.zip -L "https://github.com/liquibase/liquibase/releases/download/v4.29.1/liquibase-4.29.1.zip" && \
+    apt-get update && \
+    apt-get install -y unzip && \
+    unzip /app/liquibase.zip -d /usr/local/liquibase/ && \
+    rm /app/liquibase.zip
+
+# Download liquibase-neo4j extension
+RUN curl -o /usr/local/liquibase/lib/liquibase-neo4j-4.29.1.jar -L "https://github.com/liquibase/liquibase-neo4j/releases/download/v4.29.1/liquibase-neo4j-4.29.1.jar"
+
+# Set the CLASSPATH environment variable
+# ENV CLASSPATH=/usr/local/liquibase/lib/neo4j-jdbc-driver.jar:$CLASSPATH
+
+# Link Liquibase to PATH
+RUN ln -s /usr/local/liquibase/liquibase /usr/local/bin/liquibase
+
+# Permission to execute Liquibase
+RUN chmod +x /usr/local/bin/liquibase
+
+# Copy only pyproject.toml and poetry.lock to leverage Docker cache
+COPY pyproject.toml poetry.lock* /app/
+
+# Install dependencies using Poetry
+RUN poetry install --with dev
+
+# Copy the entire application code to the working directory
+COPY ./src /app/src
+
+# Make port 8000 available to the world outside this container
+EXPOSE 8000
+
+# Define environment variable
+ENV PYTHONPATH="/app"
+
+# Set the working directory to /app/src
+WORKDIR /app/src
+
+# Set the command to run your application
+CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

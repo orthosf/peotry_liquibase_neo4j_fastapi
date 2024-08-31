@@ -20,50 +20,31 @@
 ##      The url H2 example below is relative to 'pwd' resource.
 ####
 # Enter the path for your changelog file.
-
-
-
-
-changeLogFile=example-changelog10.xml
-
-
-# referenceDriver=org.postgresql.Driver
-# referenceUrl=jdbc:postgresql://PoetryNeomodelsFastapiTest-postgres:5432/cvosocial
-# referenceUsername=user
-# referencePassword=password
-
-# referenceDdriver=org.neo4j.jdbc.bolt.BoltDriver
-# referenceUrl=jdbc:neo4j:bolt://PoetryNeomodelsFastapiTest-neo4j:7687
-# referenceUsername=neo4j
-# referencePassword=your_password_here
+changeLogFile=example-changelog.sql
 
 # Specify the driver class for Neo4j.
 #driver=${DRIVER}
 # Driver class
 #driver=org.neo4j.jdbc.bolt.BoltDriver
-# driver=org.postgresql.Driver
+#driver=org.postgresql.Driver
 
 #### Enter the Target database 'url' information  ####
 #url=jdbc:neo4j://${DB_HOST}:${DB_PORT}
-url=jdbc:neo4j:neo4j://PoetryNeomodelsFastapiTest-neo4j:7687 
-# url=jdbc:postgresql://PoetryNeomodelsFastapiTest-postgres:5432/cvosocial
-
-
-# jdbc:neo4j:neo4j://PoetryNeomodelsFastapiTest-neo4j:7687
-
+url=jdbc:neo4j:neo4j://PoetryNeomodelsFastapiTest-neo4j:7687
+#url=jdbc:postgresql://PoetryNeomodelsFastapiTest-postgres:5432/cvosocial
 
 # Specify the path to the JDBC driver.
-# classpath=/usr/local/liquibase/lib/neo4j-jdbc-driver.jar
+#classpath=/usr/local/liquibase/lib/neo4j-jdbc-driver.jar
 
 # Enter the username for your Target database.
 #username=${DB_USERNAME}
 username=neo4j
-# username=user
+#username=user
 
 # Enter the password for your Target database.
 #password=${DB_PASSWORD}
 password=your_password_here
-# password=password
+#password=password
 
 #### Optional: Logging Configuration ####
 # logLevel: DEBUG
@@ -71,3 +52,15 @@ password=your_password_here
 
 #### Liquibase Pro Key Information ####
 # liquibase.licenseKey:
+
+
+#referenceDriver=org.postgresql.Driver
+#referenceUrl=jdbc:postgresql://PoetryNeomodelsFastapiTest-postgres:5432/cvosocial
+#referenceUsername=user
+#referencePassword=password
+ 
+
+ #referenceDdriver=org.neo4j.jdbc.bolt.BoltDriver
+ #referenceUrl=jdbc:neo4j:bolt://PoetryNeomodelsFastapiTest-neo4j:7687
+ #referenceUsername=neo4j
+ #referencePassword=your_password_here

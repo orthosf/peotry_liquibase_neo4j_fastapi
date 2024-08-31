@@ -1,0 +1,18 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet 1: Create a constraint -->
+    <changeSet id="dirmultitest1" author="LiquibaseUser">
+    
+        <neo4j:cypher>CREATE (s:Song {title: 'Buffalo Soldier', language: 'English'})</neo4j:cypher>
+
+        <rollback>
+            <!-- Delete all Characters -->
+            <neo4j:cypher>MATCH (s:Song) WHERE s.title="Buffalo Soldier" DETACH DELETE s;</neo4j:cypher>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

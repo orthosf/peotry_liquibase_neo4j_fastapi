@@ -1,0 +1,9 @@
+{"databaseChangeLog": [
+    {"changeSet": {
+        "id": "my-anime-init",
+        "author": "orthos",
+        "changes": [
+            {"cypher": "CREATE (:Anime {title: 'Attack on Titan', genre: 'Action'})"}
+        ]
+    }}
+]}

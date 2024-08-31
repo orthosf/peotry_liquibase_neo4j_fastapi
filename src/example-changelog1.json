@@ -1,0 +1,9 @@
+{"databaseChangeLog": [
+    {"changeSet": {
+        "id": "my-anime1-init",
+        "author": "orthos",
+        "changes": [
+            {"cypher": "CREATE (:Anime {title: 'Full Metal Alchemist', genre: 'Fantasy'})"}
+        ]
+    }}
+]}

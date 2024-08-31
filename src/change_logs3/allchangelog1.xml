@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet without the specific label -->
+    <changeSet id="6falsetestlabelsalldirmultitest1" author="LiquibaseUser" labels="differentLabel">
+        <neo4j:cypher>CREATE (s:Song {title: '6 Buffalo Soldier', language: 'English'})</neo4j:cypher>
+
+        <rollback>
+            <neo4j:cypher>MATCH (s:Song) WHERE s.title="Buffalo Soldier" DETACH DELETE s;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

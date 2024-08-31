@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet 1 -->
+    <changeSet id="1" author="Orthos">
+        <neo4j:cypher>CREATE CONSTRAINT FOR (p:Person) REQUIRE p.id IS UNIQUE;</neo4j:cypher>
+        <neo4j:cypher>CREATE INDEX FOR (p:Person) ON (p.name);</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>DROP CONSTRAINT ON (p:Person) ASSERT p.id IS UNIQUE;</neo4j:cypher>
+            <neo4j:cypher>DROP INDEX ON :Person(name);</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 2 -->
+    <changeSet id="2" author="Orthos">
+        <neo4j:cypher>CREATE (p:Person {id: 1, name: 'John Doe', address1: '123 Main St', address2: 'Apt 4B', city: 'Springfield'});</neo4j:cypher>
+        <neo4j:cypher>CREATE (p:Person {id: 2, name: 'Jane Doe', address1: '456 Maple Ave', address2: null, city: 'Springfield'});</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>MATCH (p:Person) DETACH DELETE p;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 3 -->
+    <changeSet id="3" author="Orthos">
+        <neo4j:cypher>CREATE CONSTRAINT FOR (c:Company) REQUIRE c.id IS UNIQUE;</neo4j:cypher>
+        <neo4j:cypher>CREATE INDEX FOR (c:Company) ON (c.name);</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>DROP CONSTRAINT ON (c:Company) ASSERT c.id IS UNIQUE;</neo4j:cypher>
+            <neo4j:cypher>DROP INDEX ON :Company(name);</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 4 -->
+    <changeSet id="4" author="Orthos">
+        <neo4j:cypher>CREATE (c:Company {id: 1, name: 'Acme Corp', address1: '789 Elm St', address2: null, city: 'Metropolis'});</neo4j:cypher>
+        <neo4j:cypher>CREATE (c:Company {id: 2, name: 'Globex Corp', address1: '101 Pine Rd', address2: 'Suite 200', city: 'Metropolis'});</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>MATCH (c:Company) DETACH DELETE c;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+    <!-- ChangeSet 5 -->
+    <changeSet id="5" author="Orthos">
+        <neo4j:cypher>MATCH (p:Person) SET p.country = 'US';</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>MATCH (p:Person) REMOVE p.country;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,6 @@
+databaseChangeLog:
+- changeSet:
+  id: my-anime2-init
+  author: orthos
+  changes:
+  - cypher: 'CREATE (:Anime {title: ''Spy Family'', genre: ''Comendy''})'

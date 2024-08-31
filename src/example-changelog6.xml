@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet 1: Create a constraint -->
+    <changeSet id="test1" author="LiquibaseUser">
+
+        <!-- Precondition before running the changeSet -->
+        <!--preConditions onFail="MARK_RAN">
+            <neo4j:cypherCheck expectedResult="1">
+                SHOW CONSTRAINTS
+                YIELD name, type, entityType, labelsOrTypes, properties
+                WHERE properties = ['id'] AND labelsOrTypes = ['Character']
+                RETURN name;
+            </neo4j:cypherCheck>
+        </preConditions-->
+
+        <neo4j:cypher>CREATE CONSTRAINT FOR (s:Song) REQUIRE s.id IS UNIQUE;</neo4j:cypher>
+
+        <rollback>
+            <!-- Directly drop the constraint without using WITH or apoc.cypher.run -->
+            <neo4j:cypher>
+                SHOW CONSTRAINTS
+                YIELD name, type, entityType, labelsOrTypes, properties
+                WHERE properties = ['id'] AND labelsOrTypes = ['Song']
+                CALL dbms.queryJmx('neo4j.management.Constraint.drop({name})', {name: name})
+            </neo4j:cypher>
+        </rollback>
+
+    </changeSet>
+
+    <changeSet id="test12" author="LiquibaseUser">
+    
+        <neo4j:cypher>CREATE (s:Song {title: 'Triandafilia', language: 'Greek'})</neo4j:cypher>
+
+        <rollback>
+            <!-- Delete all Characters -->
+            <neo4j:cypher>MATCH (s:Song) DETACH DELETE s;</neo4j:cypher>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

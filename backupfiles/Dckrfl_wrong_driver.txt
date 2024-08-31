@@ -28,11 +28,11 @@ RUN curl -o /app/liquibase.zip -L "https://github.com/liquibase/liquibase/releas
     unzip /app/liquibase.zip -d /usr/local/liquibase/ && \
     rm /app/liquibase.zip
 
-# Download liquibase-neo4j extension
-RUN curl -o /usr/local/liquibase/lib/liquibase-neo4j-4.29.1-full.jar -L "https://github.com/liquibase/liquibase-neo4j/releases/download/v4.29.1/liquibase-neo4j-4.29.1-full.jar"
+# Download JDBC driver
+RUN curl -o /usr/local/liquibase/lib/neo4j-jdbc-driver.jar -L "https://repo1.maven.org/maven2/org/neo4j/neo4j-jdbc-bolt/5.0.0/neo4j-jdbc-bolt-5.0.0.jar"
 
 # Set the CLASSPATH environment variable
-# ENV CLASSPATH=/usr/local/liquibase/lib/neo4j-jdbc-driver.jar:$CLASSPATH
+ENV CLASSPATH=/usr/local/liquibase/lib/neo4j-jdbc-driver.jar:$CLASSPATH
 
 # Link Liquibase to PATH
 RUN ln -s /usr/local/liquibase/liquibase /usr/local/bin/liquibase

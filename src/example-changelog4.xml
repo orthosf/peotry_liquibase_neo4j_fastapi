@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext
+                                       http://www.liquibase.org/xml/ns/dbchangelog-ext/dbchangelog-ext.xsd">
+
+    <!-- ChangeSet 1: Create a constraint -->
+    <changeSet id="1" author="LiquibaseUser">
+        <neo4j:cypher>CREATE CONSTRAINT FOR (c:Character) REQUIRE c.id IS UNIQUE;</neo4j:cypher>
+        <neo4j:cypher>CREATE (:Character {name: 'Luffy', powers: 'Gomu Gomu Devil fruit'})</neo4j:cypher>
+        <rollback>
+            <!-- Precondition to retrieve the constraint name -->
+            <preConditions onFail="MARK_RAN">
+                <neo4j:cypherCheck expectedResult="1">
+                    CALL db.constraints()
+                    YIELD name, description
+                    WHERE description CONTAINS 'Character' AND description CONTAINS 'id'
+                    RETURN name;
+                </neo4j:cypherCheck>
+            </preConditions>
+
+            <!-- Use the retrieved constraint name for rollback -->
+            <neo4j:cypher>
+                CALL db.constraints()
+                YIELD name, description
+                WHERE description CONTAINS 'Character' AND description CONTAINS 'id'
+                WITH name
+                CALL apoc.cypher.run('DROP CONSTRAINT ' + name, {})
+                YIELD value
+                RETURN value;
+            </neo4j:cypher>
+            <neo4j:cypher>MATCH (c:Character) DETACH DELETE c;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

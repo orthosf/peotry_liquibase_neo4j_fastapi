@@ -1,0 +1,92 @@
+{
+    "changesets": [
+      {
+        "id": "1",
+        "author": "your.name",
+        "changes": [
+          {
+            "cypher": "CREATE CONSTRAINT FOR (p:Person) REQUIRE p.id IS UNIQUE;"
+          },
+          {
+            "cypher": "CREATE INDEX FOR (p:Person) ON (p.name);"
+          }
+        ],
+        "rollback": [
+          {
+            "cypher": "DROP CONSTRAINT ON (p:Person) ASSERT p.id IS UNIQUE;"
+          },
+          {
+            "cypher": "DROP INDEX ON :Person(name);"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "author": "your.name",
+        "changes": [
+          {
+            "cypher": "CREATE (p:Person {id: 1, name: 'John Doe', address1: '123 Main St', address2: 'Apt 4B', city: 'Springfield'});"
+          },
+          {
+            "cypher": "CREATE (p:Person {id: 2, name: 'Jane Doe', address1: '456 Maple Ave', address2: null, city: 'Springfield'});"
+          }
+        ],
+        "rollback": [
+          {
+            "cypher": "MATCH (p:Person) DETACH DELETE p;"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "author": "your.name",
+        "changes": [
+          {
+            "cypher": "CREATE CONSTRAINT FOR (c:Company) REQUIRE c.id IS UNIQUE;"
+          },
+          {
+            "cypher": "CREATE INDEX FOR (c:Company) ON (c.name);"
+          }
+        ],
+        "rollback": [
+          {
+            "cypher": "DROP CONSTRAINT ON (c:Company) ASSERT c.id IS UNIQUE;"
+          },
+          {
+            "cypher": "DROP INDEX ON :Company(name);"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "author": "your.name",
+        "changes": [
+          {
+            "cypher": "CREATE (c:Company {id: 1, name: 'Acme Corp', address1: '789 Elm St', address2: null, city: 'Metropolis'});"
+          },
+          {
+            "cypher": "CREATE (c:Company {id: 2, name: 'Globex Corp', address1: '101 Pine Rd', address2: 'Suite 200', city: 'Metropolis'});"
+          }
+        ],
+        "rollback": [
+          {
+            "cypher": "MATCH (c:Company) DETACH DELETE c;"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "author": "other.dev",
+        "changes": [
+          {
+            "cypher": "MATCH (p:Person) SET p.country = 'US';"
+          }
+        ],
+        "rollback": [
+          {
+            "cypher": "MATCH (p:Person) REMOVE p.country;"
+          }
+        ]
+      }
+    ]
+  }

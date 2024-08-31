@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--  Add a relationship that should only be applied after changelog1.xml is executed. -->
+    <!-- ChangeSet with a specific label -->
+    <changeSet id="6truetestlabelsalldirmultitest2" author="LiquibaseUser" labels="testlabels" context="testcontext">
+        <neo4j:cypher>MATCH (p:Person {name: 'John Doe'}) CREATE (p)-[:FRIEND]->(:Person {name: 'Jane Doe'})</neo4j:cypher>
+
+        <rollback>
+            MATCH (p:Person {name: 'John Doe'})-[:FRIEND]->(j:Person {name: 'Jane Doe'})
+            DELETE j
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

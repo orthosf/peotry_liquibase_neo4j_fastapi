@@ -1,4 +1,4 @@
 -- liquibase formatted cypher
 
 -- changeset myname:create
-CREATE (:Movie {title: 'Harry Poter'})
+CREATE (:Anime {title: 'Death Note'})

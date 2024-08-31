@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!-- Create a node that the second changeset depends on. -->
+    <!-- ChangeSet without the specific label -->
+    <changeSet id="1" author="LiquibaseUser">
+        <neo4j:cypher>CREATE (p:Person {name: 'John Doe'})</neo4j:cypher>
+        <rollback>
+            <neo4j:cypher>MATCH (p:Person) WHERE p.name="John Doe" DETACH DELETE p;</neo4j:cypher>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+

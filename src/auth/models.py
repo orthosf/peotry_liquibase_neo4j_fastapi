@@ -14,6 +14,7 @@ from neomodel import (
     RelationshipFrom
     
 )
+
 class FollowRel(StructuredRel):
     since = DateTimeProperty(default_now=True)
     #status = StringProperty(choices={'requested', 'accepted', 'blocked'})
