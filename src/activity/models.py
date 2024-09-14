@@ -12,7 +12,7 @@ from neomodel import (
     DateTimeProperty,
 )
 
-from src.common.relationships import FollowRel
+from src.common.models import FollowRel
 
 class Person(StructuredNode):
     uid = UniqueIdProperty()

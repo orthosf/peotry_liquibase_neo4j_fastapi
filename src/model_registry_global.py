@@ -2,7 +2,7 @@ import os
 import inspect
 import importlib.util
 import sys
-from neomodel import StructuredNode, StringProperty, IntegerProperty
+from neomodel import StructuredNode, StringProperty, IntegerProperty, StructuredRel
 #from django.apps import apps as django_apps
 
 # Function to automatically generate metadata for a model
@@ -58,6 +58,9 @@ def get_model_classes(imported_modules):
                 if inspect.isclass(obj) and issubclass(obj, StructuredNode) and obj.__module__ == module_name:
                     #print(f"Found model class: {name} in module: {module_name}")  # Debug statement
                     model_classes.append(obj)
+                if inspect.isclass(obj) and issubclass(obj, StructuredRel) and obj.__module__ == module_name:
+                    #print(f"Found model class: {name} in module: {module_name}")  # Debug statement
+                    model_classes.append(obj)    
     return model_classes
 
 # Automatically generate and assign _meta to each model
@@ -76,6 +79,7 @@ class MyApp:
 # Instantiate MyApp with all dynamically loaded models
 apps = MyApp(get_model_classes(imported_modules))
 
+print(f"apps: {apps}")
 # Example of accessing the generated _meta
-#for model in apps.get_models():
-    #print(model._meta)
+for model in apps.get_models():
+    print(f"model._meta: {model._meta}")

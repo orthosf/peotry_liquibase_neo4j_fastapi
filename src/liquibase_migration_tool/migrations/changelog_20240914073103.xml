@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:neo4j="http://www.liquibase.org/xml/ns/neo4j"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/neo4j
+                        http://www.liquibase.org/xml/ns/neo4j/neo4j.xsd">
+
+    <changeSet id="4df52ace-1a42-4be5-9d04-3f5675f2b5da" author="liquibase">
+        <cypher>CREATE (:app.FollowRel)</cypher>
+    </changeSet>
+    </databaseChangeLog>
