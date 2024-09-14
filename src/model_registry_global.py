@@ -33,14 +33,14 @@ def discover_model_modules():
 
 # Function to import a module from a given module name
 def import_module(module_name, imported_modules):
-    print(f"Entered import_module function with: module_name = {module_name}, imported_modules={imported_modules}")
+    #print(f"Entered import_module function with: module_name = {module_name}, imported_modules={imported_modules}")
     if module_name in imported_modules:
-        print(f"Module {module_name} already imported.")  # Debug statement
+        #print(f"Module {module_name} already imported.")  # Debug statement
         return sys.modules[module_name]  # Return the already imported module
-    print(f"Importing module: {module_name}")  # Debug statement
+    #print(f"Importing module: {module_name}")  # Debug statement
     spec = importlib.util.find_spec(module_name)
     if spec is None:
-        print(f"Module {module_name} not found.")  # Debug statement
+        #print(f"Module {module_name} not found.")  # Debug statement
         return None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -56,7 +56,7 @@ def get_model_classes(imported_modules):
         if module:
             for name, obj in inspect.getmembers(module):
                 if inspect.isclass(obj) and issubclass(obj, StructuredNode) and obj.__module__ == module_name:
-                    print(f"Found model class: {name} in module: {module_name}")  # Debug statement
+                    #print(f"Found model class: {name} in module: {module_name}")  # Debug statement
                     model_classes.append(obj)
     return model_classes
 
@@ -77,5 +77,5 @@ class MyApp:
 apps = MyApp(get_model_classes(imported_modules))
 
 # Example of accessing the generated _meta
-for model in apps.get_models():
-    print(model._meta)
+#for model in apps.get_models():
+    #print(model._meta)

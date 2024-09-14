@@ -5,8 +5,6 @@ from state import StateApps  # Ensure StateApps is imported
 
 class MigrationAutodetector:
     def __init__(self, current_state, historical_state):
-        #self.current_state = current_state
-        #self.historical_state = historical_state
         self.current_state = self._normalize_state(current_state)
         self.historical_state = self._normalize_state(historical_state)
 
@@ -19,24 +17,10 @@ class MigrationAutodetector:
 
     def changes(self):
         changes = []
-        #for label, model in self.current_state.models.items():
-            #if label not in self.historical_state.models:
-                #changes.append(('create_label', model))
         for model_label, model in self.current_state.models.items():
-            #normalized_label = model_label.replace('app.app.', 'app.')
-            #if normalized_label not in self.historical_state.models: 
             if model_label not in self.historical_state.models:     
                 changes.append(('create_label', model))   
             else:
-                #self._detect_property_changes(model, self.historical_state.models[model_label], changes)
-                #self._detect_index_changes(model, self.historical_state.models[model_label], changes)
-                #self._detect_constraint_changes(model, self.historical_state.models[model_label], changes)
-                #self._detect_property_changes(model, self.historical_state.models[model_label], changes)
-                #self._detect_index_changes(model, self.historical_state.models[model_label], changes)
-                #self._detect_constraint_changes(model, self.historical_state.models[model_label], changes)
-                #self._detect_property_changes(model, self.historical_state.models[normalized_label], changes)
-                #self._detect_index_changes(model, self.historical_state.models[normalized_label], changes)
-                #self._detect_constraint_changes(model, self.historical_state.models[normalized_label], changes)
                 self._detect_property_changes(model, self.historical_state.models[model_label], changes)
                 self._detect_index_changes(model, self.historical_state.models[model_label], changes)
                 self._detect_constraint_changes(model, self.historical_state.models[model_label], changes)
@@ -52,7 +36,6 @@ class MigrationAutodetector:
         
         current_properties = current_model._meta.get('properties', [])
         historical_properties = historical_model._meta.get('properties', [])
-
         current_properties_dict = {p['name']: p for p in current_properties}
         historical_properties_dict = {p['name']: p for p in historical_properties}
 
@@ -87,13 +70,10 @@ class MigrationAutodetector:
             changes.append(('drop_constraint', current_model, constraint))
 
     def _detect_removed_labels(self, changes):
-        print(f"self.historical_state.models:{self.historical_state.models}")
+       # print(f"self.historical_state.models:{self.historical_state.models}")
         for label in self.historical_state.models:
-            print(f"self.current_state.models:{self.current_state.models}")
-            print(f"label:{label}")
-            #if label not in self.current_state.models:
-            #normalized_label = label.replace('app.app.', 'app.')
-            #if normalized_label not in self.current_state.models:
+            #print(f"self.current_state.models:{self.current_state.models}")
+            #print(f"label:{label}")
             if label not in self.current_state.models:    
                 changes.append(('remove_label', self.historical_state.models[label]))
 

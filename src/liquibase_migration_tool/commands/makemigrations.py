@@ -14,12 +14,11 @@ def make_migrations(migrations_dir):
     loader = Loader(migrations_dir)
     historical_state = loader.load_historical_state()
     current_state = StateApps.from_apps(apps)
-
     autodetector = MigrationAutodetector(current_state, historical_state)
-    print(f"historical_state: {historical_state}")
-    print(f"current_state: {current_state}")
-    print(f"autodetector value: {autodetector}")
     changes = autodetector.changes()
+    #print(f"historical_state: {historical_state}")
+    #print(f"current_state: {current_state}")
+    #print(f"autodetector value: {autodetector}")
     print(f"changes: {changes}")
 
     if not changes:
