@@ -16,7 +16,7 @@ def make_migrations(migrations_dir):
     current_state = StateApps.from_apps(apps)
     autodetector = MigrationAutodetector(current_state, historical_state)
     changes = autodetector.changes()
-    print(f"model_registry_global Apps: {apps}")
+    #print(f"model_registry_global Apps: {apps}")
     #print(f"historical_state: {historical_state}")
     #print(f"current_state: {current_state}")
     #print(f"autodetector value: {autodetector}")

@@ -79,7 +79,7 @@ class MyApp:
 # Instantiate MyApp with all dynamically loaded models
 apps = MyApp(get_model_classes(imported_modules))
 
-print(f"apps: {apps}")
+print(f"apps: {apps.get_models}")
 # Example of accessing the generated _meta
-for model in apps.get_models():
-    print(f"model._meta: {model._meta}")
+#for model in apps.get_models():
+    #print(f"model._meta: {model._meta}")

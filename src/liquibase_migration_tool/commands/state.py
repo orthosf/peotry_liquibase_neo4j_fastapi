@@ -9,5 +9,5 @@ class StateApps:
         models = {}
         for model in apps.get_models():
             models[model._meta['label']] = model
-        #print("Models from apps:", models)  # Debug statement
+        print("Models from apps:", models)  # Debug statement
         return cls(models)
