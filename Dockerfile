@@ -1,44 +1,34 @@
 # Use the official Python image as a base image
 FROM python:3.12
 
+# Set environment variables for Poetry
+ENV POETRY_HOME=/etc/poetry
+ENV POETRY_VERSION=1.3.2
+ENV PATH=$POETRY_HOME/bin:$PATH
+
 # Set the working directory
 WORKDIR /app
-ENV POETRY_HOME /etc/poetry
-ENV POETRY_VERSION 1.3.2
-ENV PATH $POETRY_HOME/bin:$PATH
 
-# Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION && \
+# Install necessary system packages and Poetry
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk python3-distutils unzip curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION && \
     chmod +x $POETRY_HOME/bin/poetry && \
     poetry config virtualenvs.create false
 
-# Add Poetry to PATH
-ENV PATH="/root/.local/bin:$PATH"
-
-# Install Java (required for Liquibase)
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Verify distutils installation
+RUN python3 -m ensurepip --upgrade && \
+    python3 -m pip install --upgrade pip setuptools wheel
 
 # Install required packages and download Liquibase
 RUN curl -o /app/liquibase.zip -L "https://github.com/liquibase/liquibase/releases/download/v4.29.1/liquibase-4.29.1.zip" && \
-    apt-get update && \
-    apt-get install -y unzip && \
     unzip /app/liquibase.zip -d /usr/local/liquibase/ && \
-    rm /app/liquibase.zip
-
-# Download liquibase-neo4j extension
-RUN curl -o /usr/local/liquibase/lib/liquibase-neo4j-4.29.1-full.jar -L "https://github.com/liquibase/liquibase-neo4j/releases/download/v4.29.1/liquibase-neo4j-4.29.1-full.jar"
-
-# Set the CLASSPATH environment variable
-# ENV CLASSPATH=/usr/local/liquibase/lib/neo4j-jdbc-driver.jar:$CLASSPATH
-
-# Link Liquibase to PATH
-RUN ln -s /usr/local/liquibase/liquibase /usr/local/bin/liquibase
-
-# Permission to execute Liquibase
-RUN chmod +x /usr/local/bin/liquibase
+    rm /app/liquibase.zip && \
+    curl -o /usr/local/liquibase/lib/liquibase-neo4j-4.29.1-full.jar -L "https://github.com/liquibase/liquibase-neo4j/releases/download/v4.29.1/liquibase-neo4j-4.29.1-full.jar" && \
+    ln -s /usr/local/liquibase/liquibase /usr/local/bin/liquibase && \
+    chmod +x /usr/local/bin/liquibase
 
 # Copy only pyproject.toml and poetry.lock to leverage Docker cache
 COPY pyproject.toml poetry.lock* /app/

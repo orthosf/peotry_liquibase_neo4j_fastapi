@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:neo4j="http://www.liquibase.org/xml/ns/neo4j"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/neo4j
+                        http://www.liquibase.org/xml/ns/neo4j/neo4j.xsd">
+
+    <changeSet id="ef0fe0c6-279b-4126-94b2-5f0bd7ef47c9" author="liquibase">
+        <cypher>CREATE (:admin.LogEntry)</cypher>
+    </changeSet>
+    
+
+    <changeSet id="37f8bd27-eb2e-48cb-8a41-a749a9060d79" author="liquibase">
+        <cypher>CREATE (:auth.Permission)</cypher>
+    </changeSet>
+    
+
+    <changeSet id="d54149ee-5d9a-4792-b9d9-f13637c536ab" author="liquibase">
+        <cypher>CREATE (:auth.Group)</cypher>
+    </changeSet>
+    
+
+    <changeSet id="6155ef94-5346-4464-a13c-4cc6ad7a1958" author="liquibase">
+        <cypher>CREATE (:auth.User)</cypher>
+    </changeSet>
+    
+
+    <changeSet id="0fc3dcef-1240-40ac-a90f-5bcd0f68400c" author="liquibase">
+        <cypher>CREATE (:contenttypes.ContentType)</cypher>
+    </changeSet>
+    
+
+    <changeSet id="4d26793b-e544-4833-a8d6-efc1ea07e2f4" author="liquibase">
+        <cypher>CREATE (:sessions.Session)</cypher>
+    </changeSet>
+    </databaseChangeLog>

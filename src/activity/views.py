@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from neomodel import DoesNotExist, db
 from neomodel.exceptions import DoesNotExist
-from .models import User
+from ..auth.models import User
 from .schemas import  UserFollow
 from ..auth.schemas import UserCreate, UserUpdate, UserResponse, UserCreateBatch
 from pydantic import BaseModel

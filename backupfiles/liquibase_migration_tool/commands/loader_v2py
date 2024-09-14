@@ -1,0 +1,49 @@
+# src/liquibase_migration_tool/commands/loader.py
+import os
+import xml.etree.ElementTree as ET
+from state import StateApps
+
+class Loader:
+    def __init__(self, migrations_dir):
+        self.migrations_dir = migrations_dir
+
+    def load_historical_state(self):
+        historical_models = {}
+        for filename in sorted(os.listdir(self.migrations_dir)):
+            if filename.endswith('.xml'):
+                self._apply_migration(os.path.join(self.migrations_dir, filename), historical_models)
+        print("Historical Models Loaded:", historical_models)  # Debug statement
+        return StateApps(historical_models)
+
+    def _apply_migration(self, file_path, historical_models):
+        with open(file_path, 'r') as file:
+            content = file.read().lstrip()  # Strip leading whitespace
+        tree = ET.ElementTree(ET.fromstring(content))
+        root = tree.getroot()
+
+        for changeset in root.findall('.//changeSet'):
+            for change in changeset:
+                if change.tag == 'createTable':
+                    table_name = change.get('tableName')
+                    fields = []
+                    for column in change.findall('.//column'):
+                        fields.append({
+                            'name': column.get('name'),
+                            'db_type': column.get('type')
+                        })
+                    historical_models[f'app.{table_name.capitalize()}'] = type(table_name.capitalize(), (), {
+                        '_meta': {
+                            'label': f'app.{table_name.capitalize()}',
+                            'db_table': table_name,
+                            'fields': fields
+                        }
+                    })
+                elif change.tag == 'addColumn':
+                    table_name = change.get('tableName')
+                    column = change.find('.//column')
+                    if f'app.{table_name.capitalize()}' in historical_models:
+                        historical_models[f'app.{table_name.capitalize()}']._meta['fields'].append({
+                            'name': column.get('name'),
+                            'db_type': column.get('type')
+                        })
+                # Add more cases for other change types as needed

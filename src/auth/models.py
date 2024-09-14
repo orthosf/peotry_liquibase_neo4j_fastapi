@@ -8,20 +8,11 @@ from neomodel import (
     ZeroOrMore,
     OneOrMore,
     UniqueIdProperty,
-    RelationshipTo, 
-    StructuredRel,
+    RelationshipFrom,
     DateTimeProperty,
-    RelationshipFrom
-    
 )
 
-class FollowRel(StructuredRel):
-    since = DateTimeProperty(default_now=True)
-    #status = StringProperty(choices={'requested', 'accepted', 'blocked'})
-    #interaction_count = IntegerProperty(default=0)
-    #last_interaction = DateTimeProperty()
-    #message_count = IntegerProperty(default=0)
-
+from src.common.relationships import FollowRel
 
 class User(StructuredNode):
     uid = UniqueIdProperty()
@@ -33,3 +24,6 @@ class User(StructuredNode):
     # Use the relationship model to add more details to the relationship
     following = RelationshipTo('User', 'FOLLOWING', model=FollowRel)
     followers = RelationshipFrom('User', 'FOLLOWING', model=FollowRel)
+
+
+    
