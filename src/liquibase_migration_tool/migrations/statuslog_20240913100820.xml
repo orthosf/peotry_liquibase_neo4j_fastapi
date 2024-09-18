@@ -1,0 +1,19 @@
+
+<status id=1 connections="changelog_20240913100820.xml">   
+    <model id="i" name="User" type="StructuredNode">
+        <fields id="1" >
+            <field id="11" name="uid" property="UniqueIdProperty" index="False" constrains="True">  uid = UniqueIdProperty() </field>
+            <field id="12" name="username" property="StringProperty" index="True" constrains="False">username = StringProperty(index=True)</field>
+            <field id="13" name="email" property="StringProperty" index="True" constrains="False">email = StringProperty(index=True)</field>
+            <field id="14" name="first_name" property="StringProperty" index="True" constrains="False">first_name = StringProperty(index=True)</field>
+            <field id="15" name="last_name" property="StringProperty" index="True" constrains="False">last_name = StringProperty(index=True)</field>
+        </fields>
+        <relationships id="1">
+            <relationship id="11" name="uid" property="UniqueIdProperty" index="False" constrains="True" model="FollowRel">following = RelationshipTo('User', 'FOLLOWING', model=FollowRel)</relationship>
+            <relationship id="11" name="uid" property="UniqueIdProperty" index="False" constrains="True" model="FollowRel">followers = RelationshipFrom('User', 'FOLLOWING', model=FollowRel)</relationship>
+        </relationships id="1">
+    </model>
+</status>  
+
+    
+    

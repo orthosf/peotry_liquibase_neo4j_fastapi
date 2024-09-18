@@ -3,10 +3,17 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:neo4j="http://www.liquibase.org/xml/ns/dbchangelog-ext"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-    <!--model id="i" name="idk">
-        <field></field>
-    </model-->
-    <changeSet id="my-drink" author="orthos">
-        <neo4j:cypher>CREATE (:Drink {name: 'Beer', type: 'Soft'})</neo4j:cypher>
+    <!--comment>
+        <model id="i" name="idk">
+            <field></field>
+        </model>
+    </comment-->
+
+    <changeSet id="1my-drink3" author="orthos">
+        <neo4j:cypher>CREATE (:Drink {name: 'Gin', type: 'Strong'})</neo4j:cypher>
     </changeSet>
 </databaseChangeLog>
+
+<model id="i" name="idk">
+        <field></field>
+</model>
