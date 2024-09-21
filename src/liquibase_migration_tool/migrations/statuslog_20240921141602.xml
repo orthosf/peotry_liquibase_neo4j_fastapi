@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <status id="statuslog_20240921141602.xml" connections="changelog_20240921141602.xml">
+
+                <model id="cfe2f461-a193-4c72-96a1-8ae4cd3e5289" name="app.User" type="StructuredNode">
+                    <fields id="app.User_fields_3bb02276-a7ae-49dd-b04e-e10a26d2174f">
+                        <field id="app.User_fields_0e89b79f-16ef-4080-a3ba-daa042ed27f8" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+                        <field id="app.User_fields_8ed6dfa2-4865-40de-95b0-20e828e38005" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+                        <field id="app.User_fields_112bee84-1469-4d6a-8a73-07be29b8ecc3" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+                        <field id="app.User_fields_4a625a89-23f6-4d26-a24c-23bf2d1422e2" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+                        <field id="app.User_fields_39ada66a-2b8e-430a-8b34-d913cd07e1b2" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.User_relationships_590da76e-7feb-4a58-a00a-4172d4d008dd">
+                        <relationship id="app.User_relationships_ba45f6e4-9514-4932-a628-51f212a077af" name="following" property="RelationshipTo" index="False" constrains="True" model="FollowRel" relation_name="FOLLOWING" direction="1>following = RelationshipTo("FOLLOWING", "following", model=FollowRel)</relationship>
+                        <relationship id="app.User_relationships_5fd0fbc4-2832-4ca0-a3b1-2220b8082f4b" name="followers" property="RelationshipFrom" index="False" constrains="True" model="FollowRel" relation_name="FOLLOWING" direction="-1>followers = RelationshipFrom("FOLLOWING", "followers", model=FollowRel)</relationship>
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+
+                <model id="7b09cea7-3d42-46c0-97df-e3a2e7cf2418" name="app.Actor" type="StructuredNode">
+                    <fields id="app.Actor_fields_dd2e9500-e3e1-4cc1-a20a-5de81adae3af">
+                        <field id="app.Actor_fields_46f25836-e878-4f2e-82b3-42aa6fd270f8" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+                        <field id="app.Actor_fields_9c77e9ec-1de3-404c-9679-e7c8188ce7f2" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+                        <field id="app.Actor_fields_21950ca8-56f3-4f7a-a8f3-7755238fd2d7" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+                        <field id="app.Actor_fields_d28f0b7a-775f-406d-875d-d492343d2b66" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+                        <field id="app.Actor_fields_3a3e4ff2-9907-4a69-b9d1-8cd6f41146b1" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.Actor_relationships_430adde4-999a-4911-9074-7e415e511854">
+                        <relationship id="app.Actor_relationships_923ff9b5-ed9e-4fbe-82ee-65ed89ab8647" name="acted" property="RelationshipTo" index="False" constrains="True" model="None" relation_name="ACTEDIN" direction="1>acted = RelationshipTo("ACTEDIN", "acted", model=None)</relationship>
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+
+                <model id="042763ab-d19d-48e2-b276-b0162efefd13" name="app.Anime" type="StructuredNode">
+                    <fields id="app.Anime_fields_9abc3c46-f4da-4057-82da-6795065c707a">
+                        <field id="app.Anime_fields_94911a38-8125-41ca-82d4-bd1df5641ebd" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+                        <field id="app.Anime_fields_c6c7a939-f7da-4ae0-907d-07e6ff8eded6" name="title" property="StringProperty(255)" index="False" constrains="True">title = StringProperty(255)()</field>
+                        <field id="app.Anime_fields_d01a8932-276a-48ad-a229-4745d633be3d" name="releasedate" property="DateProperty" index="False" constrains="True">releasedate = DateProperty()</field>
+                    </fields>
+                    <relationships id="app.Anime_relationships_9cf29198-cb67-4870-99b7-46bb42f203a8">
+
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+
+                <model id="2c5741e0-3337-4e1f-91fe-aed8dbea5923" name="app.Comic" type="StructuredNode">
+                    <fields id="app.Comic_fields_8ea6bad7-5699-4bd8-85be-18c2e619c6b0">
+                        <field id="app.Comic_fields_d7c19993-efac-45f9-b5c0-ede0a2bc33d2" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+                        <field id="app.Comic_fields_6f5e9236-d67c-40b8-8cc2-b381fb009c5e" name="title" property="StringProperty(255)" index="False" constrains="True">title = StringProperty(255)()</field>
+                        <field id="app.Comic_fields_4fc46db8-a3f3-45b1-b814-d48cf3b98f35" name="releasedate" property="DateProperty" index="False" constrains="True">releasedate = DateProperty()</field>
+                    </fields>
+                    <relationships id="app.Comic_relationships_7a953cc8-0e66-4266-9425-8dee7467259f">
+
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+
+                <model id="9a6efb1d-ae58-4495-880c-a527466fcfb4" name="app.Director" type="StructuredNode">
+                    <fields id="app.Director_fields_40148d24-2106-439c-b3a4-5f7e45f7c7d2">
+                        <field id="app.Director_fields_09e7e044-08d6-4b22-a845-37dffd29e761" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+                        <field id="app.Director_fields_122be494-f019-40ce-bab1-93c772d4bd77" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+                        <field id="app.Director_fields_8c2f61d2-9b15-4451-ad22-af505f119eea" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+                        <field id="app.Director_fields_ab70f4e8-3868-43f4-8b93-edf33100fdcf" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+                        <field id="app.Director_fields_74402592-6172-44bc-a72f-60ec8364c3a8" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.Director_relationships_d62de313-8acc-4185-82e3-8879fb5858f8">
+
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+
+                <model id="8f92f22a-9b4d-4bc5-b29d-e72e5fa8f348" name="app.Movie" type="StructuredNode">
+                    <fields id="app.Movie_fields_7ba89318-510d-46ba-92c6-35bb9ff97bb8">
+                        <field id="app.Movie_fields_e672d74d-440a-46c2-880f-acace5a0753d" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+                        <field id="app.Movie_fields_21be55fb-c7c8-4ed4-881c-7bae0ce75b9b" name="title" property="StringProperty(255)" index="False" constrains="True">title = StringProperty(255)()</field>
+                        <field id="app.Movie_fields_c7dc537d-7164-40b8-9392-8dcee24773da" name="releasedate" property="DateProperty" index="False" constrains="True">releasedate = DateProperty()</field>
+                    </fields>
+                    <relationships id="app.Movie_relationships_d1d7de7f-6b28-47da-946d-1f8a299a1b70">
+
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+
+                <model id="8947ca05-f4b7-492b-bc63-534cfc83e625" name="app.Person" type="StructuredNode">
+                    <fields id="app.Person_fields_1ce2cce7-4a65-4bc0-bad7-6668f060a974">
+                        <field id="app.Person_fields_7c122e80-0431-40aa-a43b-689f7e985766" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+                        <field id="app.Person_fields_19ea4fd2-858b-488c-9c5a-25279f8819db" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+                        <field id="app.Person_fields_6565895c-b77b-4ddd-887f-fcc37b88c179" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+                        <field id="app.Person_fields_0ad09c67-11b6-4d9a-8396-1888d4079b0e" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+                        <field id="app.Person_fields_0cfc8537-6ccf-49e8-97bc-f7741f09f948" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.Person_relationships_9bcb0795-bb6d-4940-be24-5c5a430489a0">
+
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+
+                <model id="39ee6384-d908-4551-8f33-890927423399" name="app.FollowRel" type="StructuredNode">
+                    <fields id="app.FollowRel_fields_8abe262a-c1b5-4d70-96a9-b8f875159180">
+                        <field id="app.FollowRel_fields_80d930ef-70fb-4f21-8c16-e9db8ec7b661" name="since" property="DateTimeProperty" index="False" constrains="True">since = DateTimeProperty()</field>
+                    </fields>
+                    <relationships id="app.FollowRel_relationships_f140496e-f26d-4116-9104-3297e2ceae26">
+
+                    </relationships>
+                    <is_new>False</is_new>
+                </model>
+    </status>
+</databaseStatusLog>

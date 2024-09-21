@@ -1,0 +1,76 @@
+<databaseStatusLog>
+    <status id="statuslog_20240918153139.xml" connections="changelog_20240918153139.xml">
+
+                <model id="4474c04e-5446-4800-bd9f-f53338201b59" name="app.User" type="StructuredNode">
+                    <fields id="app.User_fields_382884c8-dd78-44a1-a401-9eb60a50403b">
+                        
+                    </fields>
+                    <relationships id="app.User_relationships_f80a170e-6d05-4b13-9532-f20637e7d7fa">
+                        
+                    </relationships>
+                </model>
+            
+                <model id="e1aa7e43-f9a8-4b4d-a6a1-dfb1daa6391a" name="app.Actor" type="StructuredNode">
+                    <fields id="app.Actor_fields_5436a75b-388e-4d18-a8e6-be149449cb8e">
+                        
+                    </fields>
+                    <relationships id="app.Actor_relationships_4ba49cb1-398a-4cfd-a442-4f0e16b7a99d">
+                        
+                    </relationships>
+                </model>
+            
+                <model id="43742cca-033d-4c36-96ee-6464cb9d5a8d" name="app.Anime" type="StructuredNode">
+                    <fields id="app.Anime_fields_00dcd42a-00b0-4593-b46a-c331a10b19dc">
+                        
+                    </fields>
+                    <relationships id="app.Anime_relationships_4bbd2aaa-5fa2-4878-815c-566ba13aa465">
+                        
+                    </relationships>
+                </model>
+            
+                <model id="a2c7e2f9-e47d-4c66-9983-4d161a661b3f" name="app.Comic" type="StructuredNode">
+                    <fields id="app.Comic_fields_22c7ca19-660b-451a-81d9-5755b2086452">
+                        
+                    </fields>
+                    <relationships id="app.Comic_relationships_64b59849-ad35-4b5f-aacd-27f65d0b3867">
+                        
+                    </relationships>
+                </model>
+            
+                <model id="b5a123f1-2a19-447b-98c7-e69817c2a75e" name="app.Director" type="StructuredNode">
+                    <fields id="app.Director_fields_42020a7d-4ad1-4639-a59a-9d54f0322123">
+                        
+                    </fields>
+                    <relationships id="app.Director_relationships_1081a17c-d689-4fa0-8024-a5d032965cd6">
+                        
+                    </relationships>
+                </model>
+            
+                <model id="321f3472-ec26-42dc-afbf-cf9063f68dcd" name="app.Movie" type="StructuredNode">
+                    <fields id="app.Movie_fields_cfa245cf-b719-4a63-b576-07721bd580a0">
+                        
+                    </fields>
+                    <relationships id="app.Movie_relationships_18b5543e-17ed-4abf-aef2-429efa2ea662">
+                        
+                    </relationships>
+                </model>
+            
+                <model id="6f538ef3-2ec3-4c20-87b0-a2ce261f86cd" name="app.Person" type="StructuredNode">
+                    <fields id="app.Person_fields_974130a9-24cf-4be8-810a-d36ef6ab19bc">
+                        
+                    </fields>
+                    <relationships id="app.Person_relationships_69032332-1901-47b9-9a22-4f0f9b2b8662">
+                        
+                    </relationships>
+                </model>
+            
+                <model id="0dd0ac44-6fee-48ec-a2ca-c0385a70ae45" name="app.FollowRel" type="StructuredNode">
+                    <fields id="app.FollowRel_fields_0e7d634f-4b7c-41f0-9651-ddcda07e3bfd">
+                        
+                    </fields>
+                    <relationships id="app.FollowRel_relationships_fbb5a6da-cc00-49af-b3a0-6ad71715c8b2">
+                        
+                    </relationships>
+                </model>
+                </status>
+</databaseStatusLog>

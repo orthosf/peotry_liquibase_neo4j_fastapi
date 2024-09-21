@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:neo4j="http://www.liquibase.org/xml/ns/neo4j"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/neo4j
+                        http://www.liquibase.org/xml/ns/neo4j/neo4j.xsd">
+
+                <changeSet id="8e42df28-13db-4a49-9cf5-ad83aa2b1990" author="liquibase">
+                    <cypher>CREATE (:app.News)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="4dabf7fc-1d23-4a75-9dcc-e0363caa3300" author="liquibase">
+                    <cypher>MATCH (n:app.app.Comic)
+                    DETACH DELETE n</cypher>
+                </changeSet>
+                </databaseChangeLog>

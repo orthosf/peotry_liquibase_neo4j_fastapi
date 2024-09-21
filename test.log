@@ -1,0 +1,52 @@
+getattibute all propetires: (('uid', <neomodel.properties.UniqueIdProperty object at 0x7f57dbed9af0>), ('username', <neomodel.properties.StringProperty object at 0x7f57dbeda360>), ('email', <neomodel.properties.StringProperty object at 0x7f57dbeda420>), ('first_name', <neomodel.properties.StringProperty object at 0x7f57dbeda4e0>), ('last_name', <neomodel.properties.StringProperty object at 0x7f57dbeda660>))
+Warning: 'node_class' not found in definition of relationship 'following' in model 'User'
+Warning: 'node_class' not found in definition of relationship 'followers' in model 'User'
+getattibute all propetires: (('uid', <neomodel.properties.UniqueIdProperty object at 0x7f57dbedaa20>), ('username', <neomodel.properties.StringProperty object at 0x7f57dbedaae0>), ('email', <neomodel.properties.StringProperty object at 0x7f57dbedaa50>), ('first_name', <neomodel.properties.StringProperty object at 0x7f57dbedaa80>), ('last_name', <neomodel.properties.StringProperty object at 0x7f57dbedab40>))
+Warning: 'node_class' not found in definition of relationship 'acted' in model 'Actor'
+getattibute all propetires: (('uid', <neomodel.properties.UniqueIdProperty object at 0x7f57dd919790>), ('title', <neomodel.properties.StringProperty object at 0x7f57de10bf20>), ('releasedate', <neomodel.properties.DateProperty object at 0x7f57dbedae10>))
+getattibute all propetires: (('uid', <neomodel.properties.UniqueIdProperty object at 0x7f57dbedaf00>), ('title', <neomodel.properties.StringProperty object at 0x7f57dbedaf60>), ('releasedate', <neomodel.properties.DateProperty object at 0x7f57dbedafc0>))
+getattibute all propetires: (('uid', <neomodel.properties.UniqueIdProperty object at 0x7f57dbedac30>), ('username', <neomodel.properties.StringProperty object at 0x7f57dbedaba0>), ('email', <neomodel.properties.StringProperty object at 0x7f57dbedacc0>), ('first_name', <neomodel.properties.StringProperty object at 0x7f57dbedac60>), ('last_name', <neomodel.properties.StringProperty object at 0x7f57dbedacf0>))
+getattibute all propetires: (('uid', <neomodel.properties.UniqueIdProperty object at 0x7f57dbedad20>), ('title', <neomodel.properties.StringProperty object at 0x7f57dbedade0>), ('releasedate', <neomodel.properties.DateProperty object at 0x7f57dbedae40>))
+getattibute all propetires: (('uid', <neomodel.properties.UniqueIdProperty object at 0x7f57dbeda930>), ('username', <neomodel.properties.StringProperty object at 0x7f57dbeda960>), ('email', <neomodel.properties.StringProperty object at 0x7f57dbeda990>), ('first_name', <neomodel.properties.StringProperty object at 0x7f57dbeda9c0>), ('last_name', <neomodel.properties.StringProperty object at 0x7f57dbeda9f0>))
+model._meta: {'label': 'app.User', 'db_table': 'user', 'fields': [{'name': 'username', 'db_type': 'varchar(255)'}, {'name': 'email', 'db_type': 'varchar(255)'}, {'name': 'first_name', 'db_type': 'varchar(255)'}, {'name': 'last_name', 'db_type': 'varchar(255)'}], 'relationships': []}
+model._meta: {'label': 'app.Actor', 'db_table': 'actor', 'fields': [{'name': 'username', 'db_type': 'varchar(255)'}, {'name': 'email', 'db_type': 'varchar(255)'}, {'name': 'first_name', 'db_type': 'varchar(255)'}, {'name': 'last_name', 'db_type': 'varchar(255)'}], 'relationships': []}
+model._meta: {'label': 'app.Anime', 'db_table': 'anime', 'fields': [{'name': 'title', 'db_type': 'varchar(255)'}, {'name': 'releasedate', 'db_type': 'date'}], 'relationships': []}
+model._meta: {'label': 'app.Comic', 'db_table': 'comic', 'fields': [{'name': 'title', 'db_type': 'varchar(255)'}, {'name': 'releasedate', 'db_type': 'date'}], 'relationships': []}
+model._meta: {'label': 'app.Director', 'db_table': 'director', 'fields': [{'name': 'username', 'db_type': 'varchar(255)'}, {'name': 'email', 'db_type': 'varchar(255)'}, {'name': 'first_name', 'db_type': 'varchar(255)'}, {'name': 'last_name', 'db_type': 'varchar(255)'}], 'relationships': []}
+model._meta: {'label': 'app.Movie', 'db_table': 'movie', 'fields': [{'name': 'title', 'db_type': 'varchar(255)'}, {'name': 'releasedate', 'db_type': 'date'}], 'relationships': []}
+model._meta: {'label': 'app.Person', 'db_table': 'person', 'fields': [{'name': 'username', 'db_type': 'varchar(255)'}, {'name': 'email', 'db_type': 'varchar(255)'}, {'name': 'first_name', 'db_type': 'varchar(255)'}, {'name': 'last_name', 'db_type': 'varchar(255)'}], 'relationships': []}
+model._meta: {'label': 'app.FollowRel', 'db_table': 'followrel', 'fields': [{'name': 'since', 'db_type': 'datetime'}], 'relationships': []}
+Added label to historical models: app.User
+Added label to historical models: app.Person
+Deleted label from historical models: app.app.Person
+Added label to historical models: app.Actor
+Added label to historical models: app.Director
+Added label to historical models: app.Person
+Deleted label from historical models: app.app.Person
+Added label to historical models: app.Person
+Added label to historical models: app.FollowRel
+Added label to historical models: app.Movie
+Added label to historical models: app.Anime
+Deleted label from historical models: app.app.Movie
+Removed property from historical model app.User: uid
+Removed property from historical model app.User: username
+Removed property from historical model app.User: email
+Removed property from historical model app.User: first_name
+Removed property from historical model app.User: last_name
+Removed property from historical model app.User: uid
+Removed property from historical model app.User: username
+Removed property from historical model app.User: email
+Removed property from historical model app.User: first_name
+Removed property from historical model app.User: last_name
+Added label to historical models: app.Movie
+Added label to historical models: app.Manga
+Added label to historical models: app.Comic
+Deleted label from historical models: app.app.Manga
+Added label to historical models: app.News
+Deleted label from historical models: app.app.Comic
+Added label to historical models: app.Comic
+Deleted label from historical models: app.app.News
+Historical Models Loaded: {'app.app.User': <class 'loader.app.User'>, 'app.app.Actor': <class 'loader.app.Actor'>, 'app.app.Director': <class 'loader.app.Director'>, 'app.app.Person': <class 'loader.app.Person'>, 'app.app.FollowRel': <class 'loader.app.FollowRel'>, 'app.app.Anime': <class 'loader.app.Anime'>, 'app.app.Movie': <class 'loader.app.Movie'>, 'app.app.Comic': <class 'loader.app.Comic'>}
+Models from apps: {'app.User': <class 'src.auth.models.User'>, 'app.Actor': <class 'src.activity.models.Actor'>, 'app.Anime': <class 'src.activity.models.Anime'>, 'app.Comic': <class 'src.activity.models.Comic'>, 'app.Director': <class 'src.activity.models.Director'>, 'app.Movie': <class 'src.activity.models.Movie'>, 'app.Person': <class 'src.activity.models.Person'>, 'app.FollowRel': <class 'src.common.models.FollowRel'>}
+changes: []
+No changes detected.

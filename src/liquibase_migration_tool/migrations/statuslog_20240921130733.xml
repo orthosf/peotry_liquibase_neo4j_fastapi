@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <status id="statuslog_20240921130733.xml" connections="changelog_20240921130733.xml">
+
+                <model id="d9999ff5-aedf-45be-8be4-79aa5a430a47" name="app.User" type="StructuredNode">
+                    <fields id="app.User_fields_eb6964e4-95fa-493b-b62c-d5119d3b5c6a">
+                        <field id="app.User_fields_ce7b757b-24a9-4f84-8293-d433589d2389" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+<field id="app.User_fields_33fe8be8-6a03-4191-9cbb-75ff65f0828a" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+<field id="app.User_fields_be3bde6c-2292-4bf5-ab05-09797f7fd66d" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+<field id="app.User_fields_a88c2980-a864-4678-82c8-2d286c78c956" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+<field id="app.User_fields_0fa329ab-f516-4f3f-874f-6dbcd5df2206" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.User_relationships_a6b7cf53-7c00-493d-b135-9c05bcf9006e">
+                        <relationship id="app.User_relationships_9b7f53e2-e70c-419d-9aa8-dbc1a98bb1cc" name="following" property="RelationshipTo" index="False" constrains="True" model="FollowRel">following = RelationshipTo("FOLLOWING", "following", model=FollowRel)</relationship>
+<relationship id="app.User_relationships_467e1d04-d1a2-4982-ab7a-624120e3f958" name="followers" property="RelationshipFrom" index="False" constrains="True" model="FollowRel">followers = RelationshipFrom("FOLLOWING", "followers", model=FollowRel)</relationship>
+                    </relationships>
+                    <methods id="app.User_methods_d9feec56-7e2f-49bd-9eec-28e747d5ce47">
+                        <method id="app.User_methods_ad923e06-3162-43b0-8dd3-259a94d08544" name="DoesNotExist">DoesNotExist</method>
+<method id="app.User_methods_d6808bba-144d-4bf8-937c-458246310c4e" name="_build_merge_query">_build_merge_query</method>
+<method id="app.User_methods_8fea0604-e21d-4c8a-8fe7-1e101ed05c01" name="_pre_action_check">_pre_action_check</method>
+<method id="app.User_methods_350de5de-4e5b-4743-be41-7ddba8d616ad" name="create">create</method>
+<method id="app.User_methods_af9c18de-d9dd-4fbc-9172-6f80923b12ac" name="create_or_update">create_or_update</method>
+<method id="app.User_methods_31c9533c-b3df-4875-810f-2d716ad37892" name="cypher">cypher</method>
+<method id="app.User_methods_fd6b0232-5193-4828-932b-6d38bc048765" name="defined_properties">defined_properties</method>
+<method id="app.User_methods_47468dcd-30ae-4fa9-b900-67a278dc52a3" name="deflate">deflate</method>
+<method id="app.User_methods_8188023f-7bd9-4171-b40b-69d2f1e1f9cf" name="delete">delete</method>
+<method id="app.User_methods_e7a43ea0-b40a-4232-8e6d-4b8c86f6d33c" name="get_or_create">get_or_create</method>
+<method id="app.User_methods_5d198681-21f7-4743-87ea-cf565e992fa3" name="inflate">inflate</method>
+<method id="app.User_methods_abed9050-3d9e-4ea7-8fa5-216d43fbca60" name="inherited_labels">inherited_labels</method>
+<method id="app.User_methods_13e39918-5cb0-455e-b01a-1b704179e77b" name="inherited_optional_labels">inherited_optional_labels</method>
+<method id="app.User_methods_f4f3cf05-3b9c-420c-953e-a0e30127015d" name="labels">labels</method>
+<method id="app.User_methods_d460c85d-b059-4141-9777-d2ab0363d627" name="refresh">refresh</method>
+<method id="app.User_methods_8d4a5ee9-499f-49a0-b2ac-9049fdc31cbb" name="save">save</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="element_id"><property object at 0x7f1fa7bc7470></attribute><attribute name="email"><neomodel.properties.StringProperty object at 0x7f1fa7bee810></attribute><attribute name="first_name"><neomodel.properties.StringProperty object at 0x7f1fa7bee900></attribute><attribute name="followers"><neomodel.sync_.relationship_manager.RelationshipFrom object at 0x7f1fa7beea50></attribute><attribute name="following"><neomodel.sync_.relationship_manager.RelationshipTo object at 0x7f1fa7beeab0></attribute><attribute name="id"><property object at 0x7f1fa7bc74c0></attribute><attribute name="last_name"><neomodel.properties.StringProperty object at 0x7f1fa7beea80></attribute><attribute name="nodes"><neomodel.sync_.match.NodeSet object at 0x7f1fa7c1c800></attribute><attribute name="uid"><neomodel.properties.UniqueIdProperty object at 0x7f1fa7b97110></attribute><attribute name="username"><neomodel.properties.StringProperty object at 0x7f1fa7bee630></attribute><attribute name="was_saved"><property object at 0x7f1fa7bc7510></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+            
+                <model id="c3436dd3-e187-4624-95a3-5d53ac640195" name="app.Actor" type="StructuredNode">
+                    <fields id="app.Actor_fields_28ef0dd9-dbda-4ff6-b146-39e9b2b95fe3">
+                        <field id="app.Actor_fields_e34930d5-8db4-4ea9-90e1-685904d4aaad" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+<field id="app.Actor_fields_59060765-3f50-4615-ac05-90d7edff1592" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+<field id="app.Actor_fields_0d78132a-b839-4128-9295-2841f8864ae6" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+<field id="app.Actor_fields_8112be81-55c1-48ab-b44a-4c80a51f0bc4" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+<field id="app.Actor_fields_d2fb1875-fcb5-42f3-ae23-0d37845de27a" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.Actor_relationships_1c25ec78-b608-43d4-8a9f-3ac3c245e99d">
+                        <relationship id="app.Actor_relationships_324bc5ee-cd72-43fc-b0ac-6266aa9bc7ec" name="acted" property="RelationshipTo" index="False" constrains="True" model="None">acted = RelationshipTo("ACTEDIN", "acted", model=None)</relationship>
+                    </relationships>
+                    <methods id="app.Actor_methods_e70ee5c9-08b0-4339-a1a5-acea0fddcec8">
+                        <method id="app.Actor_methods_3e86e7ae-10b4-4771-831a-e0b2f208cdf8" name="DoesNotExist">DoesNotExist</method>
+<method id="app.Actor_methods_515aaf2c-5f4d-4cd2-b742-c59239f1d887" name="_build_merge_query">_build_merge_query</method>
+<method id="app.Actor_methods_5063ed3f-a5af-4818-b3c8-4c7235c60b44" name="_pre_action_check">_pre_action_check</method>
+<method id="app.Actor_methods_21eff3f2-9d48-4f73-b4b1-354120d4ae1f" name="create">create</method>
+<method id="app.Actor_methods_90f31344-85f6-48a5-9279-ce75eaf13ceb" name="create_or_update">create_or_update</method>
+<method id="app.Actor_methods_aaa1fca6-ac67-4481-81c4-988c08f66a50" name="cypher">cypher</method>
+<method id="app.Actor_methods_bfe20bb7-25a1-4f58-9f90-5b238641301c" name="defined_properties">defined_properties</method>
+<method id="app.Actor_methods_022127d1-2501-458c-8adc-0a1d50f66c6b" name="deflate">deflate</method>
+<method id="app.Actor_methods_caf821df-6df1-4db1-9a35-2bae14d537b2" name="delete">delete</method>
+<method id="app.Actor_methods_2df9fda6-a0fe-4fc4-badb-94f2303165b1" name="get_or_create">get_or_create</method>
+<method id="app.Actor_methods_9d3a397d-db01-4723-bc31-c74bdef59c1e" name="inflate">inflate</method>
+<method id="app.Actor_methods_deaa527c-b674-45d9-be74-14a876bef3e0" name="inherited_labels">inherited_labels</method>
+<method id="app.Actor_methods_48e57858-520b-40ee-b1a7-f2522fa5d41c" name="inherited_optional_labels">inherited_optional_labels</method>
+<method id="app.Actor_methods_c3b0ec03-841a-449b-a942-19b63631d89a" name="labels">labels</method>
+<method id="app.Actor_methods_b2dbae13-a481-4c93-b7b4-982e528cf979" name="refresh">refresh</method>
+<method id="app.Actor_methods_b1dbed6b-0eec-45cb-bf50-de82bd1e950b" name="save">save</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="acted"><neomodel.sync_.relationship_manager.RelationshipTo object at 0x7f1fa7beef90></attribute><attribute name="element_id"><property object at 0x7f1fa7bc7470></attribute><attribute name="email"><neomodel.properties.StringProperty object at 0x7f1fa7beee70></attribute><attribute name="first_name"><neomodel.properties.StringProperty object at 0x7f1fa7beeea0></attribute><attribute name="id"><property object at 0x7f1fa7bc74c0></attribute><attribute name="last_name"><neomodel.properties.StringProperty object at 0x7f1fa7beef60></attribute><attribute name="nodes"><neomodel.sync_.match.NodeSet object at 0x7f1fa7c1ca70></attribute><attribute name="uid"><neomodel.properties.UniqueIdProperty object at 0x7f1fa7beee40></attribute><attribute name="username"><neomodel.properties.StringProperty object at 0x7f1fa7beef00></attribute><attribute name="was_saved"><property object at 0x7f1fa7bc7510></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+            
+                <model id="c0ddb92c-fada-405d-9b95-e9534dabe921" name="app.Anime" type="StructuredNode">
+                    <fields id="app.Anime_fields_4851af32-3262-445f-8e27-b06c2f999407">
+                        <field id="app.Anime_fields_85073025-aa82-42fe-b341-b04498acdda9" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+<field id="app.Anime_fields_2ef1b0eb-1fb1-47b3-89d5-96d9d2975f73" name="title" property="StringProperty(255)" index="False" constrains="True">title = StringProperty(255)()</field>
+<field id="app.Anime_fields_bf99a3f4-cf52-4a9f-b72c-a32365bdbc58" name="releasedate" property="DateProperty" index="False" constrains="True">releasedate = DateProperty()</field>
+                    </fields>
+                    <relationships id="app.Anime_relationships_c4fdaa1d-b9da-4eb9-9b8c-870f344b7891">
+                        
+                    </relationships>
+                    <methods id="app.Anime_methods_0af63096-33f4-4393-9bc7-8836482d2b99">
+                        <method id="app.Anime_methods_48249190-4c7c-42b6-8880-2b2c38c24fb1" name="DoesNotExist">DoesNotExist</method>
+<method id="app.Anime_methods_b7cdc09f-fc11-4293-b8de-65b1af97a45c" name="_build_merge_query">_build_merge_query</method>
+<method id="app.Anime_methods_7d2c5272-3e52-40cb-ab1e-4f29e0edf1ad" name="_pre_action_check">_pre_action_check</method>
+<method id="app.Anime_methods_e52d9486-4023-44af-a6d7-34b70abc604e" name="create">create</method>
+<method id="app.Anime_methods_171b4d64-8de9-4fd7-9ed7-d3e95bac3678" name="create_or_update">create_or_update</method>
+<method id="app.Anime_methods_2a6004ef-ef3c-4c8c-b926-b47529ca46d7" name="cypher">cypher</method>
+<method id="app.Anime_methods_0f3acaac-d862-4f07-8e4a-9a242859b33e" name="defined_properties">defined_properties</method>
+<method id="app.Anime_methods_f6b3af5c-1dc1-4742-a0dc-616f3f2ac86a" name="deflate">deflate</method>
+<method id="app.Anime_methods_a6362d55-f0c7-4c8c-a6c5-14b447cce4e0" name="delete">delete</method>
+<method id="app.Anime_methods_0852a09b-5ce5-4a34-8a90-6d882e7f3c02" name="get_or_create">get_or_create</method>
+<method id="app.Anime_methods_5bf41f61-919d-4bc0-817d-dcb682a1b58e" name="inflate">inflate</method>
+<method id="app.Anime_methods_874c640b-d49c-4b38-a274-9fd7f904bfcb" name="inherited_labels">inherited_labels</method>
+<method id="app.Anime_methods_585ed83b-d9de-4650-a26d-0f3411b9a58c" name="inherited_optional_labels">inherited_optional_labels</method>
+<method id="app.Anime_methods_d1a7c6b6-50e3-4173-868d-bbec40be54e0" name="labels">labels</method>
+<method id="app.Anime_methods_9317946d-e265-426f-ad9f-a51e13cce3ad" name="refresh">refresh</method>
+<method id="app.Anime_methods_eb0678c5-24fa-4f85-bb00-edb9addde284" name="save">save</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="element_id"><property object at 0x7f1fa7bc7470></attribute><attribute name="id"><property object at 0x7f1fa7bc74c0></attribute><attribute name="nodes"><neomodel.sync_.match.NodeSet object at 0x7f1fa7c1cbf0></attribute><attribute name="releasedate"><neomodel.properties.DateProperty object at 0x7f1fa7bef260></attribute><attribute name="title"><neomodel.properties.StringProperty object at 0x7f1fa7bef200></attribute><attribute name="uid"><neomodel.properties.UniqueIdProperty object at 0x7f1fa7bef1a0></attribute><attribute name="was_saved"><property object at 0x7f1fa7bc7510></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+            
+                <model id="ce44dd4c-9c2c-4f6e-bc8f-e5c0ea3930ca" name="app.Comic" type="StructuredNode">
+                    <fields id="app.Comic_fields_2d7b8e71-b31d-4425-b26d-10015eafe227">
+                        <field id="app.Comic_fields_735a9cd3-8efe-4a4e-ab62-025439d92c45" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+<field id="app.Comic_fields_e300ef4c-f67f-4c9f-9cf1-feb7e9feba46" name="title" property="StringProperty(255)" index="False" constrains="True">title = StringProperty(255)()</field>
+<field id="app.Comic_fields_0fc5f4cd-ad1b-467d-802c-33e47d0fe8b0" name="releasedate" property="DateProperty" index="False" constrains="True">releasedate = DateProperty()</field>
+                    </fields>
+                    <relationships id="app.Comic_relationships_a867af39-40a4-42b2-8b42-45c03c2b9fe7">
+                        
+                    </relationships>
+                    <methods id="app.Comic_methods_ca166db0-ba3d-41cb-a808-3666d81452cf">
+                        <method id="app.Comic_methods_ffbea5b1-752b-48f1-a178-2e4cf97b9313" name="DoesNotExist">DoesNotExist</method>
+<method id="app.Comic_methods_39862bec-e2fe-4e82-9ad6-eb63be96de91" name="_build_merge_query">_build_merge_query</method>
+<method id="app.Comic_methods_6ad237a1-5625-4853-8f94-939200237360" name="_pre_action_check">_pre_action_check</method>
+<method id="app.Comic_methods_0bda8bb3-2460-4762-900c-b726082f5819" name="create">create</method>
+<method id="app.Comic_methods_c07662f5-25fd-4ece-b71d-f2da4566ef54" name="create_or_update">create_or_update</method>
+<method id="app.Comic_methods_49942231-0961-4846-b342-d9249bdde737" name="cypher">cypher</method>
+<method id="app.Comic_methods_ef0f2180-5644-4561-9f31-a3a186c2b1e3" name="defined_properties">defined_properties</method>
+<method id="app.Comic_methods_8a87cc2d-77ff-4b8b-a7f9-cc909b5058f6" name="deflate">deflate</method>
+<method id="app.Comic_methods_c85681f5-745e-4085-94d5-9969614dcf90" name="delete">delete</method>
+<method id="app.Comic_methods_ea623e86-9f30-43e5-b20c-e7b9b6393aff" name="get_or_create">get_or_create</method>
+<method id="app.Comic_methods_b031afd1-9ef1-4773-861f-f3353ac002ab" name="inflate">inflate</method>
+<method id="app.Comic_methods_e5dbaf35-e69a-4e69-987e-c7aba7feaa35" name="inherited_labels">inherited_labels</method>
+<method id="app.Comic_methods_501db730-1faf-4c19-974f-45908ce9af59" name="inherited_optional_labels">inherited_optional_labels</method>
+<method id="app.Comic_methods_e3f4f419-14a1-4b4e-bfa9-99efce5d0169" name="labels">labels</method>
+<method id="app.Comic_methods_c78b9ad7-caba-49dd-8168-7f70f13acf39" name="refresh">refresh</method>
+<method id="app.Comic_methods_157934a3-34ed-4867-9d8a-1e2a50c7b625" name="save">save</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="element_id"><property object at 0x7f1fa7bc7470></attribute><attribute name="id"><property object at 0x7f1fa7bc74c0></attribute><attribute name="nodes"><neomodel.sync_.match.NodeSet object at 0x7f1fa7c1cce0></attribute><attribute name="releasedate"><neomodel.properties.DateProperty object at 0x7f1fa7bef380></attribute><attribute name="title"><neomodel.properties.StringProperty object at 0x7f1fa7bef320></attribute><attribute name="uid"><neomodel.properties.UniqueIdProperty object at 0x7f1fa7bef290></attribute><attribute name="was_saved"><property object at 0x7f1fa7bc7510></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+            
+                <model id="57c2e4e1-0cd2-4a62-9867-5285ff39150f" name="app.Director" type="StructuredNode">
+                    <fields id="app.Director_fields_bc3efa98-cd15-475f-a313-6abd35fd7897">
+                        <field id="app.Director_fields_9d3e3adf-d57f-423d-823c-730ae87f1553" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+<field id="app.Director_fields_25900c3a-2620-4f49-8249-9f1ad767c948" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+<field id="app.Director_fields_f8e56535-b900-49b0-973b-854c7ef7a000" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+<field id="app.Director_fields_c2ef7dfe-7ec6-4394-9de7-64687d8e8faa" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+<field id="app.Director_fields_926d4842-1d10-4008-98f1-807927635a24" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.Director_relationships_fe67c462-8421-4a92-9cdf-2ee00b7bd18f">
+                        
+                    </relationships>
+                    <methods id="app.Director_methods_9ea40aea-542c-4d8c-8a65-c66764eaf32f">
+                        <method id="app.Director_methods_d96286b7-e200-47a3-9a4b-a171c7d02592" name="DoesNotExist">DoesNotExist</method>
+<method id="app.Director_methods_45798d9f-417c-4961-a267-aa8d2efff838" name="_build_merge_query">_build_merge_query</method>
+<method id="app.Director_methods_43feb8a3-fef8-418c-8164-08dc72fd530d" name="_pre_action_check">_pre_action_check</method>
+<method id="app.Director_methods_21e04620-f91a-4968-a3df-2c37fbbeb77c" name="create">create</method>
+<method id="app.Director_methods_b736dc47-b96a-496f-be32-0a6c88881ffc" name="create_or_update">create_or_update</method>
+<method id="app.Director_methods_77d84bb0-4ab9-4710-979b-c391682d800d" name="cypher">cypher</method>
+<method id="app.Director_methods_f42ae89f-7f7e-4a8c-a8bb-0109d6cf524a" name="defined_properties">defined_properties</method>
+<method id="app.Director_methods_27208fcf-9832-47e4-9bff-699627658a15" name="deflate">deflate</method>
+<method id="app.Director_methods_aa00eec5-41c6-4906-b848-ec49bdc2e061" name="delete">delete</method>
+<method id="app.Director_methods_b4409943-7c26-424b-b9f2-41065af6cc52" name="get_or_create">get_or_create</method>
+<method id="app.Director_methods_8396a10e-5bb8-47b5-9ef6-02ec6004fcf4" name="inflate">inflate</method>
+<method id="app.Director_methods_ac6e7edd-40ad-41bb-b8b7-0112c303ce8f" name="inherited_labels">inherited_labels</method>
+<method id="app.Director_methods_508764bf-3916-4731-bfe9-29f405f92f20" name="inherited_optional_labels">inherited_optional_labels</method>
+<method id="app.Director_methods_5a8d7950-72ea-47e3-acbd-9a3ee473469b" name="labels">labels</method>
+<method id="app.Director_methods_fd2f616c-bea7-49a2-bc11-adc3b3bff76c" name="refresh">refresh</method>
+<method id="app.Director_methods_ccec00d6-f19f-4ff0-b66d-75da194ae8f1" name="save">save</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="element_id"><property object at 0x7f1fa7bc7470></attribute><attribute name="email"><neomodel.properties.StringProperty object at 0x7f1fa7beefc0></attribute><attribute name="first_name"><neomodel.properties.StringProperty object at 0x7f1fa7beeff0></attribute><attribute name="id"><property object at 0x7f1fa7bc74c0></attribute><attribute name="last_name"><neomodel.properties.StringProperty object at 0x7f1fa7bef050></attribute><attribute name="nodes"><neomodel.sync_.match.NodeSet object at 0x7f1fa7c1cd70></attribute><attribute name="uid"><neomodel.properties.UniqueIdProperty object at 0x7f1fa842fb30></attribute><attribute name="username"><neomodel.properties.StringProperty object at 0x7f1fa7beef30></attribute><attribute name="was_saved"><property object at 0x7f1fa7bc7510></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+            
+                <model id="2d1e8373-a219-4509-967b-56a03f49ee1e" name="app.Movie" type="StructuredNode">
+                    <fields id="app.Movie_fields_50141e05-2fd5-4b83-953b-c383ab77f018">
+                        <field id="app.Movie_fields_4e2f6d34-740f-4c03-92c9-e164ee1d1d0a" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+<field id="app.Movie_fields_0e5e731a-f670-47e2-979e-8aa5d591c59b" name="title" property="StringProperty(255)" index="False" constrains="True">title = StringProperty(255)()</field>
+<field id="app.Movie_fields_35d7cdfa-f069-42a2-adf4-a521846ec1a1" name="releasedate" property="DateProperty" index="False" constrains="True">releasedate = DateProperty()</field>
+                    </fields>
+                    <relationships id="app.Movie_relationships_efd9f2cb-ea8a-4061-ba53-6b8ac3f332d5">
+                        
+                    </relationships>
+                    <methods id="app.Movie_methods_650b8628-cc6d-4858-a257-d4560172ad04">
+                        <method id="app.Movie_methods_58425161-cb49-490d-91ad-9253439e9976" name="DoesNotExist">DoesNotExist</method>
+<method id="app.Movie_methods_223aeff5-5081-48cd-b46d-8a667b20389e" name="_build_merge_query">_build_merge_query</method>
+<method id="app.Movie_methods_63f687af-740e-4d48-b910-1f7ae84b1ffa" name="_pre_action_check">_pre_action_check</method>
+<method id="app.Movie_methods_39f164aa-af9f-4029-916a-0b243fd73b6b" name="create">create</method>
+<method id="app.Movie_methods_f80d22f3-6bbf-43af-b60f-38d62d8e974c" name="create_or_update">create_or_update</method>
+<method id="app.Movie_methods_350f3b98-ce9a-4797-abd2-3a18dcef5ae2" name="cypher">cypher</method>
+<method id="app.Movie_methods_1c9c37e2-6290-4539-b7ed-831ef921e716" name="defined_properties">defined_properties</method>
+<method id="app.Movie_methods_4526138a-c3a4-48bc-be11-f114d771831b" name="deflate">deflate</method>
+<method id="app.Movie_methods_56648246-e884-4002-88a3-ee63a5d2d4eb" name="delete">delete</method>
+<method id="app.Movie_methods_4c9aa967-05c2-4e6a-9b38-e9e3674f75ad" name="get_or_create">get_or_create</method>
+<method id="app.Movie_methods_1e098914-2f02-4f9a-915b-6aa24a7f5ca0" name="inflate">inflate</method>
+<method id="app.Movie_methods_09f070ee-86db-4c1d-80a7-78a987c45aef" name="inherited_labels">inherited_labels</method>
+<method id="app.Movie_methods_26e30c37-f5ee-432f-8ecf-5238fdc9d6dc" name="inherited_optional_labels">inherited_optional_labels</method>
+<method id="app.Movie_methods_05b5393b-f369-4e54-82bc-d6f7b75053cd" name="labels">labels</method>
+<method id="app.Movie_methods_ee8f3a8b-64f0-4022-970c-9f71d0ea2529" name="refresh">refresh</method>
+<method id="app.Movie_methods_4426f0cd-673f-483c-94be-b99e6ecdc8d0" name="save">save</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="element_id"><property object at 0x7f1fa7bc7470></attribute><attribute name="id"><property object at 0x7f1fa7bc74c0></attribute><attribute name="nodes"><neomodel.sync_.match.NodeSet object at 0x7f1fa7c1ce00></attribute><attribute name="releasedate"><neomodel.properties.DateProperty object at 0x7f1fa7bef0e0></attribute><attribute name="title"><neomodel.properties.StringProperty object at 0x7f1fa7bef140></attribute><attribute name="uid"><neomodel.properties.UniqueIdProperty object at 0x7f1fa7bef080></attribute><attribute name="was_saved"><property object at 0x7f1fa7bc7510></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+            
+                <model id="0a454e13-1d63-4748-ac4c-2ae9fdeaac20" name="app.Person" type="StructuredNode">
+                    <fields id="app.Person_fields_b7d7d0bb-2e70-4d6c-878e-77464204f4b3">
+                        <field id="app.Person_fields_7358fe97-1f36-44ad-8e41-b50764b268ac" name="uid" property="UniqueIdProperty" index="False" constrains="True">uid = UniqueIdProperty()</field>
+<field id="app.Person_fields_526ebb86-dd0a-4a53-b4df-6a64aa54eae4" name="username" property="StringProperty(255)" index="False" constrains="True">username = StringProperty(255)()</field>
+<field id="app.Person_fields_e4ce3e5b-9f8e-47ce-bd8e-5dd538488b2f" name="email" property="StringProperty(255)" index="False" constrains="True">email = StringProperty(255)()</field>
+<field id="app.Person_fields_5cee02ac-046e-4f52-a735-0ac6a6aa8b24" name="first_name" property="StringProperty(255)" index="False" constrains="True">first_name = StringProperty(255)()</field>
+<field id="app.Person_fields_37b2eef9-acc9-4656-a0b0-da330f6f12c3" name="last_name" property="StringProperty(255)" index="False" constrains="True">last_name = StringProperty(255)()</field>
+                    </fields>
+                    <relationships id="app.Person_relationships_c7a58d7d-74e6-4f83-9998-7da23c92dd3e">
+                        
+                    </relationships>
+                    <methods id="app.Person_methods_b31ece25-1995-4f53-9267-2164566e9ac8">
+                        <method id="app.Person_methods_4a6f5c5c-5e9f-4a67-bf6e-80a096320d73" name="DoesNotExist">DoesNotExist</method>
+<method id="app.Person_methods_cf76ddb4-6cb4-4baa-b465-74fdf4dda72c" name="_build_merge_query">_build_merge_query</method>
+<method id="app.Person_methods_21019d22-882d-4039-bfb8-04133cdd889c" name="_pre_action_check">_pre_action_check</method>
+<method id="app.Person_methods_eefadfdd-6539-4cc8-96a4-cb33c92d6181" name="create">create</method>
+<method id="app.Person_methods_b8753d44-9cd2-40e1-819c-b319348b3f81" name="create_or_update">create_or_update</method>
+<method id="app.Person_methods_3208ec3a-3ddf-44ee-a765-4167b39f8d04" name="cypher">cypher</method>
+<method id="app.Person_methods_a42cc960-35a4-44a7-8196-994d1da14402" name="defined_properties">defined_properties</method>
+<method id="app.Person_methods_e2fe859c-536c-491d-a658-8870ea7cb6fe" name="deflate">deflate</method>
+<method id="app.Person_methods_012c9b9d-5498-4373-8c7c-0229e19e75c2" name="delete">delete</method>
+<method id="app.Person_methods_c0d47707-07fe-4da4-b707-66b771a188c9" name="get_or_create">get_or_create</method>
+<method id="app.Person_methods_2d91ab53-115a-4ece-b961-e864f419e10c" name="inflate">inflate</method>
+<method id="app.Person_methods_d985e8b7-92b4-40ed-9d24-ef36fad0bdc9" name="inherited_labels">inherited_labels</method>
+<method id="app.Person_methods_4d836a64-bcf4-43f5-8082-12e741178c6d" name="inherited_optional_labels">inherited_optional_labels</method>
+<method id="app.Person_methods_ad131e49-798d-45a3-8c33-03df7f780b79" name="labels">labels</method>
+<method id="app.Person_methods_f5dc12aa-a105-43b7-a9d8-00a83e41c185" name="refresh">refresh</method>
+<method id="app.Person_methods_ed540323-7339-44af-b6a5-0e9fac8948a8" name="save">save</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="element_id"><property object at 0x7f1fa7bc7470></attribute><attribute name="email"><neomodel.properties.StringProperty object at 0x7f1fa7beedb0></attribute><attribute name="first_name"><neomodel.properties.StringProperty object at 0x7f1fa7beede0></attribute><attribute name="id"><property object at 0x7f1fa7bc74c0></attribute><attribute name="last_name"><neomodel.properties.StringProperty object at 0x7f1fa7beee10></attribute><attribute name="nodes"><neomodel.sync_.match.NodeSet object at 0x7f1fa9df2c60></attribute><attribute name="uid"><neomodel.properties.UniqueIdProperty object at 0x7f1fa7beed50></attribute><attribute name="username"><neomodel.properties.StringProperty object at 0x7f1fa7beed80></attribute><attribute name="was_saved"><property object at 0x7f1fa7bc7510></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+            
+                <model id="f8b3819b-a9a8-48f6-a7c0-976773163498" name="app.FollowRel" type="StructuredNode">
+                    <fields id="app.FollowRel_fields_28873f10-f17b-4c85-919e-095d48462687">
+                        <field id="app.FollowRel_fields_4a074d31-a51b-4dce-b62d-44a6d3175741" name="since" property="DateTimeProperty" index="False" constrains="True">since = DateTimeProperty()</field>
+                    </fields>
+                    <relationships id="app.FollowRel_relationships_ad3788e9-3fb9-4949-b9ff-05fbaf3ce3a1">
+                        
+                    </relationships>
+                    <methods id="app.FollowRel_methods_38ecc343-50d5-42fd-b04b-f83b121a1c19">
+                        <method id="app.FollowRel_methods_fec59bbb-41a8-4c60-8ac9-fccf0389a18e" name="defined_properties">defined_properties</method>
+<method id="app.FollowRel_methods_97ed8d22-59fb-4847-a085-7e98d7b513a0" name="deflate">deflate</method>
+<method id="app.FollowRel_methods_399ba4a7-e80c-4321-971b-e7130e9317e2" name="end_node">end_node</method>
+<method id="app.FollowRel_methods_5b129f99-d7aa-4171-90ee-3ef6b60911e7" name="inflate">inflate</method>
+<method id="app.FollowRel_methods_078757af-7d24-44b4-a02f-f3c3745c377a" name="save">save</method>
+<method id="app.FollowRel_methods_e24267e7-1fd4-4bd3-aa8f-8c989cb24c4e" name="start_node">start_node</method>
+                    </methods>
+                    <attributes>
+                        <attribute name="element_id"><property object at 0x7f1fa7bfd3a0></attribute><attribute name="id"><property object at 0x7f1fa7bfd490></attribute><attribute name="since"><neomodel.properties.DateTimeProperty object at 0x7f1fa7bef3b0></attribute>
+                    </attributes>
+                    <is_new>False</is_new>
+                </model>
+                </status>
+</databaseStatusLog>

@@ -8,33 +8,23 @@ class Loader:
         self.migrations_dir = migrations_dir
 
     def load_historical_state(self):
-        #print("Entered load_historical_state")
         historical_models = {}
         for filename in sorted(os.listdir(self.migrations_dir)):
-            if filename.endswith('.xml') and filename.startswith('changelog'):
+            if filename.endswith('.xml'):
                 self._apply_migration(os.path.join(self.migrations_dir, filename), historical_models)
         print("Historical Models Loaded:", historical_models)  # Debug statement
         return StateApps(historical_models)
 
     def _apply_migration(self, file_path, historical_models):
-        #print(f"Entered _apply_migration for file: {file_path}")
         with open(file_path, 'r') as file:
             content = file.read().lstrip()  # Strip leading whitespace
         tree = ET.ElementTree(ET.fromstring(content))
         root = tree.getroot()
         namespaces = {'dbchangelog': 'http://www.liquibase.org/xml/ns/dbchangelog'}
-        #print(f"File content:\n{content}")
-        #print(f"tree: {tree}")
-        #print(f"root: {root}")
-        #print(f"root.findall: {root.findall('.//dbchangelog:changeSet', namespaces)}")
         for changeset in root.findall('.//dbchangelog:changeSet', namespaces):
-            #print(f"Processing changeset: {ET.tostring(changeset, encoding='unicode')}")  # Debug statement
             for change in changeset:
-                #print(f"Processing change: {ET.tostring(change, encoding='unicode')}")  # Debug statement
-                #print(f"Processing change.tag: {change.tag}")
                 if change.tag == '{http://www.liquibase.org/xml/ns/dbchangelog}cypher':
                     cypher_query = change.text.strip()
-                    #print(f"Processing cypher query: {cypher_query}")  # Debug statement
                     if cypher_query.startswith('CREATE (:'):
                         label = cypher_query.split('(:')[1].split(')')[0]
                         normalized_label = label.replace('app.app.', 'app.')
@@ -44,7 +34,6 @@ class Loader:
                                 'properties': []
                             }
                         })
-                        print(f"Added label to historical models: {label}")  # Debug statement
                     elif cypher_query.startswith('MATCH (n:'):
                         label = cypher_query.split('(n:')[1].split(')')[0]
                         normalized_label = label.replace('app.app.', 'app.')
@@ -55,11 +44,9 @@ class Loader:
                                     'name': property_name,
                                     'db_type': 'string'  # Assume string type for simplicity
                                 })
-                                print(f"Added property to historical model {label}: {property_name}")  # Debug statement
                         elif 'DETACH DELETE n' in cypher_query or 'DELETE n' in cypher_query:
                             if f'app.{normalized_label}' in historical_models:
                                 del historical_models[f'app.{normalized_label}']
-                                print(f"Deleted label from historical models: {label}")  # Debug statement
                         elif 'REMOVE n.' in cypher_query:
                             property_name = cypher_query.split('REMOVE n.')[1].split('\n')[0]
                             if f'app.{normalized_label}' in historical_models:
@@ -67,7 +54,6 @@ class Loader:
                                     p for p in historical_models[f'app.{normalized_label}']._meta['properties']
                                     if p['name'] != property_name
                                 ]
-                                print(f"Removed property from historical model {label}: {property_name}")  # Debug statement
                 elif change.tag == 'createTable':
                     table_name = change.get('tableName')
                     fields = []
@@ -83,7 +69,6 @@ class Loader:
                             'fields': fields
                         }
                     })
-                    print(f"Added table to historical models: {table_name}")  # Debug statement
                 elif change.tag == 'addColumn':
                     table_name = change.get('tableName')
                     column = change.find('.//column')
@@ -92,5 +77,17 @@ class Loader:
                             'name': column.get('name'),
                             'db_type': column.get('type')
                         })
-                        print(f"Added column to historical model {table_name}: {column.get('name')}")  # Debug statement
-                # Add more cases for other change types as needed
+        for model in root.findall('.//model'):
+            label = model.get('name')
+            properties = []
+            for field in model.findall('.//field'):
+                properties.append({
+                    'name': field.get('name'),
+                    'db_type': field.get('property')
+                })
+            historical_models[f'app.{label}'] = type(label, (), {
+                '_meta': {
+                    'label': f'app.{label}',
+                    'properties': properties
+                }
+            })

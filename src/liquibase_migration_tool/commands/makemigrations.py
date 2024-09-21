@@ -5,46 +5,46 @@ from autodetector import MigrationAutodetector
 from loader import Loader
 from state import StateApps
 from src.model_registry_global import apps
-#from src.liquibase_migration_tool.commands.autodetector import MigrationAutodetector
-#from src.liquibase_migration_tool.commands.loader import Loader
-#from src.liquibase_migration_tool.commands.state import StateApps
-#from src.liquibase_migration_tool.model_registry import apps
+from termcolor import colored
 
 def make_migrations(migrations_dir):
     loader = Loader(migrations_dir)
     historical_state = loader.load_historical_state()
     current_state = StateApps.from_apps(apps)
-    autodetector = MigrationAutodetector(current_state, historical_state)
+    autodetector = MigrationAutodetector(current_state, historical_state, migrations_dir)
     changes = autodetector.changes()
-    #print(f"model_registry_global Apps: {apps}")
-    #print(f"historical_state: {historical_state}")
-    #print(f"current_state: {current_state}")
-    #print(f"autodetector value: {autodetector}")
-    print(f"changes: {changes}")
+    status = autodetector.status()
+    print("Logging current state:")
+    #current_state.log_contents()
 
+    msg = f"current_state.items() ---- {dir(current_state)}"
+    print(colored(msg, "magenta"))
+
+    """
+    for attr_name, attr_value in current_state.__dict__.items():
+        #if not attr_name.startswith('__'):
+        msg = f"current_state.__dict__.items ----  {attr_name}: {attr_value}"
+        print(colored(msg, "red"))
+    for attr_name, attr_value in current_state.models.items():    
+        msg = f"current_state.models.items ---- {attr_name}: {attr_value}"
+        print(colored(msg, "cyan"))"""
+
+    statuslog = autodetector.create_statuslog()
+    autodetector.save_statuslog(statuslog, migrations_dir)
+    #msg = f"statuslog: {statuslog}"
+    #print(colored(msg, "red"))  
     if not changes:
         print("No changes detected.")
         return
+    else:
+        print("Changes detected")   
 
     changelog = autodetector.create_changelog()
-    migration_name = f"changelog_{datetime.now().strftime('%Y%m%d%H%M%S')}.xml"
-    migration_path = os.path.join(migrations_dir, migration_name)
-    #autodetector.save_changelog(changelog)
+    autodetector.save_changelog(changelog, migrations_dir)
+    msg = f"changes: {changes}" 
+    print(colored(msg, 'yellow'))    
+    
 
-    with open(migration_path, 'w') as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        f.write('<databaseChangeLog\n')
-        f.write('    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"\n')
-        f.write('    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n')
-        f.write('    xmlns:neo4j="http://www.liquibase.org/xml/ns/neo4j"\n')
-        f.write('    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog\n')
-        f.write('                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd\n')
-        f.write('                        http://www.liquibase.org/xml/ns/neo4j\n')
-        f.write('                        http://www.liquibase.org/xml/ns/neo4j/neo4j.xsd">\n')
-        f.write('\n'.join(changelog))
-        f.write('</databaseChangeLog>\n')
-
-    print(f"Created new migration: {migration_path}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

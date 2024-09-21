@@ -42,7 +42,25 @@ class Director(StructuredNode):
 class Movie(StructuredNode):
     uid = UniqueIdProperty()
     title = StringProperty(index=True)
-    releasedate = DateProperty(index=True)      
+    releasedate = DateProperty(index=True)     
+
+class Anime(StructuredNode):
+    uid = UniqueIdProperty()
+    title = StringProperty(index=True)
+    releasedate = DateProperty(index=True)     
+
+class Comic(StructuredNode):
+    uid = UniqueIdProperty()
+    title = StringProperty(index=True)
+    releasedate = DateProperty(index=True) 
+        
+    
+'''   
+class News(StructuredNode):
+    uid = UniqueIdProperty()
+    title = StringProperty(index=True)
+    releasedate = DateProperty(index=True) 
+'''          
     
 
     

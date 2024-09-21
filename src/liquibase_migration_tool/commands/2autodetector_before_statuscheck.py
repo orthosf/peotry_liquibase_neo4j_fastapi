@@ -2,8 +2,6 @@ import uuid
 import os
 from datetime import datetime
 from state import StateApps  # Ensure StateApps is imported
-from termcolor import colored
-
 
 class MigrationAutodetector:
     def __init__(self, current_state, historical_state, migrations_dir):
@@ -19,22 +17,11 @@ class MigrationAutodetector:
         return StateApps(normalized_models)
 
     def status(self):
-        print(f" --------------- Entered status ---------------------")
         status = []
         for model_label, model in self.current_state.models.items():
-            model_status = {
-                'label': model_label,
-                'meta': model._meta,
-                #'attributes': {attr: getattr(model, attr) for attr in dir(model) if not attr.startswith('__') and not callable(getattr(model, attr))},
-                #'methods': [method for method in dir(model) if callable(getattr(model, method)) and not method.startswith('__')],
-                'is_new': model_label not in self.historical_state.models
-            }
-            #msg = f"model_status: {model_status}"
-            #print(colored(msg, "blue"))   
-            status.append(model_status)
-        #msg = f"status: {status}"   
-        #print(colored(msg, "yellow"))        
-        return status
+            
+            if model_label not in self.historical_state.models:
+                status.append(('create_label', model)) 
 
     def changes(self):
         changes = []
@@ -204,33 +191,26 @@ class MigrationAutodetector:
                 """
 
     def create_statuslog(self):
-        print(f" --------------- Entered Create_status ---------------------")
-        status = self.status()
         statuslog = []
-        for model_status in status:
+        for model_label, model in self.current_state.models.items():
             fields = "\n".join([
-                #f'<field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index="False" constrains="True">{field["name"]} = {field["instance"]}()</field>'
-                f'                        <field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index="False" constrains="True">{field["name"]} = {field["instance"]}()</field>'
-                for field in model_status['meta']['fields']
+                f'<field id="{model_label}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["db_type"]}" index="False" constrains="True">{field["name"]} = {field["db_type"]}()</field>'
+                for field in model._meta.get('properties', [])
             ])
             relationships = "\n".join([
-                #f'<relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" index="False" constrains="True" model="{rel["model"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
-                f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" index="False" constrains="True" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
-                for rel in model_status['meta'].get('relationships', [])
+                f'<relationship id="{model_label}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["property"]}" index="False" constrains="True" model="{rel["model"]}">{rel["name"]} = {rel["type"]}("{rel["target"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
+                for rel in model._meta.get('relationships', [])
             ])
             statuslog.append(f"""
-                <model id="{uuid.uuid4()}" name="{model_status['label']}" type="StructuredNode">
-                    <fields id="{model_status['label']}_fields_{uuid.uuid4()}">
-{fields}
+                <model id="{uuid.uuid4()}" name="{model._meta['label']}" type="StructuredNode">
+                    <fields id="{model._meta['label']}_fields_{uuid.uuid4()}">
+                        {fields}
                     </fields>
-                    <relationships id="{model_status['label']}_relationships_{uuid.uuid4()}">
-{relationships}
+                    <relationships id="{model._meta['label']}_relationships_{uuid.uuid4()}">
+                        {relationships}
                     </relationships>
-                    <is_new>{model_status['is_new']}</is_new>
                 </model>
-""")
-        #msg = f"statuslog: {statuslog}"
-        #print(colored(msg, "blue"))  
+            """)
         return statuslog
 
     def save_statuslog(self, statuslog, migrations_dir):
@@ -238,7 +218,6 @@ class MigrationAutodetector:
         statuslog_path = os.path.join(migrations_dir, statuslog_name)
 
         with open(statuslog_path, "w") as file:
-            file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             file.write('<databaseStatusLog>\n')
             file.write(f'    <status id="{statuslog_name}" connections="changelog_{datetime.now().strftime("%Y%m%d%H%M%S")}.xml">\n')
             for model_status in statuslog:
