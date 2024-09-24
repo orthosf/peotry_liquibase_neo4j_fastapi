@@ -210,12 +210,13 @@ class MigrationAutodetector:
         for model_status in status:
             fields = "\n".join([
                 #f'<field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index="False" constrains="True">{field["name"]} = {field["instance"]}()</field>'
-                f'                        <field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index="False" constrains="True">{field["name"]} = {field["instance"]}()</field>'
+                f'                        <field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index={field["index"]} constraints={field["constraints"]} status="new", change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">{field["name"]} = {field["instance"]}()</field>'
                 for field in model_status['meta']['fields']
             ])
             relationships = "\n".join([
                 #f'<relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" index="False" constrains="True" model="{rel["model"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
-                f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" index="False" constrains="True" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
+                #f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" index={rel["index"]} constrains="True" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
+                f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
                 for rel in model_status['meta'].get('relationships', [])
             ])
             statuslog.append(f"""

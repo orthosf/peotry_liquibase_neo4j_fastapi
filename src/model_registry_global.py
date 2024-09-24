@@ -45,7 +45,28 @@ def generate_meta(model_class):
         if isinstance(prop, (UniqueIdProperty, StringProperty, IntegerProperty, FloatProperty, BooleanProperty, DateTimeProperty, DateProperty)):
             db_type ='uuid' if isinstance(prop, UniqueIdProperty) else 'varchar(255)' if isinstance(prop, StringProperty) else 'int' if isinstance(prop, IntegerProperty) else 'float' if isinstance(prop, FloatProperty) else 'boolean' if isinstance(prop, BooleanProperty) else 'datetime' if isinstance(prop, DateTimeProperty) else 'date'
             instance = 'UniqueIdProperty' if isinstance(prop, UniqueIdProperty) else 'StringProperty(255)' if isinstance(prop, StringProperty) else 'IntegerProperty' if isinstance(prop, IntegerProperty) else 'FloatProperty' if isinstance(prop, FloatProperty) else 'BooleanProperty' if isinstance(prop, BooleanProperty) else 'DateTimeProperty' if isinstance(prop, DateTimeProperty) else 'DateProperty'
-            fields.append({'name': name, 'db_type': db_type, "instance": instance})
+            index = getattr(prop, 'index', False)
+            constraints = {
+                'default': 'auto-generated' if isinstance(prop, UniqueIdProperty) else getattr(prop, 'default', None),
+                'unique': getattr(prop, 'unique', False),
+                'index': getattr(prop, 'index', False),
+                'required': getattr(prop, 'required', False),
+                'max_length': getattr(prop, 'max_length', None),
+                'min_length': getattr(prop, 'min_length', None),
+                'choices': getattr(prop, 'choices', None),
+                'lowercase': getattr(prop, 'lowercase', False),
+                'uppercase': getattr(prop, 'uppercase', False),
+                'regex': getattr(prop, 'regex', None),
+                'unique_index': getattr(prop, 'unique_index', False),
+                'max_value': getattr(prop, 'max_value', None),
+                'min_value': getattr(prop, 'min_value', None)
+            }
+            fields.append({
+                    'name': name, 
+                    'db_type': db_type, 
+                    "instance": instance,
+                    'index': index,
+                    'constraints': constraints})
         elif isinstance(prop, (RelationshipTo, RelationshipFrom)):
             relationship = {
                 'name': name,
@@ -110,8 +131,8 @@ imported_modules = set()
 for model in get_model_classes(imported_modules):
 
     model._meta = generate_meta(model)
-    #msg = f"model._meta: {model._meta}"
-    #print (colored(msg, 'cyan')) 
+    msg = f"model._meta: {model._meta}"
+    print (colored(msg, 'cyan')) 
     #msg = f"Model: {model}"
     #print (colored(msg, 'red'))   
 
