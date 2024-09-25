@@ -131,8 +131,8 @@ imported_modules = set()
 for model in get_model_classes(imported_modules):
 
     model._meta = generate_meta(model)
-    msg = f"model._meta: {model._meta}"
-    print (colored(msg, 'cyan')) 
+    #msg = f"model._meta: {model._meta}"
+    #print (colored(msg, 'cyan')) 
     #msg = f"Model: {model}"
     #print (colored(msg, 'red'))   
 

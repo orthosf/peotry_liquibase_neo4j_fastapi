@@ -8,8 +8,7 @@
                         http://www.liquibase.org/xml/ns/neo4j
                         http://www.liquibase.org/xml/ns/neo4j/neo4j.xsd">
 
-    <changeSet id="55ebcfe9-269b-4109-9e05-769eeef643e6" author="liquibase">
-        <cypher>MATCH (n:app.app.Person)
-        DETACH DELETE n</cypher>
-    </changeSet>
-    </databaseChangeLog>
+                <changeSet id="1680fad7-b5df-45db-8d87-f0709f0472e2" author="liquibase">
+                    <cypher>CREATE (:app.News)</cypher>
+                </changeSet>
+                </databaseChangeLog>

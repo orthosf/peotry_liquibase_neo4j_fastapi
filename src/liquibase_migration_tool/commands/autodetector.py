@@ -3,13 +3,15 @@ import os
 from datetime import datetime
 from state import StateApps  # Ensure StateApps is imported
 from termcolor import colored
+import html
 
 
 class MigrationAutodetector:
-    def __init__(self, current_state, historical_state, migrations_dir):
+    def __init__(self, current_state, historical_state, migrations_dir, historical_statuslog):
         self.current_state = self._normalize_state(current_state)
         self.historical_state = self._normalize_state(historical_state)
         self.migrations_dir = migrations_dir
+        self.historical_statuslog = historical_statuslog
 
     def _normalize_state(self, state):
         normalized_models = {}
@@ -18,7 +20,7 @@ class MigrationAutodetector:
             normalized_models[normalized_label] = model
         return StateApps(normalized_models)
 
-    def status(self):
+    """def status(self):
         print(f" --------------- Entered status ---------------------")
         status = []
         for model_label, model in self.current_state.models.items():
@@ -34,7 +36,21 @@ class MigrationAutodetector:
             status.append(model_status)
         #msg = f"status: {status}"   
         #print(colored(msg, "yellow"))        
+        return status"""
+
+    def status(self):
+        print(f" --------------- Entered status ---------------------")
+        status = []
+        for model_label, model in self.current_state.models.items():
+            if model_label not in self.historical_statuslog.models:
+                model_status = {
+                    'label': model_label,
+                    'meta': model._meta,
+                    'is_new': True
+                }
+                status.append(model_status)
         return status
+
 
     def changes(self):
         changes = []
@@ -136,7 +152,8 @@ class MigrationAutodetector:
             f.write('\n'.join(changelog))
             f.write('</databaseChangeLog>\n')
 
-        print(f"Created new migration: {migration_path}")
+        msg = f"Created new migration: {migration_path}"
+        print(colored(msg, "green"))
 
     def _create_label_changeset(self, model):
         return f"""
@@ -206,45 +223,95 @@ class MigrationAutodetector:
     def create_statuslog(self):
         print(f" --------------- Entered Create_status ---------------------")
         status = self.status()
-        statuslog = []
-        for model_status in status:
-            fields = "\n".join([
-                #f'<field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index="False" constrains="True">{field["name"]} = {field["instance"]}()</field>'
-                f'                        <field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index={field["index"]} constraints={field["constraints"]} status="new", change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">{field["name"]} = {field["instance"]}()</field>'
-                for field in model_status['meta']['fields']
-            ])
-            relationships = "\n".join([
-                #f'<relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" index="False" constrains="True" model="{rel["model"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
-                #f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" index={rel["index"]} constrains="True" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
-                f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}", "{rel["name"]}", model={rel["model"]})</relationship>'
-                for rel in model_status['meta'].get('relationships', [])
-            ])
-            statuslog.append(f"""
-                <model id="{uuid.uuid4()}" name="{model_status['label']}" type="StructuredNode">
-                    <fields id="{model_status['label']}_fields_{uuid.uuid4()}">
+
+        if status:
+            statuslog = []
+            msg = f'statuslog:{statuslog}'
+            print(colored(msg, "cyan"))
+            for model_status in status:
+                fields = "\n".join([
+                    f'''                        <field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" property="{field["instance"]}" index="{field["index"]}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            {field["name"]} = {field["instance"]}()
+                            <constraints>
+{self._format_constraints(field["constraints"], indent_level=8)}
+                            </constraints>
+                        </field>'''
+                    for field in model_status['meta']['fields']
+                ])
+                relationships = "\n".join([
+                    f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}" "{rel["name"]}" model={rel["model"]})</relationship>'
+                    for rel in model_status['meta'].get('relationships', [])
+                ])
+                statuslog.append(f"""
+                    <model id="{uuid.uuid4()}" name="{model_status['label']}" type="StructuredNode">
+                        <fields id="{model_status['label']}_fields_{uuid.uuid4()}">
 {fields}
-                    </fields>
-                    <relationships id="{model_status['label']}_relationships_{uuid.uuid4()}">
+                        </fields>
+                        <relationships id="{model_status['label']}_relationships_{uuid.uuid4()}">
 {relationships}
-                    </relationships>
-                    <is_new>{model_status['is_new']}</is_new>
-                </model>
+                        </relationships>
+                        <is_new>{model_status['is_new']}</is_new>
+                    </model>
 """)
-        #msg = f"statuslog: {statuslog}"
-        #print(colored(msg, "blue"))  
-        return statuslog
+            msg = f'statuslog:{statuslog}'
+            print(colored(msg, "yellow"))
+            return statuslog
+        else:
+            statuslog = []
+            #msg = "No status changes detected."
+            #print(colored(msg, "red"))
+            #msg = f'statuslog:{statuslog}'
+            #print(colored(msg, "yellow"))
+            return statuslog
 
     def save_statuslog(self, statuslog, migrations_dir):
-        statuslog_name = f"statuslog_{datetime.now().strftime('%Y%m%d%H%M%S')}.xml"
-        statuslog_path = os.path.join(migrations_dir, statuslog_name)
+        if not statuslog:
+            msg = f'statuslog:{statuslog}'
+            print(colored(msg, "yellow"))
+            msg = "No status changes detected."
+            print(colored(msg, "red"))
+            return
+        else:
+            print("Status changes detected") 
+            msg = f'statuslog:{statuslog}'
+            print(colored(msg, "yellow"))  
+            statuslog_name = f"statuslog_{datetime.now().strftime('%Y%m%d%H%M%S')}.xml"
+            statuslog_path = os.path.join(migrations_dir, statuslog_name)
 
-        with open(statuslog_path, "w") as file:
-            file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-            file.write('<databaseStatusLog>\n')
-            file.write(f'    <status id="{statuslog_name}" connections="changelog_{datetime.now().strftime("%Y%m%d%H%M%S")}.xml">\n')
-            for model_status in statuslog:
-                file.write(model_status)
-            file.write('    </status>\n')
-            file.write('</databaseStatusLog>')
+            with open(statuslog_path, "w") as file:
+                file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+                file.write('<databaseStatusLog>\n')
+                file.write(f'    <status id="{statuslog_name}" connections="changelog_{datetime.now().strftime("%Y%m%d%H%M%S")}.xml">\n')
+                for model_status in statuslog:
+                    file.write(model_status)
+                file.write('    </status>\n')
+                file.write('</databaseStatusLog>')
+            msg = f"Statuslog saved to {statuslog_path}"
+            print(colored(msg, "green"))
 
-        print(f"Statuslog saved to {statuslog_path}")
+    def _format_constraints(self, constraints, indent_level=0):
+        indent = ' ' * indent_level
+        inner_indent = ' ' * (indent_level + 7)
+        formatted_constraints = []
+        for key, value in constraints.items():
+            if key == "choices" and isinstance(value, dict):
+                choices = "\n".join([
+                    f'                                    <choice id="choice_{i}" name="{html.escape(str(k))}">{html.escape(str(v))}</choice>'
+                    for i, (k, v) in enumerate(value.items(), 1)
+                ])
+                formatted_constraints.append(f'                                <constraint name="{key}">\n{choices}\n{indent}                        </constraint>')
+            else:
+                formatted_constraints.append(f'                                <constraint name="{key}">{self._format_constraint_value(value)}</constraint>')
+        return "\n".join(formatted_constraints) 
+
+    def _format_constraint_value(self, value):
+        if callable(value):
+            return "callable"
+        elif value is None:
+            return "null"
+        elif isinstance(value, bool):
+            return str(value).lower()
+        elif isinstance(value, (int, float)):
+            return str(value)
+        else:
+            return html.escape(str(value))

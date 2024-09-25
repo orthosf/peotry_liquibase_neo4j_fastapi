@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:neo4j="http://www.liquibase.org/xml/ns/neo4j"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/neo4j
+                        http://www.liquibase.org/xml/ns/neo4j/neo4j.xsd">
+
+                <changeSet id="c068f55c-442e-4c2e-8a84-3e6eec66c558" author="liquibase">
+                    <cypher>CREATE (:app.User)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="de0f4022-49f2-42bd-8671-ed6554db7481" author="liquibase">
+                    <cypher>CREATE (:app.UserProfile)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="bb37ded5-f698-4911-aa9d-8211c957a900" author="liquibase">
+                    <cypher>CREATE (:app.Actor)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="79369c94-9bf9-4845-b8da-384cb621f2f9" author="liquibase">
+                    <cypher>CREATE (:app.Anime)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="d016be85-1eff-4dcb-badf-d1e92bf1f62d" author="liquibase">
+                    <cypher>CREATE (:app.Comic)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="582f3ea0-a434-4941-8bdb-cac1966e9507" author="liquibase">
+                    <cypher>CREATE (:app.Director)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="d55331e1-3966-47e6-8a0c-04799ad15667" author="liquibase">
+                    <cypher>CREATE (:app.Movie)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="2e2aacd2-62c8-4136-8862-d2249b736169" author="liquibase">
+                    <cypher>CREATE (:app.Person)</cypher>
+                </changeSet>
+                
+
+                <changeSet id="4d01a6a9-aa17-4a23-92f5-bc95291e15cd" author="liquibase">
+                    <cypher>CREATE (:app.FollowRel)</cypher>
+                </changeSet>
+                </databaseChangeLog>

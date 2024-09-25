@@ -55,12 +55,11 @@ class Comic(StructuredNode):
     releasedate = DateProperty(index=True) 
         
     
-'''   
+  
 class News(StructuredNode):
     uid = UniqueIdProperty()
     title = StringProperty(index=True)
-    releasedate = DateProperty(index=True) 
-'''          
+    releasedate = DateProperty(index=True)          
     
 
     

@@ -13,7 +13,7 @@ class Loader:
         for filename in sorted(os.listdir(self.migrations_dir)):
             if filename.endswith('.xml') and filename.startswith('changelog'):
                 self._apply_migration(os.path.join(self.migrations_dir, filename), historical_models)
-        print("Historical Models Loaded:", historical_models)  # Debug statement
+        #print("Historical Models Loaded:", historical_models)  # Debug statement
         return StateApps(historical_models)
 
     def _apply_migration(self, file_path, historical_models):

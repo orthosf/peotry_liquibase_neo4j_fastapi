@@ -6,12 +6,15 @@ from loader import Loader
 from state import StateApps
 from src.model_registry_global import apps
 from termcolor import colored
+from statuslogLoader import StatuslogLoader
 
 def make_migrations(migrations_dir):
     loader = Loader(migrations_dir)
     historical_state = loader.load_historical_state()
+    statuslog_loader = StatuslogLoader(migrations_dir)
+    historical_statuslog = statuslog_loader.load_historical_statuslog()
     current_state = StateApps.from_apps(apps)
-    autodetector = MigrationAutodetector(current_state, historical_state, migrations_dir)
+    autodetector = MigrationAutodetector(current_state, historical_state, migrations_dir, historical_statuslog)
     changes = autodetector.changes()
     status = autodetector.status()
     print("Logging current state:")

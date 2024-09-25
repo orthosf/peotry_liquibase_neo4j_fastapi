@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <status id="statuslog_20240925003517.xml" connections="changelog_20240925003517.xml">
+
+                    <model id="899f25a9-e16d-4c8f-a560-a3c949919ed5" name="app.User" type="StructuredNode">
+                        <fields id="app.User_fields_fe41b23b-fd9c-464d-bd20-4c5984ad9979">
+                        <field id="app.User_fields_995b90ae-c835-4e06-b3c0-e25aee87dbc5" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_4c5bbd65-e1ad-4e81-8135-79dff9d0e52d" name="username" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            username = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_1e18c17b-6b45-4618-bd3b-18a6da5f4258" name="email" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            email = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_00de6d49-03d4-427c-8040-57077fa490e5" name="first_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            first_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_7d9f3417-ea18-42cb-974d-446318f5c862" name="last_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            last_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.User_relationships_63c97869-bd01-4aac-b133-bb2ffedb10fa">
+                        <relationship id="app.User_relationships_03ce931b-354f-4962-a626-f1a0fea9ff5d" name="following" property="RelationshipTo" model="FollowRel" relation_name="FOLLOWING" direction="1">following = RelationshipTo("FOLLOWING" "following" model=FollowRel)</relationship>
+                        <relationship id="app.User_relationships_4eed805b-9353-4a73-b6ae-dd2ebb1c0f2f" name="followers" property="RelationshipFrom" model="FollowRel" relation_name="FOLLOWING" direction="-1">followers = RelationshipFrom("FOLLOWING" "followers" model=FollowRel)</relationship>
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="a14dd871-e135-402a-bb2a-2bae425465e2" name="app.UserProfile" type="StructuredNode">
+                        <fields id="app.UserProfile_fields_00c3b387-6baa-4da6-a04d-7e8ae92c3f01">
+                        <field id="app.UserProfile_fields_e3e743b2-1a6b-4f5a-945f-e1e5aeee68ec" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_b19b32c2-5639-4890-bc4f-ad75dfdefde1" name="username" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            username = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">30</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_c995dff1-8fc1-4887-964e-e7748930cdfc" name="email" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            email = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">true</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_e670b84b-8a8d-4560-ac92-db91708a6dac" name="first_name" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            first_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">true</constraint>
+                                <constraint name="max_length">50</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_e6a689d0-4400-4b00-bb12-57639443503b" name="last_name" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            last_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">true</constraint>
+                                <constraint name="max_length">50</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_b9c7637e-86b8-4c4f-9cf8-5dd5167dd03f" name="robot" property="BooleanProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            robot = BooleanProperty()
+                            <constraints>
+                                <constraint name="default">false</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_b8fd2f90-97ef-41e3-aa24-8e7280b5d886" name="role" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            role = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">user</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">
+                                    <choice id="choice_1" name="admin">Admin</choice>
+                                    <choice id="choice_2" name="user">User</choice>
+                                    <choice id="choice_3" name="guest">Guest</choice>
+                                </constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_6810c1ea-1143-4cc6-8de3-cc3689f40cca" name="country" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            country = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_1d116521-8798-492e-9a00-9e6c3d315b36" name="currency" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            currency = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">USD</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">3</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_556f347f-2375-4a71-b99b-0b60fd57a6d8" name="phone_number" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            phone_number = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_8f29478c-6be1-4c9f-877a-f5b36667e433" name="age" property="IntegerProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            age = IntegerProperty()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_aef51adb-ef98-4506-a325-d4b9f0fd98da" name="height" property="FloatProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            height = FloatProperty()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.UserProfile_fields_9bdbe13c-4895-45a7-bae9-b0662fdaeb34" name="bio" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            bio = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">250</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.UserProfile_relationships_f83fa1d1-6a14-4fdc-ae07-3b147959447d">
+
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="e90616c3-7eb3-4235-adb6-53f04eadc30f" name="app.Actor" type="StructuredNode">
+                        <fields id="app.Actor_fields_12cba2ee-0cb4-44e3-bb7a-9e0b9f3922d0">
+                        <field id="app.Actor_fields_bedf1268-e38e-45f2-ad46-77abd9ee4e44" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Actor_fields_b1046df3-112d-49fb-ba8e-70239721ea3d" name="username" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            username = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Actor_fields_099129ee-5640-40e2-b403-c14dbb3eb131" name="email" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            email = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Actor_fields_a108bafe-e06e-46af-a2bc-af86a389c603" name="first_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            first_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Actor_fields_88c6f04e-f05d-4771-99d1-83303e8fe0ff" name="last_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            last_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.Actor_relationships_5064550d-ddf5-4729-bf06-9c8de79ce998">
+                        <relationship id="app.Actor_relationships_29882d73-95c4-435e-b333-b16ada47b6b2" name="acted" property="RelationshipTo" model="None" relation_name="ACTEDIN" direction="1">acted = RelationshipTo("ACTEDIN" "acted" model=None)</relationship>
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="c88dcc83-394d-49fc-b352-491c954faea7" name="app.Anime" type="StructuredNode">
+                        <fields id="app.Anime_fields_a42d7b94-0204-4272-bf67-533d4c3cb449">
+                        <field id="app.Anime_fields_c8a27136-9a49-4811-9118-e641a1c730b0" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Anime_fields_cb584a86-b547-4150-b055-be1b3957962c" name="title" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            title = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Anime_fields_b6824805-bf33-4ee2-be38-554a78949ccc" name="releasedate" property="DateProperty" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            releasedate = DateProperty()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.Anime_relationships_dd9f80cb-0e28-4fb7-9e01-c4691047f3c1">
+
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="03691de7-4dff-4f74-b597-210d00402364" name="app.Comic" type="StructuredNode">
+                        <fields id="app.Comic_fields_0f8936a9-53a1-43c2-8282-8511f81c0328">
+                        <field id="app.Comic_fields_f7c57c0f-020e-44a5-8c5c-5e207b62d63a" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Comic_fields_6f134566-9e8a-48cd-ba29-1f56a39dd63c" name="title" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            title = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Comic_fields_0db8eac0-868b-4215-95ab-8f126df36110" name="releasedate" property="DateProperty" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            releasedate = DateProperty()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.Comic_relationships_e3d05482-0e5e-4c44-85c6-8bcc372b2705">
+
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="f17856f2-c4de-4f0f-92d1-56be0e5d644b" name="app.Director" type="StructuredNode">
+                        <fields id="app.Director_fields_200d183e-375a-4a0d-b72a-e66f80b5e097">
+                        <field id="app.Director_fields_224e8b42-855b-4c14-b348-8626c0a4b0b0" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Director_fields_99149124-7431-4e57-951c-986bb18d4856" name="username" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            username = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Director_fields_216e34a1-807f-4449-a14c-623eb4679543" name="email" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            email = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Director_fields_570a99a3-d38c-4d20-abf6-cd6c66448723" name="first_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            first_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Director_fields_32c2a080-0d71-424a-be75-27f3f4cdbf15" name="last_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            last_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.Director_relationships_2a8b1c9b-1169-4e6f-8e2f-3f10fd97c1f7">
+
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="7087b8d4-0eb2-4f09-a000-24f9eca06322" name="app.Movie" type="StructuredNode">
+                        <fields id="app.Movie_fields_8d218e01-9db8-455c-8128-3d4f6e5a03ef">
+                        <field id="app.Movie_fields_3cf8d3e3-bbf7-4191-9e00-3a146ecc2006" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Movie_fields_d061cb79-7525-41fc-91eb-bedf05405179" name="title" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            title = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Movie_fields_3e16bbe6-7775-4e0b-955e-9df9a7f3ce7d" name="releasedate" property="DateProperty" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            releasedate = DateProperty()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.Movie_relationships_52c2e2a9-1d58-47a8-8b23-22a6deabfa32">
+
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="5730f002-3cc0-4c1f-a8c9-88e0f7f89464" name="app.Person" type="StructuredNode">
+                        <fields id="app.Person_fields_0233e630-a903-4229-a7e2-804d8fe6477e">
+                        <field id="app.Person_fields_e6b0b9f5-c71f-4419-aec1-1d82d68e34e6" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Person_fields_c243c59b-30ac-40df-9226-cdce57ee6fb5" name="username" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            username = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Person_fields_05d105c7-dea8-43f2-ba17-0c3045786f7e" name="email" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            email = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Person_fields_5cf621b8-5b91-4c8b-b068-256ae5740d57" name="first_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            first_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.Person_fields_f8d64024-fad2-4d0b-839a-3ee631ad54d8" name="last_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            last_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.Person_relationships_19c23fe8-5e73-4d0f-8b57-e7623f8605fc">
+
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+
+                    <model id="3b0c4c6c-5cf1-4b8c-bdcb-37efe4e6649c" name="app.FollowRel" type="StructuredNode">
+                        <fields id="app.FollowRel_fields_b44e4d61-e8c2-44f7-9c8e-36065d457d45">
+                        <field id="app.FollowRel_fields_baec0b62-05c5-43e5-a2c0-4a0a01260330" name="since" property="DateTimeProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            since = DateTimeProperty()
+                            <constraints>
+                                <constraint name="default">callable</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.FollowRel_relationships_9b85ba8d-e6be-42d7-b440-7e1597b73dc0">
+
+                        </relationships>
+                        <is_new>True</is_new>
+                    </model>
+    </status>
+</databaseStatusLog>
