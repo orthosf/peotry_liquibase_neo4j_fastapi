@@ -8,8 +8,7 @@ class StatuslogLoader:
 
     def load_historical_statuslog(self):
         historical_statuslog_models = {}
-        #for filename in sorted(os.listdir(self.migrations_dir), reverse=True):
-        for filename in sorted(os.listdir(self.migrations_dir)):
+        for filename in sorted(os.listdir(self.migrations_dir), reverse=True):
             if filename.endswith('.xml') and filename.startswith('statuslog'):
                 self._apply_statuslog(os.path.join(self.migrations_dir, filename), historical_statuslog_models)
         return StateApps(historical_statuslog_models)
@@ -27,10 +26,10 @@ class StatuslogLoader:
             for model in root.findall('.//model'):
                 model_name = model.get('name')
                 model_type = model.get('type')
-                status_element = model.find('status')
-                status = status_element.text.lower() if status_element is not None else None
+                is_new_element = model.find('is_new')
+                is_new = is_new_element.text.lower() == 'true' if is_new_element is not None else False
 
-                if status == "new" or model_name not in historical_statuslog_models:
+                if is_new or model_name not in historical_statuslog_models:
                     fields = []
                     for field in model.findall('.//field'):
                         fields.append({
@@ -58,11 +57,6 @@ class StatuslogLoader:
                             'relationships': relationships
                         }
                     })
-                    print(f"Added model to historical model {model_name}")
-                elif status == "remove" and model_name in historical_statuslog_models:
-                    del historical_statuslog_models[model_name]
-                    print(f"Deleted model from historical model {model_name}")
-            
         except ET.ParseError as e:
             print(f"Error parsing XML file: {file_path}")
             print(f"Error details: {e}")

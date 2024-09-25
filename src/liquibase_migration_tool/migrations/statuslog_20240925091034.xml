@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <status id="statuslog_20240925091034.xml" connections="changelog_20240925091034.xml">
+
+                    <model id="f1575065-fd3e-465e-9b2a-ddefdce27500" name="app.News" type="StructuredNode">
+                        <fields id="app.News_fields_8acb1b97-1228-4022-b664-e5814dbc8cf5">
+                        <field id="app.News_fields_afd403f9-d74a-4316-bd2d-4db3672977f8" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default">auto-generated</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">false</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">true</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.News_fields_26f36722-0d85-4d3e-a1ee-80e640be4233" name="title" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            title = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.News_fields_2591d8d0-0698-499e-97e1-fec97687f14e" name="releasedate" property="DateProperty" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            releasedate = DateProperty()
+                            <constraints>
+                                <constraint name="default">null</constraint>
+                                <constraint name="unique">false</constraint>
+                                <constraint name="index">true</constraint>
+                                <constraint name="required">false</constraint>
+                                <constraint name="max_length">null</constraint>
+                                <constraint name="min_length">null</constraint>
+                                <constraint name="choices">null</constraint>
+                                <constraint name="lowercase">false</constraint>
+                                <constraint name="uppercase">false</constraint>
+                                <constraint name="regex">null</constraint>
+                                <constraint name="unique_index">false</constraint>
+                                <constraint name="max_value">null</constraint>
+                                <constraint name="min_value">null</constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.News_relationships_a98f9c1e-1b6e-4d15-96c3-cf6a1614414a">
+
+                        </relationships>
+                        <status>new</status>
+                        
+
+                    </model>
+    </status>
+</databaseStatusLog>

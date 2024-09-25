@@ -46,6 +46,7 @@ class MigrationAutodetector:
                 model_status = {
                     'label': model_label,
                     'meta': model._meta,
+                    'is_new': True
                     'status': "new"
                 }
                 status.append(model_status)
@@ -69,14 +70,15 @@ class MigrationAutodetector:
         return changes
 
     def _detect_removed_labels_status(self, status):
-        for label in self.historical_state.models:
-            if label not in self.current_state.models:
-                model_status = {
-                    'label': label,
-                    'meta': self.historical_state.models[label]._meta,
-                    'status': "remove"
-                }
-                status.append(model_status)
+    for label in self.historical_state.models:
+        if label not in self.current_state.models:
+            model_status = {
+                'label': label,
+                'meta': self.historical_state.models[label]._meta,
+                'is_removed': True
+                'status': "remove"
+            }
+            status.append(model_status)
 
 
     def _detect_property_changes(self, current_model, historical_model, changes):       
@@ -250,7 +252,7 @@ class MigrationAutodetector:
 {self._format_constraints(field["constraints"], indent_level=8)}
                             </constraints>
                         </field>'''
-                    for field in model_status['meta'].get('fields', [])
+                    for field in model_status['meta']['fields']
                 ])
                 relationships = "\n".join([
                     f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}" "{rel["name"]}" model={rel["model"]})</relationship>'
@@ -264,7 +266,7 @@ class MigrationAutodetector:
                         <relationships id="{model_status['label']}_relationships_{uuid.uuid4()}">
 {relationships}
                         </relationships>
-                        <status>{model_status['status']}</status>
+                        <is_new>{model_status['is_new']}</is_new>
                         
 
                     </model>

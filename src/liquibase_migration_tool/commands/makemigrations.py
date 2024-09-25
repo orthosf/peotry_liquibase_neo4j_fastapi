@@ -40,7 +40,7 @@ def make_migrations(migrations_dir):
         print("No changes detected.")
         return
     else:
-        print("Changes detected")   
+        print("Changes detected")  
 
     changelog = autodetector.create_changelog()
     autodetector.save_changelog(changelog, migrations_dir)
