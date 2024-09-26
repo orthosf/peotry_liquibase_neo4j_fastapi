@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <status id="statuslog_20240926222605.xml" connections="changelog_20240926222605.xml">
+
+                    <model id="87660cb0-597e-4649-ae1c-ca10136c53e6" name="app.User" type="StructuredNode" status="update" >
+                        <fields id="app.User_fields_1f0d8306-2a99-4870-9ef2-4f61b85b394c">
+                        <field id="app.User_fields_fa792aa3-8082-41b2-82db-ebb94798465b" name="email" model_property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            email = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "true"></constraint>
+                                <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_17b1c1e8-670a-4d76-94f7-8c14e8127d2c" name="phone_number" model_property="StringProperty(255)" index="True" status="removed" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            phone_number = StringProperty(255)()
+                            <constraints>
+
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.User_relationships_a63305a0-08ce-41ce-a47f-a0f4af5bc393">
+                        <relationship id="app.User_relationships_3abd6c50-810c-4be6-8656-610433549421" name="following" model_property="RelationshipTo" model="FollowRel" relation_name="FOLLOWING" direction="1" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">following = RelationshipTo("FOLLOWING" "following" model=FollowRel)</relationship>
+                        <relationship id="app.User_relationships_4c374feb-c759-4ca5-94ed-588390b9d803" name="followers" model_property="RelationshipFrom" model="FollowRel" relation_name="FOLLOWING" direction="-1" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">followers = RelationshipFrom("FOLLOWING" "followers" model=FollowRel)</relationship>
+                        </relationships>
+                        <status>update</status>
+                        
+
+                    </model>
+    </status>
+</databaseStatusLog>

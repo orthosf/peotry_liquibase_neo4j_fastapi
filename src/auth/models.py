@@ -20,6 +20,9 @@ class User(StructuredNode):
     email = StringProperty(index=True)
     first_name = StringProperty(index=True)
     last_name = StringProperty(index=True)
+    password = StringProperty(required=True)
+    #phone_number = StringProperty(index=True)
+    #occupation = StringProperty(index=True)
     
     # Use the relationship model to add more details to the relationship
     following = RelationshipTo('User', 'FOLLOWING', model=FollowRel)
@@ -59,3 +62,5 @@ class UserProfile(StructuredNode):
     
     # Optional property (not required) but indexed for faster lookup
     bio = StringProperty(max_length=250, index=True)  # optional with an index for faster searches    
+
+

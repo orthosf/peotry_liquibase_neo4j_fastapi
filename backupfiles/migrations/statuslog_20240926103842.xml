@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <status id="statuslog_20240926103842.xml" connections="changelog_20240926103842.xml">
+
+                    <model id="3669be13-0702-4b57-a8b5-79d1d92d6a2e" name="app.User" type="StructuredNode" status="update" >
+                        <fields id="app.User_fields_f93b2f46-8172-4284-b7a2-afb8ceee40fd">
+                        <field id="app.User_fields_1ea94567-4ca0-4c00-a48d-dca8e7a4a7f8" name="uid" property="UniqueIdProperty" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            uid = UniqueIdProperty()
+                            <constraints>
+                                <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "auto-generated"></constraint>
+                                <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "true"></constraint>
+                                <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_ae5bbe5b-7f0a-4ce2-b396-5221fb930759" name="username" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            username = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "true"></constraint>
+                                <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_43c51146-d6e8-4827-b50a-871c7abb3483" name="email" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            email = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "true"></constraint>
+                                <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_eaa38acc-1b39-47c1-8351-87ad67c738b5" name="first_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            first_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "true"></constraint>
+                                <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_37c9a6cc-1938-483a-8e50-8b7258e62be5" name="last_name" property="StringProperty(255)" index="True" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            last_name = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "true"></constraint>
+                                <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                            </constraints>
+                        </field>
+                        <field id="app.User_fields_3a1034a0-e906-4227-9587-3aa026e41fd4" name="password" property="StringProperty(255)" index="False" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                            password = StringProperty(255)()
+                            <constraints>
+                                <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "true"></constraint>
+                                <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                            </constraints>
+                        </field>
+                        </fields>
+                        <relationships id="app.User_relationships_3720f26a-7716-4257-8984-ed7dace39169">
+                        <relationship id="app.User_relationships_c3f0d313-256a-4f32-92ad-5055613022a7" name="following" property="RelationshipTo" model="FollowRel" relation_name="FOLLOWING" direction="1" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">following = RelationshipTo("FOLLOWING" "following" model=FollowRel)</relationship>
+                        <relationship id="app.User_relationships_e32ddac1-4664-4654-acea-e99d75bb8393" name="followers" property="RelationshipFrom" model="FollowRel" relation_name="FOLLOWING" direction="-1" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">followers = RelationshipFrom("FOLLOWING" "followers" model=FollowRel)</relationship>
+                        </relationships>
+                        <status>update</status>
+                        
+
+                    </model>
+    </status>
+</databaseStatusLog>

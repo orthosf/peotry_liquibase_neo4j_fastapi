@@ -18,9 +18,9 @@ class StatuslogLoader:
         try:
             with open(file_path, 'r') as file:
                 content = file.read()
-                print(f"Content of {file_path}:")
-                print(content)
-                print("=" * 50)
+                #print(f"Content of {file_path}:")
+                #print(content)
+                #print("=" * 50)
             tree = ET.parse(file_path)
             root = tree.getroot()
 
@@ -35,7 +35,7 @@ class StatuslogLoader:
                     for field in model.findall('.//field'):
                         fields.append({
                             'name': field.get('name'),
-                            'property': field.get('property'),
+                            'model_property': field.get('model_property'),
                             'index': field.get('index'),
                             'constraints': field.get('constraints')
                         })
@@ -44,7 +44,7 @@ class StatuslogLoader:
                     for relationship in model.findall('.//relationship'):
                         relationships.append({
                             'name': relationship.get('name'),
-                            'property': relationship.get('property'),
+                            'model_property': relationship.get('model_property'),
                             'model': relationship.get('model'),
                             'relation_name': relationship.get('relation_name'),
                             'direction': relationship.get('direction')
@@ -62,6 +62,8 @@ class StatuslogLoader:
                 elif status == "remove" and model_name in historical_statuslog_models:
                     del historical_statuslog_models[model_name]
                     print(f"Deleted model from historical model {model_name}")
+                elif status == "update":  
+                    pass  
             
         except ET.ParseError as e:
             print(f"Error parsing XML file: {file_path}")

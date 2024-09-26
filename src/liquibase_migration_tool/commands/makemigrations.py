@@ -14,14 +14,20 @@ def make_migrations(migrations_dir):
     statuslog_loader = StatuslogLoader(migrations_dir)
     historical_statuslog = statuslog_loader.load_historical_statuslog()
     current_state = StateApps.from_apps(apps)
+    
+    '''for model_label, model in current_state.models.items():
+        msg = f'model._meta:{model._meta}'
+        print(colored(msg, "blue"))'''
+
+    
     autodetector = MigrationAutodetector(current_state, historical_state, migrations_dir, historical_statuslog)
     changes = autodetector.changes()
-    status = autodetector.status()
+    #status = autodetector.status()
     print("Logging current state:")
     #current_state.log_contents()
 
-    msg = f"current_state.items() ---- {dir(current_state)}"
-    print(colored(msg, "magenta"))
+    #msg = f"current_state.items() ---- {dir(current_state)}"
+    #print(colored(msg, "magenta"))
 
     """
     for attr_name, attr_value in current_state.__dict__.items():
@@ -32,6 +38,7 @@ def make_migrations(migrations_dir):
         msg = f"current_state.models.items ---- {attr_name}: {attr_value}"
         print(colored(msg, "cyan"))"""
 
+    #statuslog = autodetector.create_statuslog(status)
     statuslog = autodetector.create_statuslog()
     autodetector.save_statuslog(statuslog, migrations_dir)
     #msg = f"statuslog: {statuslog}"

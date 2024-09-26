@@ -13,38 +13,11 @@ def generate_meta(model_class):
 
     fields = []
     relationships = []
-    #for class_property in inspect.getmembers(model_class):
-    
-    
-    #if issubclass(model_class, StructuredNode):    #print(f"properties: {class_property}")
-        #msg = f"getattibute all propetires: {getattr(model_class, "__all_properties__")}"
-        #print (colored(msg, 'yellow'))
-        #msg = f"getattibute all relationships: {getattr(model_class, "__all_relationships__")}"
-        #print (colored(msg, 'green'))  
-        #msg = f"model_class.__dict__.items() : {model_class.__dict__.items()}"
-        #print (colored(msg, 'magenta'))
-        
-    #elif issubclass(model_class, StructuredRel):
-        #msg = f"getattibute all propetires: {getattr(model_class, "__all_relationships__")}"
-        #print (colored(msg, 'green'))   
-    #for model in model_class.__dict__.items():
-        #msg = f"inspect.getmembers: {inspect.getmembers(model)}"
-        #msg = f"model: {model}"
-        #print (colored(msg, 'red'))
-        #print(f"model.getattr: {inspect.getmembers(model)}")
-        #for key in model:
-            #print(f"key: {key}")
-        #print(f"prop.__dict__: {dir(prop)}")
-        #getattr(prop, ‘index’)
-        #print(f"getattr(prop, ‘index’): {getattr(prop, "index", lambda: None)}")
-        #msg = f"name: {name}, prop: {prop} "
-        #print (colored(msg, 'cyan'))  
 
     for name, prop in model_class.__dict__.items():
-        #print(f"  {name}: {prop}")
         if isinstance(prop, (UniqueIdProperty, StringProperty, IntegerProperty, FloatProperty, BooleanProperty, DateTimeProperty, DateProperty)):
-            db_type ='uuid' if isinstance(prop, UniqueIdProperty) else 'varchar(255)' if isinstance(prop, StringProperty) else 'int' if isinstance(prop, IntegerProperty) else 'float' if isinstance(prop, FloatProperty) else 'boolean' if isinstance(prop, BooleanProperty) else 'datetime' if isinstance(prop, DateTimeProperty) else 'date'
-            instance = 'UniqueIdProperty' if isinstance(prop, UniqueIdProperty) else 'StringProperty(255)' if isinstance(prop, StringProperty) else 'IntegerProperty' if isinstance(prop, IntegerProperty) else 'FloatProperty' if isinstance(prop, FloatProperty) else 'BooleanProperty' if isinstance(prop, BooleanProperty) else 'DateTimeProperty' if isinstance(prop, DateTimeProperty) else 'DateProperty'
+            db_type = 'uuid' if isinstance(prop, UniqueIdProperty) else 'varchar(255)' if isinstance(prop, StringProperty) else 'int' if isinstance(prop, IntegerProperty) else 'float' if isinstance(prop, FloatProperty) else 'boolean' if isinstance(prop, BooleanProperty) else 'datetime' if isinstance(prop, DateTimeProperty) else 'date'
+            model_property = 'UniqueIdProperty' if isinstance(prop, UniqueIdProperty) else 'StringProperty(255)' if isinstance(prop, StringProperty) else 'IntegerProperty' if isinstance(prop, IntegerProperty) else 'FloatProperty' if isinstance(prop, FloatProperty) else 'BooleanProperty' if isinstance(prop, BooleanProperty) else 'DateTimeProperty' if isinstance(prop, DateTimeProperty) else 'DateProperty'
             index = getattr(prop, 'index', False)
             constraints = {
                 'default': 'auto-generated' if isinstance(prop, UniqueIdProperty) else getattr(prop, 'default', None),
@@ -62,11 +35,11 @@ def generate_meta(model_class):
                 'min_value': getattr(prop, 'min_value', None)
             }
             fields.append({
-                    'name': name, 
-                    'db_type': db_type, 
-                    "instance": instance,
-                    'index': index,
-                    'constraints': constraints})
+                'name': name, 
+                'db_type': db_type, 
+                "model_property": model_property,
+                'index': index,
+                'constraints': constraints})
         elif isinstance(prop, (RelationshipTo, RelationshipFrom)):
             relationship = {
                 'name': name,
@@ -76,11 +49,15 @@ def generate_meta(model_class):
                 'model': prop.definition.get('model').__name__ if prop.definition.get('model') else None
             }
             relationships.append(relationship)
+    
+    model_type = 'StructuredNode' if issubclass(model_class, StructuredNode) else 'StructuredRel' if issubclass(model_class, StructuredRel) else 'Unknown'
+
     return {
         'label': label,
         'db_table': db_table,
         'fields': fields,
-        'relationships': relationships
+        'relationships': relationships,
+        'model_type': model_type
     }
 
 # Function to discover all models.py files in the project
