@@ -36,44 +36,44 @@ class MigrationAutodetector:
         for model_label, model in self.current_state.models.items():
             #msg = f'model._meta:{model._meta}'
             #print(colored(msg, "blue"))
-            model_status = {
+            model_state = {
                 'label': model_label,
                 'meta': model._meta,
-                'status': 'NoChanges' ,
+                'model_status': 'NoChanges' ,
             }
             if model_label not in self.historical_statuslog.models:
                 msg = f'model_label:{model_label}'
                 print(colored(msg, "red"))
-                '''model_status = {
+                '''model_state = {
                     'label': model_label,
                     'meta': model._meta,
-                    'status': "new",
+                    'model_status': "new",
                 }'''
-                model_status['status'] = "new"
+                model_state['model_status'] = "new"
                 # Append 'status': 'new' to all fields
-                for field in model_status['meta']['fields']:
-                    field['status'] = 'new'
-                status.append(model_status)
+                for field in model_state['meta']['fields']:
+                    field['field_status'] = 'new'
+                status.append(model_state)
             else:
                 meta = model._meta,
                 field_changes = self._detect_field_status_changes(model, self.historical_statuslog.models[model_label], meta)
                 msg = f"field_changes:{field_changes}"
                 print(colored(msg, "yellow"))
-                #self._detect_relationship_status_changes(model, self.historical_statuslog.models[model_label], model_status)
-                #if 'field_changes' in model_status or 'relationship_changes' in model_status:
+                #self._detect_relationship_status_changes(model, self.historical_statuslog.models[model_label], model_state)
+                #if 'field_changes' in model_state or 'relationship_changes' in model_state:
                 if field_changes:
-                    '''model_status = {
+                    '''model_state = {
                         'label': model_label,
                         'meta': model._meta,
-                        'status': "update"
+                        'model_status': "update"
                     }'''
-                    model_status['status'] = "update"
-                    model_status['meta']['fields'] = field_changes    
-                    #print(f"model_status:{model_status}")
-                    msg = f"model_status['status']:{model_status['status']}"
+                    model_state['model_status'] = "update"
+                    model_state['meta']['fields'] = field_changes    
+                    #print(f"model_state:{model_state}")
+                    msg = f"model_state['model_status']:{model_state['model_status']}"
                     print(colored(msg, "yellow"))
-                    if model_status['status'] != 'NoChanges':
-                        status.append(model_status) 
+                    if model_state['model_status'] != 'NoChanges':
+                        status.append(model_state) 
 
         # Detect removed labels 
         self._detect_removed_labels_status(status)
@@ -97,21 +97,21 @@ class MigrationAutodetector:
         for field_name in historical_fields:
             if field_name not in current_fields:
                 removed_field = historical_fields[field_name]
-                removed_field['status'] = 'removed'
+                removed_field['field_status'] = 'removed'
                 print(f"removed_field:{removed_field}")
                 removed_fields.append(removed_field)
                 msg=f"field_name:{field_name}"
                 print(colored(msg, "yellow"))
-                #model_status.setdefault('field_changes', []).append(('remove_field', historical_fields[field_name]))
+                #model_state.setdefault('field_changes', []).append(('remove_field', historical_fields[field_name]))
                 msg=f"remove_field:{historical_fields[field_name]}"
                 print(colored(msg, "red"))
 
         for field_name, field in current_fields.items():
             if field_name not in historical_fields:
-                field['status'] = 'new'
+                field['field_status'] = 'new'
                 added_field = field
                 added_fields.append(field)
-                #model_status.setdefault('field_changes', []).append(('add_field', field))
+                #model_state.setdefault('field_changes', []).append(('add_field', field))
                 msg=f"add_field:{field}"
                 print(colored(msg, "red"))
 
@@ -120,7 +120,7 @@ class MigrationAutodetector:
                 historical_field = historical_fields[field_name]
                 if not self._compare_fields(current_field, historical_field):
                     modified_fields.append(current_field)
-                    #model_status.setdefault('field_changes', []).append(('modify_field', current_field, historical_field))
+                    #model_state.setdefault('field_changes', []).append(('modify_field', current_field, historical_field))
                     msg=f"modify_field:{current_field}"
                     print(colored(msg, "red"))
 
@@ -166,19 +166,19 @@ class MigrationAutodetector:
                 serialized[key] = str(value)
         return serialized
 
-    '''def _detect_relationship_status_changes(self, current_model, historical_model, model_status):
+    '''def _detect_relationship_status_changes(self, current_model, historical_model, model_state):
         current_relationships = {rel['name']: rel for rel in current_model._meta.get('relationships', [])}
         historical_relationships = {rel['name']: rel for rel in historical_model._meta.get('relationships', [])}
 
         for rel_name, rel in current_relationships.items():
             if rel_name not in historical_relationships:
-                model_status.setdefault('relationship_changes', []).append(('add_relationship', rel))
+                model_state.setdefault('relationship_changes', []).append(('add_relationship', rel))
             elif rel != historical_relationships[rel_name]:
-                model_status.setdefault('relationship_changes', []).append(('modify_relationship', rel, historical_relationships[rel_name]))
+                model_state.setdefault('relationship_changes', []).append(('modify_relationship', rel, historical_relationships[rel_name]))
 
         for rel_name in historical_relationships:
             if rel_name not in current_relationships:
-                model_status.setdefault('relationship_changes', []).append(('remove_relationship', historical_relationships[rel_name]))
+                model_state.setdefault('relationship_changes', []).append(('remove_relationship', historical_relationships[rel_name]))
 '''
     def changes(self):
         changes = []
@@ -196,12 +196,12 @@ class MigrationAutodetector:
     def _detect_removed_labels_status(self, status):
         for label in self.historical_state.models:
             if label not in self.current_state.models:
-                model_status = {
+                model_state = {
                     'label': label,
                     'meta': self.historical_state.models[label]._meta,
-                    'status': "remove"
+                    'model_status': "remove"
                 }
-                status.append(model_status)
+                status.append(model_state)
 
 
     def _detect_property_changes(self, current_model, historical_model, changes):       
@@ -373,31 +373,30 @@ class MigrationAutodetector:
             #print(colored(msg, "cyan"))
             #msg = f'statuslog:{statuslog}'
             #print(colored(msg, "cyan"))
-            for model_status in status:
-                msg = f'model_status:{model_status}'
+            for model_state in status:
+                msg = f'model_state:{model_state}'
                 print(colored(msg, "cyan"))
                 fields = "\n".join([
-                    f'''                        <field id="{model_status["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" model_property="{field["model_property"]}" index="{field["index"]}" status="{field["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
-                            {field["name"]} = {field["model_property"]}()
-                            <constraints>
+                    f'''                            <field id="{model_state["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" model_property="{field["model_property"]}" index="{field["index"]}" field_status="{field["field_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints>
 {self._format_constraints(field["constraints"], indent_level=8)}
-                            </constraints>
-                        </field>'''
-                    for field in model_status['meta'].get('fields', [])
+                                </constraints>
+                            </field>'''
+                    for field in model_state['meta'].get('fields', [])
                 ])
                 relationships = "\n".join([
-                    f'                        <relationship id="{model_status["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" model_property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}" "{rel["name"]}" model={rel["model"]})</relationship>'
-                    for rel in model_status['meta'].get('relationships', [])
+                    f'                        <relationship id="{model_state["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" model_property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}" "{rel["name"]}" model={rel["model"]})</relationship>'
+                    for rel in model_state['meta'].get('relationships', [])
                 ])
                 statuslog.append(f"""
-                    <model id="{uuid.uuid4()}" name="{model_status['label']}" type="{model_status['meta']['model_type']}" status="{model_status['status']}" >
-                        <fields id="{model_status['label']}_fields_{uuid.uuid4()}">
+                    <model id="{uuid.uuid4()}" name="{model_state['label']}" type="{model_state['meta']['model_type']}" model_status="{model_state['model_status']}" >
+                        <fields id="{model_state['label']}_fields_{uuid.uuid4()}">
 {fields}
                         </fields>
-                        <relationships id="{model_status['label']}_relationships_{uuid.uuid4()}">
+                        <relationships id="{model_state['label']}_relationships_{uuid.uuid4()}">
 {relationships}
                         </relationships>
-                        <status>{model_status['status']}</status>
+                        <model_status>{model_state['model_status']}</model_status>
                         
 
                     </model>
@@ -430,10 +429,10 @@ class MigrationAutodetector:
             with open(statuslog_path, "w") as file:
                 file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 file.write('<databaseStatusLog>\n')
-                file.write(f'    <status id="{statuslog_name}" connections="changelog_{datetime.now().strftime("%Y%m%d%H%M%S")}.xml">\n')
-                for model_status in statuslog:
-                    file.write(model_status)
-                file.write('    </status>\n')
+                file.write(f'    <statuslog id="{statuslog_name}" connections="changelog_{datetime.now().strftime("%Y%m%d%H%M%S")}.xml">\n')
+                for model_state in statuslog:
+                    file.write(model_state)
+                file.write('    </statuslog>\n')
                 file.write('</databaseStatusLog>')
             msg = f"Statuslog saved to {statuslog_path}"
             print(colored(msg, "green"))

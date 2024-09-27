@@ -20,7 +20,7 @@ class User(StructuredNode):
     email = StringProperty(index=True)
     first_name = StringProperty(index=True)
     last_name = StringProperty(index=True)
-    password = StringProperty(required=True)
+    #password = StringProperty(required=True)
     #phone_number = StringProperty(index=True)
     #occupation = StringProperty(index=True)
     
