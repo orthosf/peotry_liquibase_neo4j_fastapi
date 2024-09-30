@@ -20,7 +20,7 @@ def generate_meta(model_class):
             model_property = 'UniqueIdProperty' if isinstance(prop, UniqueIdProperty) else 'StringProperty(255)' if isinstance(prop, StringProperty) else 'IntegerProperty' if isinstance(prop, IntegerProperty) else 'FloatProperty' if isinstance(prop, FloatProperty) else 'BooleanProperty' if isinstance(prop, BooleanProperty) else 'DateTimeProperty' if isinstance(prop, DateTimeProperty) else 'DateProperty'
             index = getattr(prop, 'index', False)
             constraints = {
-                'default': 'auto-generated' if isinstance(prop, UniqueIdProperty) else getattr(prop, 'default', None),
+                'default': 'auto-generated' if isinstance(prop, UniqueIdProperty) else 'callable' if callable(getattr(prop, 'default', None)) else getattr(prop, 'default', None),
                 'unique': getattr(prop, 'unique', False),
                 'index': getattr(prop, 'index', False),
                 'required': getattr(prop, 'required', False),

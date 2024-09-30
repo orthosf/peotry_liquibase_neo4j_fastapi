@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <statuslog id="statuslog_20240929094110.xml" connections="changelog_20240929094110.xml">
+
+                    <model id="108559c9-7cd5-45e3-8a1a-8775ecd2a7b5" name="app.UserProfile" type="StructuredNode" model_status="update" >
+                        <fields id="app.UserProfile_fields_6dcdfa60-701a-4d63-a96f-c53e3a8041b5">
+                            <field id="app.UserProfile_fields_c3a84021-e319-4c48-af7e-7258cb8c81a1" name="role" model_property="StringProperty(255)" index="False" field_status="updated" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints>
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "user"></constraint>
+                                    <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "list">
+                                          <choice id="choice_1" name="admin" value="Admin"></choice>
+                                          <choice id="choice_2" name="user" value="User"></choice>
+                                          <choice id="choice_3" name="guest" value="Guest"></choice>
+                                    </constraint>
+                                    <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_8d270a9c-0a05-4287-be2b-56e41730ea8a" name="currency" model_property="StringProperty(255)" index="False" field_status="updated" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints>
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "USD"></constraint>
+                                    <constraint name="unique" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "3"></constraint>
+                                    <constraint name="min_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="lowercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="uppercase" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="regex" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "false"></constraint>
+                                    <constraint name="max_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                    <constraint name="min_value" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "null"></constraint>
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.UserProfile_relationships_86da6733-fb87-4d8d-92ef-a8a52ddc0bdf">
+
+                        </relationships>
+                        <model_status>update</model_status>
+                        
+
+                    </model>
+    </statuslog>
+</databaseStatusLog>

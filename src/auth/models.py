@@ -17,10 +17,10 @@ from src.common.models import FollowRel
 class User(StructuredNode):
     uid = UniqueIdProperty()
     username = StringProperty(index=True)
-    email = StringProperty(index=True)
+    #email = StringProperty(index=True)
     first_name = StringProperty(index=True)
-    last_name = StringProperty(index=True)
-    #password = StringProperty(required=True)
+    last_name = StringProperty()
+    password = StringProperty(required=True)
     #phone_number = StringProperty(index=True)
     #occupation = StringProperty(index=True)
     
@@ -43,14 +43,16 @@ class UserProfile(StructuredNode):
     robot = BooleanProperty(default=False)  # default set to False
     
     # String with choices
-    role = StringProperty(choices={"admin": "Admin", "user": "User", "guest": "Guest"}, default="user")  # must be one of these values
+    role = StringProperty(choices={"admin": "Admin", "user": "User", "guest": "Guest", "owner": "Owner"}, default="user")  # must be one of these values
     
     # String that must be lowercase
     country = StringProperty(lowercase=True)  # forces lowercase
     
     # String that must be uppercase
     currency = StringProperty(uppercase=True, max_length=3, default="USD")  # forces uppercase, max length of 3
-    
+    #currency = StringProperty(uppercase=True, default="USD")
+
+
     # String that must match a regex pattern
     phone_number = StringProperty(regex=r'^\+?[1-9]\d{1,14}$')  # enforces E.164 phone number format
     

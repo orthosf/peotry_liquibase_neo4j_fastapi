@@ -135,31 +135,20 @@ class MigrationAutodetector:
 
     def _compare_fields(self, current_field, historical_field):
         # Compare field properties
-        msg = f"current_field:{current_field}"
+        msg=f"current_field:{current_field}"
         print(colored(msg, "cyan"))
-        #msg = f"historical_field:{historical_field}"
-        #print(colored(msg, "magenta"))
-        
+        msg=f"historical_field:{historical_field}"
+        print(colored(msg, "magenta"))
         if current_field['model_property'] != historical_field.get('model_property'):
-            msg = f"Field type mismatch: {current_field['db_type']} != {historical_field.get('model_property')}"
+            msg= f"Field type mismatch: {current_field['db_type']} != {historical_field.get('model_property')}"
             print(colored(msg, "yellow"))
             return False
-        
         if current_field['index'] != (historical_field.get('index') == 'True'):
-            msg = f"Field index mismatch: {current_field['index']} != {(historical_field.get('index') == 'True')}"
+            msg=f"Field index mismatch: {current_field['index']} != {(historical_field.get('index') == 'True')}"
             print(colored(msg, "yellow"))
             return False
 
-        # Normalize historical constraints to match the format of current constraints
-        historical_constraints = {}
-        for constraint in historical_field.get('constraints', []):
-            if constraint['name'] == 'choices' and constraint['value'] == 'list':
-                choices_dict = {choice['name']: choice['value'] for choice in constraint.get('choices', [])}
-                historical_constraints['choices'] = choices_dict
-            else:
-                historical_constraints[constraint['name']] = constraint['value']
-        msg = f"historical_constraints:{historical_constraints}"
-        print(colored(msg, "magenta"))
+
         # Compare constraints
         '''msg = f"current_constraints:{current_field['constraints']}"
         print(colored(msg, "blue"))
@@ -168,11 +157,10 @@ class MigrationAutodetector:
         msg = f"historical_constraints:{historical_field.get('constraints', {})}"
         print(colored(msg, "cyan"))'''
         current_constraints = self._serialize_constraints(current_field['constraints'])
-        historical_constraints = self._serialize_constraints(historical_constraints)
-        
+        historical_constraints = self._serialize_constraints(historical_field.get('constraints', {}))
         if current_constraints != historical_constraints:
             print(f" --------------- Entered _compare_fields ---------------------")
-            msg = f"Constraints mismatch: {current_constraints} != {historical_constraints}"
+            msg=f"Constraints mismatch: {current_constraints} != {historical_constraints}"
             print(colored(msg, "red"))
             return False
 
@@ -181,7 +169,7 @@ class MigrationAutodetector:
     def _serialize_constraints(self, constraints):
         # Serialize constraints to a comparable format
         serialized = {}
-        for key, value in constraints.items():
+        '''for key, value in constraints.items():
             if callable(value):
                 serialized[key] = 'callable'
             elif value is None:
@@ -191,7 +179,7 @@ class MigrationAutodetector:
             elif isinstance(value, (int, float)):
                 serialized[key] = str(value)
             else:
-                serialized[key] = str(value)
+                serialized[key] = str(value)'''
         return serialized
 
     def _detect_relationship_status_changes(self, current_model, historical_model, model_state):

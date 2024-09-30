@@ -33,11 +33,12 @@ class StatuslogLoader:
                 if status == "new" or model_name not in historical_statuslog_models:
                     fields = []
                     for field in model.findall('.//field'):
+                        constraints = self.get_constraints(field)
                         fields.append({
                             'name': field.get('name'),
                             'model_property': field.get('model_property'),
                             'index': field.get('index'),
-                            'constraints': field.get('constraints')
+                            'constraints': constraints
                         })
 
                     relationships = []
@@ -62,9 +63,9 @@ class StatuslogLoader:
                 elif status == "remove" and model_name in historical_statuslog_models:
                     del historical_statuslog_models[model_name]
                     print(f"Deleted model from historical model {model_name}")
-                elif status == "update":  
-                    pass  
-            
+                elif status == "update":
+                    pass
+
         except ET.ParseError as e:
             print(f"Error parsing XML file: {file_path}")
             print(f"Error details: {e}")
@@ -73,3 +74,22 @@ class StatuslogLoader:
             print(f"Unexpected error while processing file: {file_path}")
             print(f"Error details: {e}")
             print("Skipping this file and continuing with others.")
+
+    def get_constraints(self, field):
+        constraints = []
+        for constraint in field.findall('.//constraint'):
+            constraint_data = {
+                'name': constraint.get('name'),
+                'value': constraint.get('value')
+            }
+            if constraint_data['name'] == 'choices' and constraint_data['value'] != 'null':
+                choices = []
+                for choice in constraint.findall('.//choice'):
+                    choices.append({
+                        'id': choice.get('id'),
+                        'name': choice.get('name'),
+                        'value': choice.get('value')
+                    })
+                constraint_data['choices'] = choices
+            constraints.append(constraint_data)
+        return constraints

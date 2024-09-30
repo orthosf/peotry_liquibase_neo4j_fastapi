@@ -18,6 +18,11 @@ def make_migrations(migrations_dir):
     '''for model_label, model in current_state.models.items():
         msg = f'model._meta:{model._meta}'
         print(colored(msg, "blue"))'''
+    '''for model_label, model in historical_statuslog.models.items():
+        msg = f'historical_statuslogmodel._meta:{model._meta}'
+        print(colored(msg, "blue"))
+        msg = "historical_statuslogmodel"    
+        print(colored(msg, "magenta")) '''
 
     
     autodetector = MigrationAutodetector(current_state, historical_state, migrations_dir, historical_statuslog)
