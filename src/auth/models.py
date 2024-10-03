@@ -17,9 +17,9 @@ from src.common.models import FollowRel
 class User(StructuredNode):
     uid = UniqueIdProperty()
     username = StringProperty(index=True)
-    #email = StringProperty(index=True)
+    email = StringProperty(index=True)
     first_name = StringProperty(index=True)
-    last_name = StringProperty()
+    last_name = StringProperty(index=True)
     password = StringProperty(required=True)
     #phone_number = StringProperty(index=True)
     #occupation = StringProperty(index=True)
@@ -44,13 +44,15 @@ class UserProfile(StructuredNode):
     
     # String with choices
     role = StringProperty(choices={"admin": "Admin", "user": "User", "guest": "Guest", "owner": "Owner"}, default="user")  # must be one of these values
-    
+    #role = StringProperty(choices={"user": "User1", "guest": "Guest", "owner1": "Owner1", "god":"God"}, default="user")
+    #role = StringProperty(choices={"user": "User"}, default="user")
+    #role = StringProperty()
     # String that must be lowercase
     country = StringProperty(lowercase=True)  # forces lowercase
     
     # String that must be uppercase
-    currency = StringProperty(uppercase=True, max_length=3, default="USD")  # forces uppercase, max length of 3
-    #currency = StringProperty(uppercase=True, default="USD")
+    #currency = StringProperty(uppercase=True, max_length=3, default="USD")  # forces uppercase, max length of 3
+    currency = StringProperty(uppercase=True, default="USD")
 
 
     # String that must match a regex pattern

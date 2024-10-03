@@ -54,6 +54,10 @@ class MigrationAutodetector:
                 # Append 'status': 'new' to all fields
                 for field in model_state['meta']['fields']:
                     field['field_status'] = 'new'
+                    for constraint in field['constraints']:
+                        #constraint['const_status'] = 'new'
+                        msg = f"constraint:{constraint}"
+                        print(colored(msg, "red"))
                 status.append(model_state)
             else:
                 meta = model._meta,
@@ -547,7 +551,7 @@ class MigrationAutodetector:
 
         if isinstance(constraints, dict):
             print("----------- Entered constraints dict----------------")
-            for key, value in constraints.items():
+            for key, value, const_status in constraints.items():
                 if key == "choices":
                     if isinstance(value, dict):
                         print("----------- Entered choices dict----------------")
@@ -563,7 +567,7 @@ class MigrationAutodetector:
                         ])
                 else:
                     print("----------- Entered choces not dict or list----------------")
-                    formatted_constraints.append(f'                        <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
+                    formatted_constraints.append(f'                        <constraint name="{key}" const_status="{const_status}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
         elif isinstance(constraints, list):
             print("----------- Entered constraints list----------------")
             for constraint in constraints:
@@ -571,8 +575,8 @@ class MigrationAutodetector:
                 key = constraint['name']
                 value = constraint['value']
                 #constraint:{'name': 'choices', 'value': 'list', 'status': 'removed'} if
-                if constraint['name'] == 'choices' and constraint['status'] == 'removed' and constraint['value'] == 'list':
-                    formatted_constraints.append(f'                        <constraint name="{constraint['name']}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{constraint['value']}"></constraint>')
+                if constraint['name'] == 'choices' and constraint['const_status'] == 'removed' and constraint['value'] == 'list':
+                    formatted_constraints.append(f'                        <constraint name="{constraint['name']}" const_status="{constraint["const_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{constraint['value']}"></constraint>')
                 if key == "choices":
                     if isinstance(value, dict):
                         print("----------- Entered choices dict----------------")
@@ -588,11 +592,11 @@ class MigrationAutodetector:
                         ])
                 else:
                     print("----------- Entered choces not dict or list----------------")
-                    formatted_constraints.append(f'                        <constraint name="{key}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
+                    formatted_constraints.append(f'                        <constraint name="{key}" const_status="{constraint["const_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
 
         if all_choices:
             choices_str = "\n".join(all_choices)
-            formatted_constraints.append(f'                        <constraint name="choices" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices_str}\n{inner_indent}         </constraint>')
+            formatted_constraints.append(f'                        <constraint name="choices" const_status="{constraint["const_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices_str}\n{inner_indent}         </constraint>')
 
         return "\n".join(formatted_constraints)
 

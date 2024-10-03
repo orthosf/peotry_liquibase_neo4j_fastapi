@@ -4,7 +4,6 @@ from datetime import datetime
 from state import StateApps  # Ensure StateApps is imported
 from termcolor import colored
 import html
-import json
 
 
 class MigrationAutodetector:
@@ -78,8 +77,8 @@ class MigrationAutodetector:
 
         # Detect removed labels 
         self._detect_removed_labels_status(status)
-        msg = f'status:{status}'
-        print(colored(msg, "green"))
+        #msg = f'status:{status}'
+        #print(colored(msg, "red"))
         return status
 
     def _detect_field_status_changes(self, current_model, historical_model, meta):
@@ -142,21 +141,19 @@ class MigrationAutodetector:
         msg = f"historical_field:{historical_field}"
         print(colored(msg, "magenta"))
         
-        # Create a copy of the current field to modify
+        #modified_field = current_field.copy()  # Create a copy of the current field to modify
         modified_field = {
             'name': current_field['name'],
-            'db_type': current_field['db_type'],
             'model_property': current_field['model_property'],
             'index': current_field['index'],
-            'constraints': [],
+            'constraints': {},
         }
-
         if current_field['model_property'] != historical_field.get('model_property'):
             msg = f"Field type mismatch: {current_field['db_type']} != {historical_field.get('model_property')}"
-            print(colored(msg, "yellow"))
             modified_field['constraints'] = current_field['constraints']
+            print(colored(msg, "yellow"))
             return modified_field
-
+        
         if current_field['index'] != (historical_field.get('index') == 'True'):
             msg = f"Field index mismatch: {current_field['index']} != {(historical_field.get('index') == 'True')}"
             print(colored(msg, "yellow"))
@@ -166,93 +163,64 @@ class MigrationAutodetector:
         # Normalize historical constraints to match the format of current constraints
         historical_constraints = {}
         for constraint in historical_field.get('constraints', []):
-            if constraint['name'] == 'choices' and isinstance(constraint['value'], list):
-                choices_dict = {choice['name']: choice['value'] for choice in constraint['value']}
-                historical_constraints['choices'] = choices_dict
-            elif constraint['name'] == 'choices' and constraint['value'] == 'list':
+            if constraint['name'] == 'choices' and constraint['value'] == 'list':
                 choices_dict = {choice['name']: choice['value'] for choice in constraint.get('choices', [])}
                 historical_constraints['choices'] = choices_dict
             else:
                 historical_constraints[constraint['name']] = constraint['value']
-
+        
         msg = f"historical_constraints:{historical_constraints}"
         print(colored(msg, "magenta"))
-
+        
         # Compare constraints
+        '''msg = f"current_constraints:{current_field['constraints']}"
+        print(colored(msg, "blue"))
+        msg = f"historical_field:{historical_field}"
+        print(colored(msg, "cyan"))
+        msg = f"historical_constraints:{historical_field.get('constraints', {})}"
+        print(colored(msg, "cyan"))'''
         current_constraints = self._serialize_constraints(current_field['constraints'])
         historical_constraints = self._serialize_constraints(historical_constraints)
-
+        
         if current_constraints != historical_constraints:
             print(f" --------------- Entered _compare_fields ---------------------")
             msg = f"Constraints mismatch: {current_constraints} != {historical_constraints}"
             print(colored(msg, "red"))
-            for key, value in current_constraints.items():                
+            for key, value in current_constraints.items():
                 if value != historical_constraints.get(key):
-                    # Check if the value is Null or None or False or Empty String
-                    if value is None or value == False or value == '' or value == 'null' or value == '[]':
-                        print(f"Constraint mismatch -removed-: {key} = {value} != {historical_constraints.get(key)}")
-                        modified_field['constraints'].append({'name': key, 'value': value, 'status': 'removed'})
+                    print(f"Constraint mismatch: {key} = {value} != {historical_constraints.get(key)}")
+                    modified_field['constraints'][key] = value
+                    modified_field['constraints'][key]['status'] = "updated"
+                    # Change constraint status to updated
+                    '''if isinstance(modified_field['constraints'], list):
+                        for constraint in modified_field['constraints']:
+                            if constraint['name'] == key:
+                                constraint['status'] = "updated"
                     else:
-                        # Check if key is choices or value is a list
-                        if key == 'choices' or isinstance(value, list):
-                            print(f" --------------- Entered choices key = {key} ---------------------")
-                            print(f"current_constraints.items():{current_constraints.items()}")
-                            #print historical_constraints value and choices
-                            print(f"historical_constraints:{historical_constraints}")
-                            print(f"historical_constraints.items():{historical_constraints.items()}")
-                            #print(f"type_value_choices:{type(value)}")
-                            #print(f"value:{value}")
-
-                            # Check if there is a value in the choices list that is not in the historical_constraints choices list
-                            new_choices = []
-                            removed_choices = []
-                            modified_choices = []
-                            historical_choices = historical_constraints.get(key, {})
-                            #print(f"dict_historical_choices:{dict_historical_choices}")
-                            dict_historical_choices = {}
-                            # Convert value to a dictionary if it is a string
-                            if isinstance(value, str):
-                                dict_value = json.loads(value.replace("'", '"'))
-                            elif isinstance(value, list):
-                                dict_value = {choice['name']: choice['value'] for choice in value}
-                            if isinstance(historical_choices, str):
-                                try:
-                                    dict_historical_choices = json.loads(historical_choices.replace("'", '"'))
-                                except json.JSONDecodeError:
-                                    dict_historical_choices = {}
-                            elif isinstance(historical_choices, dict):
-                                dict_historical_choices = historical_choices
-                            #print(f"dict_value:{dict_value}")       
-                            for choice_key, choice_value in dict_historical_choices.items():
-                                if choice_key not in dict_value:
-                                    print(f"choice_key mismatch -removed-: {choice_key} = {choice_value} != {value}")
-                                    removed_choices.append({'name': choice_key, 'value': choice_value, 'status': 'removed'})
-                            for choice_key, choice_value in dict_value.items():
-                                if choice_key not in dict_historical_choices:
-                                    print(f"choice_key mismatch -new-: {choice_key} = {choice_value} != {dict_historical_choices}")
-                                    new_choices.append({'name': choice_key, 'value': choice_value, 'status': 'new'})
-                                elif choice_value != dict_historical_choices[choice_key]:
-                                    print(f"choice_key mismatch -updated-: {choice_key} = {choice_value} != {dict_historical_choices}")
-                                    modified_choices.append({'name': choice_key, 'value': choice_value, 'status': 'updated'})
-                            # Append the new_choices, removed_choices, and modified_choices to the modified_field['constraints']
-                            updated_choices = new_choices + removed_choices + modified_choices
-                            print(f"updated_choices:{updated_choices}")
-                            modified_field['constraints'].append({'name': key, 'value': updated_choices, 'status': 'updated'})  
-                            print(f"modified_field['constraints']:{modified_field['constraints']}")
-                        else:
-                            print(f"Constraint mismatch -updated-: {key} = {value} != {historical_constraints.get(key)}")
-                            modified_field['constraints'].append({'name': key, 'value': value, 'status': 'updated'})
+                        modified_field['constraints'][key] = {'value': value, 'status': 'updated'}'''
+                        
+                        
                 if key not in historical_constraints:
-                    print(f"Constraint mismatch -new-: {key} = {value} != {historical_constraints.get(key)}")
-                    modified_field['constraints'].append({'name': key, 'value': value, 'status': 'new'})
+                    print(f"Add constraint: {key} = {value} != {historical_constraints.get(key)}")
+                    #modified_field['constraints'][key] = value
+                    #modified_field['constraints'].append({'name': key, 'value': value, 'status':"new"})
+                    if isinstance(modified_field['constraints'], list):
+                        modified_field['constraints'].append({'name': key, 'value': value, 'status': "new"})
+                    else:
+                        modified_field['constraints'][key] = {'value': value, 'status': 'new'}
             for key, value in historical_constraints.items():
-                print(f" --------------- Entered historical_constraints key value ---------------------")
-                print(f"key:{key}, value:{value}")
+                if value != current_constraints.get(key):
+                    print(f"Constraint mismatch: {key} = {value} != {current_constraints.get(key)}")
                 if key not in current_constraints:
-                    print(f"Constraint mismatch -removed-: {key} = {value} != {current_constraints.get(key)}")
-                    #modified_field['constraints'].append({'name': key, 'value': value, 'status': 'removed'})
-                    modified_field['constraints'].append({'name': key, 'value': "list", 'status': 'removed'})
-
+                    print(f"Remove constraint: {key} = {value} != {current_constraints.get(key)}")
+                    #modified_field['constraints'].append({'name': key, 'value': value, 'status': "removed"})
+                    if isinstance(modified_field['constraints'], list):
+                        modified_field['constraints'].append({'name': key, 'value': value, 'status': "removed"})
+                    else:
+                        modified_field['constraints'][key] = value
+                        modified_field['constraints'][key]['status'] = "removed"
+                        #modified_field['constraints'] = {'value': value, }
+                    
             return modified_field
 
         return None
@@ -483,30 +451,37 @@ class MigrationAutodetector:
             for model_state in status:
                 #msg = f'model_state:{model_state}'
                 #print(colored(msg, "cyan"))
-                model_state_label = model_state['label']
                 fields = "\n".join([
-                    f'''                <field id="{model_state_label}_fields_{uuid.uuid4()}" name="{field["name"]}" model_property="{field["model_property"]}" index="{field["index"]}" field_status="{field["field_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">{f'\n                    <constraints id="{model_state_label}_constraints_{uuid.uuid4()}" status="{field["field_status"]}">\n{self._format_constraints(field["constraints"], indent_level=8, model_state_label=model_state["label"])}\n                    </constraints>\n                </field>' if field["constraints"] else '</field>'}'''
+                    f'''                            <field id="{model_state["label"]}_fields_{uuid.uuid4()}" name="{field["name"]}" model_property="{field["model_property"]}" index="{field["index"]}" field_status="{field["field_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints>
+{self._format_constraints(field["constraints"], indent_level=8)}
+                                </constraints>
+                            </field>'''
                     for field in model_state['meta'].get('fields', [])
                 ])
                 relationships = "\n".join([
-                    f'            <relationship id="{model_state_label}_relationships_{uuid.uuid4()}" name="{rel["name"]}" model_property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c"></relationship>'
+                    f'                        <relationship id="{model_state["label"]}_relationships_{uuid.uuid4()}" name="{rel["name"]}" model_property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">{rel["name"]} = {rel["type"]}("{rel["relation_name"]}" "{rel["name"]}" model={rel["model"]})</relationship>'
                     for rel in model_state['meta'].get('relationships', [])
                 ])
-                statuslog.append(f"""        <model id="{uuid.uuid4()}" name="{model_state_label}" type="{model_state['meta']['model_type']}" model_status="{model_state['model_status']}" >
-            <fields id="{model_state_label}_fields_{uuid.uuid4()}">
+                statuslog.append(f"""
+                    <model id="{uuid.uuid4()}" name="{model_state['label']}" type="{model_state['meta']['model_type']}" model_status="{model_state['model_status']}" >
+                        <fields id="{model_state['label']}_fields_{uuid.uuid4()}">
 {fields}
-            </fields>
-            <relationships id="{model_state_label}_relationships_{uuid.uuid4()}">
+                        </fields>
+                        <relationships id="{model_state['label']}_relationships_{uuid.uuid4()}">
 {relationships}
-            </relationships>
-            <model_status>{model_state['model_status']}</model_status>
-        </model>\n""")
+                        </relationships>
+                        <model_status>{model_state['model_status']}</model_status>
+                        
+
+                    </model>
+""")
             msg = 'statuslog detected'
             print(colored(msg, "yellow"))
             return statuslog
         else:
             statuslog = []
-            #msg = "No status changes detected."ss
+            #msg = "No status changes detected."
             #print(colored(msg, "red"))
             #msg = f'statuslog:{statuslog}'
             #print(colored(msg, "yellow"))
@@ -537,64 +512,23 @@ class MigrationAutodetector:
             msg = f"Statuslog saved to {statuslog_path}"
             print(colored(msg, "green"))
 
-    def _format_constraints(self, constraints, indent_level=0, model_state_label=""):
+    def _format_constraints(self, constraints, indent_level=0):
         if constraints is None:
             return ""
         indent = ' ' * indent_level
         inner_indent = ' ' * (indent_level + 7)
         formatted_constraints = []
-        all_choices = []
-
-        if isinstance(constraints, dict):
-            print("----------- Entered constraints dict----------------")
-            for key, value in constraints.items():
-                if key == "choices":
-                    if isinstance(value, dict):
-                        print("----------- Entered choices dict----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(k))}" value="{html.escape(str(v))}" status="new"></choice>'
-                            for i, (k, v) in enumerate(value.items(), 1)
-                        ])
-                    elif isinstance(value, list):
-                        print("----------- Entered choices list----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(choice["name"]))}" value="{html.escape(str(choice["value"]))}" status="{html.escape(str(choice["status"]))}"></choice>'
-                            for i, choice in enumerate(value, 1)
-                        ])
+        for key, value in constraints.items():
+            if value is None or value == False or value == '' or value == 'null' or value == '[]':
+                if key == "choices" and isinstance(value, dict):
+                    choices = "\n".join([
+                        f'                                          <choice id="choice_{i}" name="{html.escape(str(k))}" value="{html.escape(str(v))}"></choice>'
+                        for i, (k, v) in enumerate(value.items(), 1)
+                    ])
+                    formatted_constraints.append(f'                                    <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "list">\n{choices}\n{indent}                            </constraint>')
                 else:
-                    print("----------- Entered choces not dict or list----------------")
-                    formatted_constraints.append(f'                        <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
-        elif isinstance(constraints, list):
-            print("----------- Entered constraints list----------------")
-            for constraint in constraints:
-                print(f"constraint:{constraint}")
-                key = constraint['name']
-                value = constraint['value']
-                #constraint:{'name': 'choices', 'value': 'list', 'status': 'removed'} if
-                if constraint['name'] == 'choices' and constraint['status'] == 'removed' and constraint['value'] == 'list':
-                    formatted_constraints.append(f'                        <constraint name="{constraint['name']}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{constraint['value']}"></constraint>')
-                if key == "choices":
-                    if isinstance(value, dict):
-                        print("----------- Entered choices dict----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(k))}" value="{html.escape(str(v))}" status="new"></choice>'
-                            for i, (k, v) in enumerate(value.items(), 1)
-                        ])
-                    elif isinstance(value, list):
-                        print("----------- Entered choices list----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(choice["name"]))}" value="{html.escape(str(choice["value"]))}" status="{html.escape(str(choice["status"]))}"></choice>'
-                            for i, choice in enumerate(value, 1)
-                        ])
-                else:
-                    print("----------- Entered choces not dict or list----------------")
-                    formatted_constraints.append(f'                        <constraint name="{key}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
-
-        if all_choices:
-            choices_str = "\n".join(all_choices)
-            formatted_constraints.append(f'                        <constraint name="choices" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices_str}\n{inner_indent}         </constraint>')
-
-        return "\n".join(formatted_constraints)
+                    formatted_constraints.append(f'                                    <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value = "{self._format_constraint_value(value)}"></constraint>')
+            return "\n".join(formatted_constraints) 
 
     def _format_constraint_value(self, value):
         if callable(value):

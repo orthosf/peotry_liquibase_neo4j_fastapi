@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <statuslog id="statuslog_20241001093131.xml" connections="changelog_20241001093131.xml">
+
+                    <model id="781eab19-9d24-4931-8042-313327c1562d" name="app.User" type="StructuredNode" model_status="new" >
+                        <fields id="app.User_fields_453993d7-8a61-4674-8922-8f0ee438fee4">
+                            <field id="app.User_fields_a6ffe99d-1b12-4b79-afb2-6fddeeb8bc6e" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.User_constraints_4673917e-6ff4-4790-a814-88f67c9ceea5" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.User_fields_39b7599e-d570-4685-b40d-e6ecc377736a" name="username" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.User_constraints_2341507b-66c0-4945-8c36-286f890cd96c" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.User_fields_62a70eca-55b2-461a-ba7c-596aad480e21" name="email" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.User_constraints_67ef6039-1d31-4bdc-b500-f119f68f8e89" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.User_fields_abc15d19-5717-45b5-b84d-f7034390775e" name="first_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.User_constraints_df240882-45f6-4e1f-b61f-7ef3e56f2f8f" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.User_fields_05eb739f-9424-48c5-908e-06afc9b52043" name="last_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.User_constraints_571112e9-7773-4731-9ab3-7ec9c6cd2ac7" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.User_fields_02669747-1eac-4827-be84-dd8e17c25678" name="password" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.User_constraints_ae3e24ac-1a76-41da-8487-19f3e866bd84" status="new">
+                                    <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.User_relationships_7eb8dc09-e53a-4445-bd0c-f8f9a74886ca">
+                        <relationship id="app.User_relationships_8b803b16-56cf-476f-9aa5-5f3db2a3c70f" name="following" model_property="RelationshipTo" model="FollowRel" relation_name="FOLLOWING" direction="1" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c"></relationship>
+                        <relationship id="app.User_relationships_049b59c1-b64b-4de0-902c-b122245b877a" name="followers" model_property="RelationshipFrom" model="FollowRel" relation_name="FOLLOWING" direction="-1" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c"></relationship>
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="84d9ddcb-02a8-4c1f-a47e-16886734e274" name="app.UserProfile" type="StructuredNode" model_status="new" >
+                        <fields id="app.UserProfile_fields_c8d1aa92-0de5-4e42-8ea7-af396f49a877">
+                            <field id="app.UserProfile_fields_d1e20ddb-4e00-414d-8082-b48180b03eae" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_88973359-cf08-4157-bb53-0ee8dbd7072d" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_0929700b-4754-4a01-a4e0-8ae87413a359" name="username" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_b8fd2a78-7c44-47eb-ae13-dd44baaf7764" status="new">
+                                    <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="30"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_9f148501-73f8-4f3b-8919-1d85aad82e72" name="email" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_3ee9c7ed-836b-440d-ae77-08227c7303f2" status="new">
+                                    <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_e99ff7f9-3f38-4cdb-8383-adb5c9c20b49" name="first_name" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_1ff747a7-8399-4b6b-a662-ce37ff2f35da" status="new">
+                                    <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                    <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="50"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_b4cd27d3-0bd3-441e-930a-aedc5580604f" name="last_name" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_fa1c7fb7-05bd-4cdd-a26b-66a0ff9195c0" status="new">
+                                    <constraint name="required" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                    <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="50"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_f5699724-0564-42b6-aa34-eaf3859a5228" name="robot" model_property="BooleanProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_b554abdf-3870-4b5f-ad4b-5ac135580a3b" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_65858ba5-1424-423c-8f65-75608be9213e" name="role" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_2cb35af7-9b90-46b7-ad9e-15369219e621" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_0ba3a2f1-fb52-4e30-a437-ce1d145bf9c4" name="country" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_f78d0f9e-ba32-4e5f-8f01-61435b12c5e4" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_9dae8d50-e71d-457d-b08a-ffdd2f9bf5fc" name="currency" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_6e68d4c6-4d25-40c5-9332-7d9536b4b151" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="USD"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_8e30043b-9cfa-489f-b95a-7622ee36da3b" name="phone_number" model_property="StringProperty(255)" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_1c5448ef-7c46-4d2e-a066-14141cd9444f" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_a229e231-798a-4e08-9445-61aac06e9810" name="age" model_property="IntegerProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_3af98dcb-3a7e-475a-ac68-5f6bf6ab61d6" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_3bf1452c-cfa3-4e4c-afb2-f04bcb244606" name="height" model_property="FloatProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_fe3c5e80-3a4c-4db1-b8d3-41bf1124c665" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.UserProfile_fields_b8b42804-a003-46fa-8dbc-9465b2d291a1" name="bio" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.UserProfile_constraints_b549e3cd-5688-46ff-9b03-c28ab93e0db4" status="new">
+                                    <constraint name="max_length" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="250"></constraint>
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.UserProfile_relationships_8bd1f615-f5c2-4db5-8638-1729ab6c77da">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="d1028e39-9fd7-443d-a829-d8759d43ad27" name="app.Actor" type="StructuredNode" model_status="new" >
+                        <fields id="app.Actor_fields_540c0b50-83e8-421d-afb3-cae52c23fb60">
+                            <field id="app.Actor_fields_50350512-ebe8-4a12-9569-e38ba5d4a754" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Actor_constraints_494c545e-66ad-482c-885f-3cd9c4eb56c3" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.Actor_fields_7aca6b07-6ac6-403a-8669-763b1b0afb74" name="username" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Actor_constraints_a4ce84e1-0821-4cbb-9fba-9b97f574c939" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Actor_fields_4c8d30c4-0e35-49ae-9300-95e24b03f5f0" name="email" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Actor_constraints_5598172e-6c14-483f-acf7-e663d8438668" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Actor_fields_9bab5629-4e59-45f7-b2cf-fbddf2b8ab77" name="first_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Actor_constraints_0c19b607-428c-4507-9352-3e679526222f" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Actor_fields_428bb2c8-7d3f-4dba-916b-db966cb9c7c9" name="last_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Actor_constraints_c8f91621-5e48-4138-9133-b77082661741" status="new">
+
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.Actor_relationships_eb9203a7-59a3-409b-a60b-6ed6b7d6a2b5">
+                        <relationship id="app.Actor_relationships_02d0ec58-cd44-48e8-9d58-f94520d35820" name="acted" model_property="RelationshipTo" model="None" relation_name="ACTEDIN" direction="1" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c"></relationship>
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="bb4ea696-c6e6-4c42-bf4d-b2af0752b2c8" name="app.Anime" type="StructuredNode" model_status="new" >
+                        <fields id="app.Anime_fields_cbfe2ab0-ef85-42f2-983c-cd2b76dc434a">
+                            <field id="app.Anime_fields_c57fd049-4623-41f8-9e5e-2fd39c7cbefe" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Anime_constraints_c1d9c818-77a4-467f-b5ad-ef695a7c9874" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.Anime_fields_8bddf1cb-2000-4305-9874-cd17d3c5061b" name="title" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Anime_constraints_aa306c6d-3a8a-4d33-97a8-bcbcea414ccf" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Anime_fields_63dd2a35-20ba-4c38-b11c-6ffc7f44183d" name="releasedate" model_property="DateProperty" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Anime_constraints_8569dad4-7e9e-413a-912b-37b10b8cdd1a" status="new">
+
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.Anime_relationships_3c8f2566-a9f1-47fe-afdc-015917abd3e5">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="d2938f50-ad33-467c-b8ae-1e323e85181d" name="app.Comic" type="StructuredNode" model_status="new" >
+                        <fields id="app.Comic_fields_171b63e0-ef35-4b2a-8974-83674dbebc9d">
+                            <field id="app.Comic_fields_b47d0d17-7ca5-4836-93b4-d1b442e81bf5" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Comic_constraints_9bdbbe6d-2c20-4ec3-9e59-819366ce0b27" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.Comic_fields_fd88d3c3-442f-401b-a5bc-115e04b871ab" name="title" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Comic_constraints_efe4fa35-a9c5-4ad9-9a31-aabe3ffb9bb0" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Comic_fields_4fe323dc-2455-41ba-87ff-e4c958f15c47" name="releasedate" model_property="DateProperty" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Comic_constraints_432b4798-8cc5-43ea-a15a-57a8c62c961c" status="new">
+
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.Comic_relationships_17044e6a-dbec-44aa-95d0-f34f7757a977">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="40b10925-f5f0-4942-a5b8-b27b0c3cf246" name="app.Director" type="StructuredNode" model_status="new" >
+                        <fields id="app.Director_fields_027d5254-0c67-4d13-a93e-dff007bfdf79">
+                            <field id="app.Director_fields_509dc792-eb88-457a-a9d2-473d70e62d2c" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Director_constraints_fbe70701-bf5e-4f10-95e7-a437fb08d460" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.Director_fields_f093236b-d8a9-4dc4-a3b3-0d6dc75b7ef2" name="username" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Director_constraints_9742d1da-87a4-4d48-bcb5-385a996c8aff" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Director_fields_3fadf7d0-8bf6-481b-a0ea-0d2eb8284ea2" name="email" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Director_constraints_7fed5d2e-a20e-4c64-8a38-0579b5dd1493" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Director_fields_5d0b4bed-8f94-4e03-ba91-ccd4f698d00a" name="first_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Director_constraints_6d9fd020-4a43-4b25-aac9-1ed59aa3a745" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Director_fields_df19ba29-d422-48e1-aa7f-3726320ecd22" name="last_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Director_constraints_0c6d3e96-a9da-4f41-b6f3-ba619c285337" status="new">
+
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.Director_relationships_1dba1c6e-f32f-4138-b433-3cb1a6ea8ab5">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="740eb856-b46b-40df-b2e3-3e4af57aff89" name="app.Movie" type="StructuredNode" model_status="new" >
+                        <fields id="app.Movie_fields_c10fa019-c303-4997-90ed-2196031ee41b">
+                            <field id="app.Movie_fields_78049206-99b0-471f-a22d-ac935af3ba7d" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Movie_constraints_4cc3f8b8-1993-4b06-bdba-5b6873d09549" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.Movie_fields_9d5e046d-6835-46ba-a5d6-e7703104f0fe" name="title" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Movie_constraints_0a237976-8d84-43b3-af9f-54a61043cd0e" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Movie_fields_3ac4876c-89e6-461a-beec-c5c1730dcf71" name="releasedate" model_property="DateProperty" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Movie_constraints_e80475c6-32fa-44d9-b601-19532047e91e" status="new">
+
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.Movie_relationships_1b75b8e1-7053-4167-8114-aacce863d421">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="ea73de15-118c-407d-bfea-4bd3fb69c906" name="app.News" type="StructuredNode" model_status="new" >
+                        <fields id="app.News_fields_6fcf9a0b-5fa6-423e-8189-d1f7c091d803">
+                            <field id="app.News_fields_785599b9-fd90-48ba-ae5f-3c08917d7cfc" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.News_constraints_530c9f9b-d6de-4b75-bbb4-63f9f6975005" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.News_fields_49210fdd-a834-4ada-a3c5-12760fdea01d" name="title" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.News_constraints_1d210454-90c6-454e-8ab7-a5bf2b335342" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.News_fields_50ab335a-5959-402b-8dc0-06e4d921eb5d" name="releasedate" model_property="DateProperty" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.News_constraints_2c0efdbe-ed2c-425e-a908-8d819aa0e6c9" status="new">
+
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.News_relationships_c44a2581-aeb7-46d8-ba34-0f30c5d46b04">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="a7e86ca2-6f62-415b-be29-2125a6161106" name="app.Person" type="StructuredNode" model_status="new" >
+                        <fields id="app.Person_fields_2a71adc1-0c0f-4e8f-9e24-c33e7fbbdb59">
+                            <field id="app.Person_fields_f367341e-5aaa-452b-90a5-ae84b0236869" name="uid" model_property="UniqueIdProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Person_constraints_fea6e0a9-24a9-402f-b250-b712fb804bba" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="auto-generated"></constraint>
+                                    <constraint name="unique_index" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="true"></constraint>
+                                </constraints>
+                            </field>
+                            <field id="app.Person_fields_6ee46f29-c8cc-45b4-be3d-c2fd0f33c03c" name="username" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Person_constraints_16502c96-fd3a-45fb-971b-9df4171083a1" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Person_fields_bafd8d38-8290-45e2-b549-af312f6cf239" name="email" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Person_constraints_589057aa-6a6b-48e1-842e-b394c979209f" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Person_fields_3d7296b5-332f-4f52-a2a4-46792ce5e2ce" name="first_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Person_constraints_bd999a3f-2b4f-4a00-8798-79f25174b80e" status="new">
+
+                                </constraints>
+                            </field>
+                            <field id="app.Person_fields_165f1463-629e-4b6f-90e0-a03e7d4eb355" name="last_name" model_property="StringProperty(255)" index="True" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.Person_constraints_cc79995a-6ee6-4421-99ea-5bd9ecff8dd0" status="new">
+
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.Person_relationships_e791df8e-2806-49d1-846a-e8a0fc65ad37">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+
+                    <model id="8da7923a-095c-415f-960d-1fa44708a2e4" name="app.FollowRel" type="StructuredRel" model_status="new" >
+                        <fields id="app.FollowRel_fields_6a8424bf-4c46-4ae0-be9c-e697ef62a0fa">
+                            <field id="app.FollowRel_fields_6c514679-0201-40b3-9712-0bdf10fc4eba" name="since" model_property="DateTimeProperty" index="False" field_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="app.FollowRel_constraints_a3fb50bf-f52c-47cc-a385-66e18f8225a3" status="new">
+                                    <constraint name="default" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="callable"></constraint>
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.FollowRel_relationships_e258fad0-25d1-4ed7-9a89-08276f77c2fd">
+
+                        </relationships>
+                        <model_status>new</model_status>
+                        
+
+                    </model>
+    </statuslog>
+</databaseStatusLog>

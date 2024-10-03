@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <statuslog id="statuslog_20241002111747.xml" connections="changelog_20241002111747.xml">
+        <model id="5b55b482-5a1a-4bd5-9145-326f76c8d4df" name="app.UserProfile" type="StructuredNode" model_status="update" >
+            <fields id="app.UserProfile_fields_dd3c9de1-426e-4fef-9891-7adb57848ee4">
+                <field id="app.UserProfile_fields_e4590751-b48c-48e9-90b4-21c3a52f0727" name="role" model_property="StringProperty(255)" index="False" field_status="updated" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                    <constraints id="app.UserProfile_constraints_a2fd10d7-7547-4a7c-ae1a-f7d291641784" status="updated">
+                        <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">
+                            <choice id="choice_1" name="admin" value="Admin" status="new"></choice>
+                            <choice id="choice_2" name="owner" value="Owner" status="new"></choice>
+                            <choice id="choice_3" name="owner1" value="Owner1" status="removed"></choice>
+                            <choice id="choice_4" name="god" value="God" status="removed"></choice>
+                            <choice id="choice_5" name="user" value="User" status="updated"></choice>
+                        </constraint>
+                    </constraints>
+                </field>
+            </fields>
+            <relationships id="app.UserProfile_relationships_a67029d1-0a77-4c89-8dca-6da4a23d5ee2">
+
+            </relationships>
+            <model_status>update</model_status>
+        </model>
+    </statuslog>
+</databaseStatusLog>

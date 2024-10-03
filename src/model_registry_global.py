@@ -21,8 +21,9 @@ def generate_meta(model_class):
             index = getattr(prop, 'index', False)
             constraints = {
                 'default': 'auto-generated' if isinstance(prop, UniqueIdProperty) else 'callable' if callable(getattr(prop, 'default', None)) else getattr(prop, 'default', None),
+                #'unique': True if getattr(prop, 'unique', False) else None,
                 'unique': getattr(prop, 'unique', False),
-                'index': getattr(prop, 'index', False),
+                #'index': getattr(prop, 'index', False),
                 'required': getattr(prop, 'required', False),
                 'max_length': getattr(prop, 'max_length', None),
                 'min_length': getattr(prop, 'min_length', None),
@@ -34,12 +35,17 @@ def generate_meta(model_class):
                 'max_value': getattr(prop, 'max_value', None),
                 'min_value': getattr(prop, 'min_value', None)
             }
+            #remove the None values from the constraints
+            #below not working
+            valid_constraints = {k: v for k, v in constraints.items() if v is not False and v is not None}
+            msg = f"valid_constraints: {valid_constraints}"
+            print (colored(msg, 'cyan'))
             fields.append({
                 'name': name, 
                 'db_type': db_type, 
                 "model_property": model_property,
                 'index': index,
-                'constraints': constraints})
+                'constraints': valid_constraints})
         elif isinstance(prop, (RelationshipTo, RelationshipFrom)):
             relationship = {
                 'name': name,

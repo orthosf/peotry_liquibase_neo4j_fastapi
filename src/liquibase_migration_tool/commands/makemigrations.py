@@ -15,9 +15,9 @@ def make_migrations(migrations_dir):
     historical_statuslog = statuslog_loader.load_historical_statuslog()
     current_state = StateApps.from_apps(apps)
     
-    '''for model_label, model in current_state.models.items():
+    for model_label, model in current_state.models.items():
         msg = f'model._meta:{model._meta}'
-        print(colored(msg, "blue"))'''
+        print(colored(msg, "blue"))
     '''for model_label, model in historical_statuslog.models.items():
         msg = f'historical_statuslogmodel._meta:{model._meta}'
         print(colored(msg, "blue"))

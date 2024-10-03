@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <statuslog id="statuslog_20241002054510.xml" connections="changelog_20241002054510.xml">
+        <model id="b150a1be-d254-41d2-b294-7826d6695984" name="app.UserProfile" type="StructuredNode" model_status="update" >
+            <fields id="app.UserProfile_fields_ff8b892d-b351-4869-9f8b-96a13bd40496">
+                <field id="app.UserProfile_fields_3daf94c3-99eb-4aaa-91c9-a8e74a7709df" name="role" model_property="StringProperty(255)" index="False" field_status="updated" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                    <constraints id="app.UserProfile_constraints_a41268ab-25ea-42f3-bcd1-5f9c4336ace0" status="updated">
+                        <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">
+                            <choice id="choice_1" name="admin" value="Admin" status="new"></choice>
+                            <choice id="choice_2" name="guest" value="Guest" status="new"></choice>
+                            <choice id="choice_3" name="owner" value="Owner" status="new"></choice>
+                        </constraint>
+                    </constraints>
+                </field>
+            </fields>
+            <relationships id="app.UserProfile_relationships_2db636d4-1810-4ed5-a0a0-ba84d93f35ae">
+
+            </relationships>
+            <model_status>update</model_status>
+        </model>
+    </statuslog>
+</databaseStatusLog>

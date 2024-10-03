@@ -8,52 +8,52 @@
                         http://www.liquibase.org/xml/ns/neo4j
                         http://www.liquibase.org/xml/ns/neo4j/neo4j.xsd">
 
-                <changeSet id="90c64008-fe31-4f30-ad82-12c2aab0d20b" author="liquibase">
+                <changeSet id="250df0ba-3d12-4b31-b64e-a25167cb29c1" author="liquibase">
                     <cypher>CREATE (:app.User)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="e7d6157d-80fd-46db-85f6-619815fa63c1" author="liquibase">
+                <changeSet id="d68103dd-e61f-4845-8286-f7c6294958cc" author="liquibase">
                     <cypher>CREATE (:app.UserProfile)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="fd428ecd-eba8-4dfc-8c77-9e5fb58af203" author="liquibase">
+                <changeSet id="4a7f9e3d-0dc6-4b86-bf18-5ae2ebad790f" author="liquibase">
                     <cypher>CREATE (:app.Actor)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="ee1711a2-65f0-49ba-be91-ac9dcf098026" author="liquibase">
+                <changeSet id="5c85847e-3e56-43d3-8ddb-9bf71fb07c89" author="liquibase">
                     <cypher>CREATE (:app.Anime)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="c2df9397-32d4-432f-a3cc-fdf28a985df1" author="liquibase">
+                <changeSet id="a476da21-2ca2-4461-b6fe-3ffab680f45f" author="liquibase">
                     <cypher>CREATE (:app.Comic)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="78128829-b813-4618-8d24-238d9b3446eb" author="liquibase">
+                <changeSet id="015207ae-dec7-4867-9eeb-7a830d88210c" author="liquibase">
                     <cypher>CREATE (:app.Director)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="474bf13f-2a1c-4749-bac6-45b33e5b84ab" author="liquibase">
+                <changeSet id="26faf2ea-f8d4-4445-b831-6b83360e11d1" author="liquibase">
                     <cypher>CREATE (:app.Movie)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="8262ad6f-ad86-45d8-8bb6-669a8b90f5f3" author="liquibase">
+                <changeSet id="5a362395-0432-449a-ba94-ada7337dbf0c" author="liquibase">
                     <cypher>CREATE (:app.News)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="6640b0bd-666c-4838-8cea-d329510c3700" author="liquibase">
+                <changeSet id="3f9a9e1a-aca2-4860-9285-3136fb64874a" author="liquibase">
                     <cypher>CREATE (:app.Person)</cypher>
                 </changeSet>
                 
 
-                <changeSet id="66430ee1-3612-4606-92ac-f17ca438840f" author="liquibase">
+                <changeSet id="689c88a0-d0e8-4bc2-9242-5d88e322e7be" author="liquibase">
                     <cypher>CREATE (:app.FollowRel)</cypher>
                 </changeSet>
                 </databaseChangeLog>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseStatusLog>
+    <statuslog id="statuslog_20241001074548.xml" connections="changelog_20241001074548.xml">
+
+                    <model id="1aa07e73-5954-486e-a47e-b43f70f75888" name="app.UserProfile" type="StructuredNode" model_status="update" >
+                        <fields id="app.UserProfile_fields_3b2ed6db-0505-4008-b2e3-94a3d79767f9">
+                            <field id="app.UserProfile_fields_ea6f0353-8323-49e9-a10a-7b8290ace126" name="role" model_property="StringProperty(255)" index="False" field_status="updated" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints>
+                                    <constraint name="choices" status="updated" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">
+                                          <choice id="choice_1" name="admin" value="Admin" status="removed"></choice>
+                                          <choice id="choice_2" name="guest" value="Guest" status="removed"></choice>
+                                    </constraint>
+                                </constraints>
+                            </field>
+                        </fields>
+                        <relationships id="app.UserProfile_relationships_08065c7e-cbca-4bd9-841f-0a3c30bbea6a">
+
+                        </relationships>
+                        <model_status>update</model_status>
+                        
+
+                    </model>
+    </statuslog>
+</databaseStatusLog>

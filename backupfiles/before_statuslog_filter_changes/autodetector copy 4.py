@@ -169,9 +169,6 @@ class MigrationAutodetector:
             if constraint['name'] == 'choices' and isinstance(constraint['value'], list):
                 choices_dict = {choice['name']: choice['value'] for choice in constraint['value']}
                 historical_constraints['choices'] = choices_dict
-            elif constraint['name'] == 'choices' and constraint['value'] == 'list':
-                choices_dict = {choice['name']: choice['value'] for choice in constraint.get('choices', [])}
-                historical_constraints['choices'] = choices_dict
             else:
                 historical_constraints[constraint['name']] = constraint['value']
 
@@ -186,7 +183,7 @@ class MigrationAutodetector:
             print(f" --------------- Entered _compare_fields ---------------------")
             msg = f"Constraints mismatch: {current_constraints} != {historical_constraints}"
             print(colored(msg, "red"))
-            for key, value in current_constraints.items():                
+            for key, value in current_constraints.items():
                 if value != historical_constraints.get(key):
                     # Check if the value is Null or None or False or Empty String
                     if value is None or value == False or value == '' or value == 'null' or value == '[]':
@@ -197,9 +194,6 @@ class MigrationAutodetector:
                         if key == 'choices' or isinstance(value, list):
                             print(f" --------------- Entered choices key = {key} ---------------------")
                             print(f"current_constraints.items():{current_constraints.items()}")
-                            #print historical_constraints value and choices
-                            print(f"historical_constraints:{historical_constraints}")
-                            print(f"historical_constraints.items():{historical_constraints.items()}")
                             #print(f"type_value_choices:{type(value)}")
                             #print(f"value:{value}")
 
@@ -216,10 +210,7 @@ class MigrationAutodetector:
                             elif isinstance(value, list):
                                 dict_value = {choice['name']: choice['value'] for choice in value}
                             if isinstance(historical_choices, str):
-                                try:
-                                    dict_historical_choices = json.loads(historical_choices.replace("'", '"'))
-                                except json.JSONDecodeError:
-                                    dict_historical_choices = {}
+                                dict_historical_choices = json.loads(historical_choices.replace("'", '"'))
                             elif isinstance(historical_choices, dict):
                                 dict_historical_choices = historical_choices
                             #print(f"dict_value:{dict_value}")       
@@ -246,12 +237,9 @@ class MigrationAutodetector:
                     print(f"Constraint mismatch -new-: {key} = {value} != {historical_constraints.get(key)}")
                     modified_field['constraints'].append({'name': key, 'value': value, 'status': 'new'})
             for key, value in historical_constraints.items():
-                print(f" --------------- Entered historical_constraints key value ---------------------")
-                print(f"key:{key}, value:{value}")
                 if key not in current_constraints:
                     print(f"Constraint mismatch -removed-: {key} = {value} != {current_constraints.get(key)}")
-                    #modified_field['constraints'].append({'name': key, 'value': value, 'status': 'removed'})
-                    modified_field['constraints'].append({'name': key, 'value': "list", 'status': 'removed'})
+                    modified_field['constraints'].append({'name': key, 'value': value, 'status': 'removed'})
 
             return modified_field
 
@@ -592,7 +580,7 @@ class MigrationAutodetector:
 
         if all_choices:
             choices_str = "\n".join(all_choices)
-            formatted_constraints.append(f'                        <constraint name="choices" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices_str}\n{inner_indent}         </constraint>')
+            formatted_constraints.append(f'                        <constraint name="choices" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices_str}\n{inner_indent}         </constraint>')
 
         return "\n".join(formatted_constraints)
 

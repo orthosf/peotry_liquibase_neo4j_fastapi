@@ -169,9 +169,6 @@ class MigrationAutodetector:
             if constraint['name'] == 'choices' and isinstance(constraint['value'], list):
                 choices_dict = {choice['name']: choice['value'] for choice in constraint['value']}
                 historical_constraints['choices'] = choices_dict
-            elif constraint['name'] == 'choices' and constraint['value'] == 'list':
-                choices_dict = {choice['name']: choice['value'] for choice in constraint.get('choices', [])}
-                historical_constraints['choices'] = choices_dict
             else:
                 historical_constraints[constraint['name']] = constraint['value']
 
@@ -186,7 +183,7 @@ class MigrationAutodetector:
             print(f" --------------- Entered _compare_fields ---------------------")
             msg = f"Constraints mismatch: {current_constraints} != {historical_constraints}"
             print(colored(msg, "red"))
-            for key, value in current_constraints.items():                
+            for key, value in current_constraints.items():
                 if value != historical_constraints.get(key):
                     # Check if the value is Null or None or False or Empty String
                     if value is None or value == False or value == '' or value == 'null' or value == '[]':
@@ -195,11 +192,7 @@ class MigrationAutodetector:
                     else:
                         # Check if key is choices or value is a list
                         if key == 'choices' or isinstance(value, list):
-                            print(f" --------------- Entered choices key = {key} ---------------------")
-                            print(f"current_constraints.items():{current_constraints.items()}")
-                            #print historical_constraints value and choices
-                            print(f"historical_constraints:{historical_constraints}")
-                            print(f"historical_constraints.items():{historical_constraints.items()}")
+                            #print(f"current_constraints.items():{current_constraints.items()}")
                             #print(f"type_value_choices:{type(value)}")
                             #print(f"value:{value}")
 
@@ -216,10 +209,7 @@ class MigrationAutodetector:
                             elif isinstance(value, list):
                                 dict_value = {choice['name']: choice['value'] for choice in value}
                             if isinstance(historical_choices, str):
-                                try:
-                                    dict_historical_choices = json.loads(historical_choices.replace("'", '"'))
-                                except json.JSONDecodeError:
-                                    dict_historical_choices = {}
+                                dict_historical_choices = json.loads(historical_choices.replace("'", '"'))
                             elif isinstance(historical_choices, dict):
                                 dict_historical_choices = historical_choices
                             #print(f"dict_value:{dict_value}")       
@@ -246,12 +236,9 @@ class MigrationAutodetector:
                     print(f"Constraint mismatch -new-: {key} = {value} != {historical_constraints.get(key)}")
                     modified_field['constraints'].append({'name': key, 'value': value, 'status': 'new'})
             for key, value in historical_constraints.items():
-                print(f" --------------- Entered historical_constraints key value ---------------------")
-                print(f"key:{key}, value:{value}")
                 if key not in current_constraints:
                     print(f"Constraint mismatch -removed-: {key} = {value} != {current_constraints.get(key)}")
-                    #modified_field['constraints'].append({'name': key, 'value': value, 'status': 'removed'})
-                    modified_field['constraints'].append({'name': key, 'value': "list", 'status': 'removed'})
+                    modified_field['constraints'].append({'name': key, 'value': value, 'status': 'removed'})
 
             return modified_field
 
@@ -485,28 +472,36 @@ class MigrationAutodetector:
                 #print(colored(msg, "cyan"))
                 model_state_label = model_state['label']
                 fields = "\n".join([
-                    f'''                <field id="{model_state_label}_fields_{uuid.uuid4()}" name="{field["name"]}" model_property="{field["model_property"]}" index="{field["index"]}" field_status="{field["field_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">{f'\n                    <constraints id="{model_state_label}_constraints_{uuid.uuid4()}" status="{field["field_status"]}">\n{self._format_constraints(field["constraints"], indent_level=8, model_state_label=model_state["label"])}\n                    </constraints>\n                </field>' if field["constraints"] else '</field>'}'''
+                    f'''                            <field id="{model_state_label}_fields_{uuid.uuid4()}" name="{field["name"]}" model_property="{field["model_property"]}" index="{field["index"]}" field_status="{field["field_status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c">
+                                <constraints id="{model_state_label}_constraints_{uuid.uuid4()}" status="{field["field_status"]}">
+{self._format_constraints(field["constraints"], indent_level=8, model_state_label)}
+                                </constraints>
+                            </field>'''
                     for field in model_state['meta'].get('fields', [])
                 ])
                 relationships = "\n".join([
-                    f'            <relationship id="{model_state_label}_relationships_{uuid.uuid4()}" name="{rel["name"]}" model_property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c"></relationship>'
+                    f'                        <relationship id="{model_state_label}_relationships_{uuid.uuid4()}" name="{rel["name"]}" model_property="{rel["type"]}" model="{rel["model"]}" relation_name="{rel["relation_name"]}" direction="{rel["direction"]}" rel_status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c"></relationship>'
                     for rel in model_state['meta'].get('relationships', [])
                 ])
-                statuslog.append(f"""        <model id="{uuid.uuid4()}" name="{model_state_label}" type="{model_state['meta']['model_type']}" model_status="{model_state['model_status']}" >
-            <fields id="{model_state_label}_fields_{uuid.uuid4()}">
+                statuslog.append(f"""
+                    <model id="{uuid.uuid4()}" name="{model_state_label}" type="{model_state['meta']['model_type']}" model_status="{model_state['model_status']}" >
+                        <fields id="{model_state_label}_fields_{uuid.uuid4()}">
 {fields}
-            </fields>
-            <relationships id="{model_state_label}_relationships_{uuid.uuid4()}">
+                        </fields>
+                        <relationships id="{model_state_label}_relationships_{uuid.uuid4()}">
 {relationships}
-            </relationships>
-            <model_status>{model_state['model_status']}</model_status>
-        </model>\n""")
+                        </relationships>
+                        <model_status>{model_state['model_status']}</model_status>
+                        
+
+                    </model>
+""")
             msg = 'statuslog detected'
             print(colored(msg, "yellow"))
             return statuslog
         else:
             statuslog = []
-            #msg = "No status changes detected."ss
+            #msg = "No status changes detected."
             #print(colored(msg, "red"))
             #msg = f'statuslog:{statuslog}'
             #print(colored(msg, "yellow"))
@@ -537,62 +532,91 @@ class MigrationAutodetector:
             msg = f"Statuslog saved to {statuslog_path}"
             print(colored(msg, "green"))
 
-    def _format_constraints(self, constraints, indent_level=0, model_state_label=""):
+    def _format_constraints(self, constraints, indent_level=0, model_state_label):
         if constraints is None:
             return ""
         indent = ' ' * indent_level
         inner_indent = ' ' * (indent_level + 7)
         formatted_constraints = []
-        all_choices = []
 
         if isinstance(constraints, dict):
-            print("----------- Entered constraints dict----------------")
-            for key, value in constraints.items():
+            #print(f" --------------- Entered constraints dict ---------------------")
+            #print(f"constraints:{constraints}")
+            for key, value in constraints.items(): 
+                #if value is not None or not value == False or not value == '' or not value == 'null' or not value == '[]':
+                #check if value is not empty
+                #if value is not None and value != False and value != '' and value != 'null' and value != '[]':
                 if key == "choices":
+                    #print(f" --------------- Entered Create_constraints Choices ---------------------")
+                    #print(f"value:{value}")
+                    #print(f"type(value):{type(value)}")
                     if isinstance(value, dict):
-                        print("----------- Entered choices dict----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(k))}" value="{html.escape(str(v))}" status="new"></choice>'
+                        #print(f" --------------- Entered dict Create_constraints Choices Dict ---------------------")
+                        #print(f"value:{value}")
+                        #print(f"type(value):{type(value)}")
+                        choices = "\n".join([
+                            #add a choices <choices> tag here
+                            f'''
+                                <choices id="{model_state_label}_choices_{uuid.uuid4()}" status="new">
+                                    <choice id="choice_{i}" name="{html.escape(str(k))}" value="{html.escape(str(v))}" status="new"></choice>
+                                </choices>
+                            '''
                             for i, (k, v) in enumerate(value.items(), 1)
                         ])
+                        formatted_constraints.append(f'                                    <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices}\n{indent}                            </constraint>')
                     elif isinstance(value, list):
-                        print("----------- Entered choices list----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(choice["name"]))}" value="{html.escape(str(choice["value"]))}" status="{html.escape(str(choice["status"]))}"></choice>'
+                        #print(f" --------------- Entered Create_constraints Choices List ---------------------")
+                        #print(f"value:{value}")
+                        #print(f"type(value):{type(value)}")
+                        choices = "\n".join([
+                            f'''
+                                <choices id="{model_state_label}_choices_{uuid.uuid4()}" status="new">
+                                    <choice id="choice_{i}" name="{html.escape(str(choice["name"]))}" value="{html.escape(str(choice["value"]))}" status="{html.escape(str(choice["status"]))}"></choice>
+                                </choices>
+                            '''
                             for i, choice in enumerate(value, 1)
                         ])
+                        formatted_constraints.append(f'                                    <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices}\n{indent}                            </constraint>')
                 else:
-                    print("----------- Entered choces not dict or list----------------")
-                    formatted_constraints.append(f'                        <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
+                    formatted_constraints.append(f'                                    <constraint name="{key}" status="new" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
         elif isinstance(constraints, list):
-            print("----------- Entered constraints list----------------")
+            #print(f" --------------- Entered constraints list ---------------------")
             for constraint in constraints:
-                print(f"constraint:{constraint}")
                 key = constraint['name']
                 value = constraint['value']
-                #constraint:{'name': 'choices', 'value': 'list', 'status': 'removed'} if
-                if constraint['name'] == 'choices' and constraint['status'] == 'removed' and constraint['value'] == 'list':
-                    formatted_constraints.append(f'                        <constraint name="{constraint['name']}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{constraint['value']}"></constraint>')
-                if key == "choices":
-                    if isinstance(value, dict):
-                        print("----------- Entered choices dict----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(k))}" value="{html.escape(str(v))}" status="new"></choice>'
-                            for i, (k, v) in enumerate(value.items(), 1)
-                        ])
-                    elif isinstance(value, list):
-                        print("----------- Entered choices list----------------")
-                        all_choices.extend([
-                            f'                            <choice id="choice_{i}" name="{html.escape(str(choice["name"]))}" value="{html.escape(str(choice["value"]))}" status="{html.escape(str(choice["status"]))}"></choice>'
-                            for i, choice in enumerate(value, 1)
-                        ])
+                #print(f"key:{key}")
+                #print(f"value:{value}")
+                #print(f"type(value):{type(value)}")
+                #if value is not None and value != False and value != '' and value != 'null' and value != '[]' and value != '()' and value != 'false':
+                    #print(f" --------------- After if value is not None and value != False and value != '' and value != 'null' and value != '[]' ---------------------")
+                if key == "choices" and isinstance(value, dict):
+                    #print(f" --------------- Entered list Create_constraints Choices Dict ---------------------")
+                    #print(f"value:{value}")
+                    #print(f"type(value):{type(value)}")
+                    choices = "\n".join([
+                        f'''
+                                <choices id="{model_state_label}_choices_{uuid.uuid4()}" status="new">
+                                    <choice id="choice_{i}" name="{html.escape(str(k))}" value="{html.escape(str(v))}"></choice>
+                                </choices>
+                            '''
+                        for i, (k, v) in enumerate(value.items(), 1)
+                    ])
+                    formatted_constraints.append(f'                                    <constraint name="{key}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices}\n{indent}                            </constraint>')
+                elif key == "choices" and isinstance(value, list):
+                    #print(f" --------------- Entered list Create_constraints Choices List ---------------------")
+                    #print(f"value:{value}")
+                    #print(f"type(value):{type(value)}")
+                    choices = "\n".join([
+                        f'''
+                                <choices id="{model_state_label}_choices_{uuid.uuid4()}" status="new">
+                                    <choice id="choice_{i}" name="{html.escape(str(choice["name"]))}" value="{html.escape(str(choice["value"]))}" status="{html.escape(str(choice["status"]))}"></choice>
+                                </choices>
+                            '''
+                        for i, choice in enumerate(value, 1)
+                    ])
+                    formatted_constraints.append(f'                                    <constraint name="{key}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices}\n{indent}                            </constraint>')
                 else:
-                    print("----------- Entered choces not dict or list----------------")
-                    formatted_constraints.append(f'                        <constraint name="{key}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
-
-        if all_choices:
-            choices_str = "\n".join(all_choices)
-            formatted_constraints.append(f'                        <constraint name="choices" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="list">\n{choices_str}\n{inner_indent}         </constraint>')
+                    formatted_constraints.append(f'                                    <constraint name="{key}" status="{constraint["status"]}" change="bde3b2a1-fa33-4185-9ae6-f84d3627051c" value="{self._format_constraint_value(value)}"></constraint>')
 
         return "\n".join(formatted_constraints)
 
